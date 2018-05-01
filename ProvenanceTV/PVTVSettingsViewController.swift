@@ -33,9 +33,17 @@ class PVTVSettingsViewController: UITableViewController {
         showFPSCountValueLabel.text = settings.showFPSCount ? "On" : "Off"
         crtFilterLabel.text = settings.crtFilterEnabled ? "On" : "Off"
         imageSmoothingLabel.text = settings.imageSmoothing.onOffString
+
+        let masterBranch = kGITBranch.lowercased() == "master"
+
         var versionText = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        versionText = versionText ?? "" + (" (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? "" ))")
+        versionText = versionText ?? "" + (" (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? ""))")
+        if !masterBranch {
+            versionText = "\(versionText ?? "") Beta"
+            versionValueLabel.textColor = UIColor.init(hex: "#F5F5A0")
+        }
         versionValueLabel.text = versionText
+
 #if DEBUG
         modeValueLabel.text = "DEBUG"
 #else
@@ -43,7 +51,10 @@ class PVTVSettingsViewController: UITableViewController {
 #endif
 
         let color = UIColor(white: 0.0, alpha: 0.1)
-        if let revisionString = Bundle.main.infoDictionary?["Revision"] as? String, !revisionString.isEmpty {
+        if var revisionString = Bundle.main.infoDictionary?["Revision"] as? String, !revisionString.isEmpty {
+            if !masterBranch {
+                revisionString = "\(kGITBranch)/\(revisionString)"
+            }
             revisionLabel.text = revisionString
         } else {
             revisionLabel.textColor = color
@@ -138,7 +149,7 @@ class PVTVSettingsViewController: UITableViewController {
                         let reachability = Reachability.forLocalWiFi()
                         reachability.startNotifier()
                         let status: NetworkStatus = reachability.currentReachabilityStatus()
-                        if status != ReachableViaWiFi {
+                        if status != .reachableViaWiFi {
                             let alert = UIAlertController(title: "Unable to start web server!", message: "Your device needs to be connected to a WiFi network to continue!", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(_ action: UIAlertAction) -> Void in
                             }))

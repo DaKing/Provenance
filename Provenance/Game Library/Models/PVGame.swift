@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import RealmSwift
+// import RealmSwift
 
 // Hack for game library having eitehr PVGame or PVRecentGame in containers
 protocol PVLibraryEntry where Self: Object {}
@@ -39,10 +39,14 @@ protocol PVLibraryEntry where Self: Object {}
 
     dynamic var md5Hash: String            = ""
 
+	dynamic var userPreferredCoreID : String?
+
     /* Links to other objects */
-    var saveStates = List<PVSaveState>()
+    var saveStates = LinkingObjects<PVSaveState>(fromType: PVSaveState.self, property: "game")
     var recentPlays = LinkingObjects(fromType: PVRecentGame.self, property: "game")
     var screenShots = List<PVImageFile>()
+	var relatedFiles = List<PVFile>()
+
 
     /* Tracking data */
     dynamic var lastPlayed: Date?

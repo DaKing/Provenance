@@ -27,9 +27,9 @@ public extension UIWindow {
         addConstraints(constraints)
     }
 
-    /// <#Description#>
+    /// Refreshes appearance for the window
     ///
-    /// - Parameter animated: <#animated description#>
+    /// - Parameter animated: if the refresh should be animated
     public func refreshAppearance(animated: Bool) {
         NotificationCenter.default.post(name: .SwiftyAppearanceWillRefreshWindow, object: self)
         UIView.animate(withDuration: animated ? 0.25 : 0, animations: {

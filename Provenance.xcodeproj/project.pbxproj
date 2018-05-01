@@ -3,11 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1A164EB317BC03E800FAC391 /* PVEmulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A164EB217BC03E800FAC391 /* PVEmulatorViewController.swift */; };
+		1A19EE142080EA2000A9147B /* PVMupen64PlusVideoGlideN64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB603BD2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework */; };
+		1A19EE152080EA8000A9147B /* PVMupen64PlusVideoGlideN64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB603BD2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework */; };
+		1A19EE162080EA8000A9147B /* PVMupen64PlusVideoGlideN64.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DFB603BD2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1A1A83D01C0A1675008ED0EC /* PViCadeSteelSeriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43211991BFB6AB300387909 /* PViCadeSteelSeriesController.m */; };
 		1A1F0B6819CC4EB000764BE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1F0B6719CC4EB000764BE6 /* Assets.xcassets */; };
 		1A26EE331AD9FFBF004EA30B /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A26EE291AD9FFBF004EA30B /* ioapi.c */; };
@@ -20,6 +23,12 @@
 		1A2B0E8C1AD187F4005FB77C /* testdata.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1A2B0E8A1AD187F4005FB77C /* testdata.txt */; };
 		1A2B0E8E1AD18961005FB77C /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2B0E8D1AD18961005FB77C /* libc++.dylib */; };
 		1A2B13CD1D0DFF5100D0B863 /* PVSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B13CC1D0DFF5100D0B863 /* PVSearchViewController.swift */; };
+		1A2FB109206EE8A700A1F942 /* PVSaveStatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FB108206EE8A700A1F942 /* PVSaveStatesViewController.swift */; };
+		1A2FB10A206EE8A700A1F942 /* PVSaveStatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FB108206EE8A700A1F942 /* PVSaveStatesViewController.swift */; };
+		1A2FB10C206EF07C00A1F942 /* PVSaveStateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FB10B206EF07C00A1F942 /* PVSaveStateCollectionViewCell.swift */; };
+		1A2FB10D206EF07C00A1F942 /* PVSaveStateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FB10B206EF07C00A1F942 /* PVSaveStateCollectionViewCell.swift */; };
+		1A2FB10F206EF29E00A1F942 /* PVSaveStateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FB10E206EF29E00A1F942 /* PVSaveStateHeaderView.swift */; };
+		1A2FB110206EF29E00A1F942 /* PVSaveStateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2FB10E206EF29E00A1F942 /* PVSaveStateHeaderView.swift */; };
 		1A34C58617D517760058E7D1 /* Systems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A34C58517D517760058E7D1 /* Systems.plist */; };
 		1A3D409817B2DCE4004DFFFC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A3D409717B2DCE4004DFFFC /* UIKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		1A3D409A17B2DCE4004DFFFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A3D409917B2DCE4004DFFFC /* Foundation.framework */; };
@@ -45,15 +54,11 @@
 		1A65D1C619917D55004E1777 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A65D1C519917D55004E1777 /* UIImage+ImageEffects.m */; };
 		1A9442571AD9A7AA008B32D4 /* NSDate+NSDate_SignificantDates.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9442561AD9A7AA008B32D4 /* NSDate+NSDate_SignificantDates.m */; };
 		1A9FBE1B1ABD23DD004E778B /* vba-over.ini in Resources */ = {isa = PBXBuildFile; fileRef = 1A9FBE1A1ABD23DD004E778B /* vba-over.ini */; };
-		1AACCAE31BB60D8E00DC21AE /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AACCAE01BB60D8200DC21AE /* Realm.framework */; };
-		1AACCAE51BB60DB500DC21AE /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1AACCAE01BB60D8200DC21AE /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1AACCAE91BB615FE00DC21AE /* PVSynchronousURLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACCAE81BB615FE00DC21AE /* PVSynchronousURLSession.m */; };
 		1AACCAEA1BB615FE00DC21AE /* PVSynchronousURLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AACCAE81BB615FE00DC21AE /* PVSynchronousURLSession.m */; };
 		1AACCAED1BB61D5600DC21AE /* PVTVSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AACCAEC1BB61D5600DC21AE /* PVTVSplitViewController.swift */; };
 		1AADCDB817BD998A00F53CFE /* UIActionSheet+BlockAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AADCDB317BD998A00F53CFE /* UIActionSheet+BlockAdditions.m */; };
 		1AADCDB917BD998A00F53CFE /* UIView+FrameAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AADCDB517BD998A00F53CFE /* UIView+FrameAdditions.m */; };
-		1AAE7D421BC870A2003066C0 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AAE7D411BC870A2003066C0 /* Realm.framework */; };
-		1AAE7D431BC870A8003066C0 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1AAE7D411BC870A2003066C0 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1AB183621AD9BF8000E094F6 /* NSFileManager+Hashing.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB183611AD9BF8000E094F6 /* NSFileManager+Hashing.m */; };
 		1AB95FFD17C563C200D3E392 /* PVSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB95FFB17C563C100D3E392 /* PVSettingsViewController.swift */; };
 		1AB9600017C5640A00D3E392 /* Provenance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AB95FFF17C5640A00D3E392 /* Provenance.storyboard */; };
@@ -165,6 +170,10 @@
 		42BC83A917E6775E00E9A607 /* PVGameLibrarySectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BC83A817E6775E00E9A607 /* PVGameLibrarySectionHeaderView.swift */; };
 		42E63F0617DE78AB005802B0 /* UIImage+Scaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E63F0517DE78AB005802B0 /* UIImage+Scaling.m */; };
 		7556CF7A19DC15C1007F8F97 /* Default.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7556CF7919DC15C1007F8F97 /* Default.xib */; };
+		B302BFA420825ADC0029CEDB /* PVMupen64PlusVideoGlideN64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B302BFA320825ADC0029CEDB /* PVMupen64PlusVideoGlideN64.framework */; };
+		B302BFA520825ADC0029CEDB /* PVMupen64PlusVideoGlideN64.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B302BFA320825ADC0029CEDB /* PVMupen64PlusVideoGlideN64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B3081C092080693100C5E77B /* PViCadeMocuteController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3081C072080693000C5E77B /* PViCadeMocuteController.m */; };
+		B3081C0A2080693100C5E77B /* PViCadeMocuteController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3081C072080693000C5E77B /* PViCadeMocuteController.m */; };
 		B311698D1D70A3A200D7AECA /* ProSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3AD68A21D6EA7070021B949 /* ProSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B315F0152058E14200138074 /* PVGame+Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BE96792055F2B400281880 /* PVGame+Spotlight.swift */; };
 		B32D8F7D1EA7F79900175FBF /* PVEmulatorConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B32D8F7C1EA7F79900175FBF /* PVEmulatorConfigurationTests.m */; };
@@ -479,6 +488,7 @@
 		B349AF721E9ABCFA00ACD416 /* LzmaSDKObjCWriter.mm in Sources */ = {isa = PBXBuildFile; fileRef = B349AE361E9ABCF900ACD416 /* LzmaSDKObjCWriter.mm */; };
 		B354693C1DECDA710018B6F3 /* PVAtari800.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B354693B1DECDA710018B6F3 /* PVAtari800.framework */; };
 		B354693D1DECDA710018B6F3 /* PVAtari800.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B354693B1DECDA710018B6F3 /* PVAtari800.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B3592CE52070B9DE00533593 /* PVSaveStateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3592CE42070B9DE00533593 /* PVSaveStateCollectionViewCell.xib */; };
 		B35BB7FB202F3F2200FCB513 /* PVGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BB7F9202F3F2100FCB513 /* PVGame.swift */; };
 		B35BB7FC202F3F2200FCB513 /* PVGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BB7F9202F3F2100FCB513 /* PVGame.swift */; };
 		B35BB7FD202F3F2200FCB513 /* PVGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BB7F9202F3F2100FCB513 /* PVGame.swift */; };
@@ -487,9 +497,29 @@
 		B35BB800202F3F2200FCB513 /* PVRecentGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BB7FA202F3F2100FCB513 /* PVRecentGame.swift */; };
 		B35D26FA20337D1C00F17D58 /* GameLaunchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35D26F920337D1C00F17D58 /* GameLaunchingViewController.swift */; };
 		B35D26FB20337D1C00F17D58 /* GameLaunchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35D26F920337D1C00F17D58 /* GameLaunchingViewController.swift */; };
-		B35D26FD2033977600F17D58 /* VolumeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35D26FC2033977500F17D58 /* VolumeBar.swift */; };
 		B35D27022033B44B00F17D58 /* PVGameMoreInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B385542D20336D02006CA50B /* PVGameMoreInfoViewController.swift */; };
+		B35E6C21207ED7050040709A /* AppearanceScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C18207ED7030040709A /* AppearanceScope.swift */; };
+		B35E6C22207ED7050040709A /* AppearanceScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C18207ED7030040709A /* AppearanceScope.swift */; };
+		B35E6C23207ED7050040709A /* UIAppearanceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C19207ED7040040709A /* UIAppearanceExtensions.swift */; };
+		B35E6C24207ED7050040709A /* UIAppearanceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C19207ED7040040709A /* UIAppearanceExtensions.swift */; };
+		B35E6C25207ED7050040709A /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1A207ED7040040709A /* UIApplicationExtensions.swift */; };
+		B35E6C26207ED7050040709A /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1A207ED7040040709A /* UIApplicationExtensions.swift */; };
+		B35E6C27207ED7050040709A /* AppearanceStyleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1B207ED7040040709A /* AppearanceStyleable.swift */; };
+		B35E6C28207ED7050040709A /* AppearanceStyleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1B207ED7040040709A /* AppearanceStyleable.swift */; };
+		B35E6C29207ED7050040709A /* AppearanceStyleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1C207ED7040040709A /* AppearanceStyleExtensions.swift */; };
+		B35E6C2A207ED7050040709A /* AppearanceStyleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1C207ED7040040709A /* AppearanceStyleExtensions.swift */; };
+		B35E6C2B207ED7050040709A /* UITraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1D207ED7040040709A /* UITraitCollectionExtensions.swift */; };
+		B35E6C2C207ED7050040709A /* UITraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1D207ED7040040709A /* UITraitCollectionExtensions.swift */; };
+		B35E6C2D207ED7050040709A /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1E207ED7040040709A /* UIWindowExtensions.swift */; };
+		B35E6C2E207ED7050040709A /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1E207ED7040040709A /* UIWindowExtensions.swift */; };
+		B35E6C2F207ED7050040709A /* AppearanceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1F207ED7040040709A /* AppearanceStyle.swift */; };
+		B35E6C30207ED7050040709A /* AppearanceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C1F207ED7040040709A /* AppearanceStyle.swift */; };
+		B35E6C31207ED7050040709A /* AppearanceStyleHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C20207ED7050040709A /* AppearanceStyleHelpers.swift */; };
+		B35E6C32207ED7050040709A /* AppearanceStyleHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E6C20207ED7050040709A /* AppearanceStyleHelpers.swift */; };
 		B360F92D2032439900E3E678 /* PVMediaCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A48697317C8C0DE0019F6D2 /* PVMediaCache.swift */; };
+		B366171F206EC4D100A4F306 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D8DC62206EA6BC008FAC42 /* Realm.framework */; };
+		B3661720206EC4D100A4F306 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3D8DC62206EA6BC008FAC42 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B3661722206EC4FC00A4F306 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3D8DC66206EA6BD008FAC42 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B36CBFEB20397D9100728482 /* PVMednafen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36CBFEA20397D9100728482 /* PVMednafen.framework */; };
 		B36CBFEC20397D9100728482 /* PVMednafen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36CBFEA20397D9100728482 /* PVMednafen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B36D9DF520351C9600D583C4 /* PVEmulatorConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36D9DF420351C9600D583C4 /* PVEmulatorConfiguration.swift */; };
@@ -542,6 +572,8 @@
 		B3AD689E1D6EA6450021B949 /* PicoDrive.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3AD689A1D6EA6180021B949 /* PicoDrive.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3AD68A31D6EA7070021B949 /* ProSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3AD68A21D6EA7070021B949 /* ProSystem.framework */; };
 		B3AD68A41D6EA7070021B949 /* ProSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3AD68A21D6EA7070021B949 /* ProSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B3AE1F7220734DE800AD06D4 /* PVMediaCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A48697317C8C0DE0019F6D2 /* PVMediaCache.swift */; };
+		B3AE1F762073504400AD06D4 /* PVSaveStateCollectionViewCell~tvOS.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3AE1F752073504400AD06D4 /* PVSaveStateCollectionViewCell~tvOS.xib */; };
 		B3B0860A1E71316A007F39E1 /* PVMednafen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B340E6091E088CF900AD0E8B /* PVMednafen.framework */; };
 		B3B0860B1E71316A007F39E1 /* PVMednafen.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B340E6091E088CF900AD0E8B /* PVMednafen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3B3B8921DECF8BC00602746 /* PVMupen64Plus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B3B8911DECF8BC00602746 /* PVMupen64Plus.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -556,12 +588,6 @@
 		B3B3B97A1DED14A100602746 /* PVMupen64PlusVideoRice.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3B3B9781DED14A100602746 /* PVMupen64PlusVideoRice.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3B3B97F1DED169100602746 /* PVRSPCXD4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B3B97E1DED169100602746 /* PVRSPCXD4.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B3B3B9801DED169100602746 /* PVRSPCXD4.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3B3B97E1DED169100602746 /* PVRSPCXD4.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B3B923AA202D2EAE00580FFC /* UIAppearanceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B923A3202D2EAE00580FFC /* UIAppearanceExtensions.swift */; };
-		B3B923AB202D2EAE00580FFC /* UITraitCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B923A4202D2EAE00580FFC /* UITraitCollectionExtensions.swift */; };
-		B3B923AC202D2EAE00580FFC /* AppearanceStyleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B923A5202D2EAE00580FFC /* AppearanceStyleable.swift */; };
-		B3B923AD202D2EAE00580FFC /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B923A6202D2EAE00580FFC /* UIWindowExtensions.swift */; };
-		B3B923AE202D2EAE00580FFC /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B923A7202D2EAE00580FFC /* UIApplicationExtensions.swift */; };
-		B3B923AF202D2EAE00580FFC /* AppearanceScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B923A8202D2EAE00580FFC /* AppearanceScope.swift */; };
 		B3B923B0202D2EAE00580FFC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B923A9202D2EAE00580FFC /* Theme.swift */; };
 		B3B923B3202D417700580FFC /* Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B923B2202D417700580FFC /* Spotlight.swift */; };
 		B3BCDA1D205F59B400EFBEDA /* PVN64ControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3B89C1DECF9D700602746 /* PVN64ControllerViewController.swift */; };
@@ -623,10 +649,97 @@
 		B3CF44CB203B6589005BEB14 /* PViCadeControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9369C1B50BF3B009403C5 /* PViCadeControllerViewController.swift */; };
 		B3D2E39B1D6E8BCD0058544D /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32F46331D6A8BD70085BA9F /* PVSupport.framework */; };
 		B3D2E39C1D6E8BCD0058544D /* PVSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B32F46331D6A8BD70085BA9F /* PVSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B3D8DC6B206EA6D3008FAC42 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D8DC66206EA6BD008FAC42 /* Realm.framework */; };
+		B3D8DC6D206EA6E9008FAC42 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D8DC62206EA6BC008FAC42 /* Realm.framework */; };
+		B3D8DC6F206EA6F5008FAC42 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D8DC62206EA6BC008FAC42 /* Realm.framework */; };
+		B3D8DCFC206EAA9E008FAC42 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCE8206EAA9B008FAC42 /* Schema.swift */; };
+		B3D8DCFD206EAA9E008FAC42 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCE8206EAA9B008FAC42 /* Schema.swift */; };
+		B3D8DCFE206EAA9E008FAC42 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCE8206EAA9B008FAC42 /* Schema.swift */; };
+		B3D8DCFF206EAA9E008FAC42 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCE8206EAA9B008FAC42 /* Schema.swift */; };
+		B3D8DD00206EAA9E008FAC42 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCE9206EAA9B008FAC42 /* Util.swift */; };
+		B3D8DD01206EAA9E008FAC42 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCE9206EAA9B008FAC42 /* Util.swift */; };
+		B3D8DD02206EAA9E008FAC42 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCE9206EAA9B008FAC42 /* Util.swift */; };
+		B3D8DD03206EAA9E008FAC42 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCE9206EAA9B008FAC42 /* Util.swift */; };
+		B3D8DD04206EAA9E008FAC42 /* ObjectiveCSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEA206EAA9B008FAC42 /* ObjectiveCSupport.swift */; };
+		B3D8DD05206EAA9E008FAC42 /* ObjectiveCSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEA206EAA9B008FAC42 /* ObjectiveCSupport.swift */; };
+		B3D8DD06206EAA9E008FAC42 /* ObjectiveCSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEA206EAA9B008FAC42 /* ObjectiveCSupport.swift */; };
+		B3D8DD07206EAA9E008FAC42 /* ObjectiveCSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEA206EAA9B008FAC42 /* ObjectiveCSupport.swift */; };
+		B3D8DD08206EAA9E008FAC42 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEB206EAA9B008FAC42 /* Realm.swift */; };
+		B3D8DD09206EAA9E008FAC42 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEB206EAA9B008FAC42 /* Realm.swift */; };
+		B3D8DD0A206EAA9E008FAC42 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEB206EAA9B008FAC42 /* Realm.swift */; };
+		B3D8DD0B206EAA9E008FAC42 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEB206EAA9B008FAC42 /* Realm.swift */; };
+		B3D8DD0C206EAA9E008FAC42 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEC206EAA9B008FAC42 /* Migration.swift */; };
+		B3D8DD0D206EAA9E008FAC42 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEC206EAA9B008FAC42 /* Migration.swift */; };
+		B3D8DD0E206EAA9E008FAC42 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEC206EAA9B008FAC42 /* Migration.swift */; };
+		B3D8DD0F206EAA9E008FAC42 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEC206EAA9B008FAC42 /* Migration.swift */; };
+		B3D8DD10206EAA9E008FAC42 /* RealmCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCED206EAA9C008FAC42 /* RealmCollection.swift */; };
+		B3D8DD11206EAA9E008FAC42 /* RealmCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCED206EAA9C008FAC42 /* RealmCollection.swift */; };
+		B3D8DD12206EAA9E008FAC42 /* RealmCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCED206EAA9C008FAC42 /* RealmCollection.swift */; };
+		B3D8DD13206EAA9E008FAC42 /* RealmCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCED206EAA9C008FAC42 /* RealmCollection.swift */; };
+		B3D8DD14206EAA9E008FAC42 /* SortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEE206EAA9C008FAC42 /* SortDescriptor.swift */; };
+		B3D8DD15206EAA9E008FAC42 /* SortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEE206EAA9C008FAC42 /* SortDescriptor.swift */; };
+		B3D8DD16206EAA9E008FAC42 /* SortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEE206EAA9C008FAC42 /* SortDescriptor.swift */; };
+		B3D8DD17206EAA9E008FAC42 /* SortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEE206EAA9C008FAC42 /* SortDescriptor.swift */; };
+		B3D8DD18206EAA9E008FAC42 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEF206EAA9C008FAC42 /* Object.swift */; };
+		B3D8DD19206EAA9E008FAC42 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEF206EAA9C008FAC42 /* Object.swift */; };
+		B3D8DD1A206EAA9E008FAC42 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEF206EAA9C008FAC42 /* Object.swift */; };
+		B3D8DD1B206EAA9E008FAC42 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCEF206EAA9C008FAC42 /* Object.swift */; };
+		B3D8DD1C206EAA9E008FAC42 /* ObjectSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF0206EAA9C008FAC42 /* ObjectSchema.swift */; };
+		B3D8DD1D206EAA9E008FAC42 /* ObjectSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF0206EAA9C008FAC42 /* ObjectSchema.swift */; };
+		B3D8DD1E206EAA9E008FAC42 /* ObjectSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF0206EAA9C008FAC42 /* ObjectSchema.swift */; };
+		B3D8DD1F206EAA9E008FAC42 /* ObjectSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF0206EAA9C008FAC42 /* ObjectSchema.swift */; };
+		B3D8DD20206EAA9E008FAC42 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF1206EAA9C008FAC42 /* Optional.swift */; };
+		B3D8DD21206EAA9E008FAC42 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF1206EAA9C008FAC42 /* Optional.swift */; };
+		B3D8DD22206EAA9E008FAC42 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF1206EAA9C008FAC42 /* Optional.swift */; };
+		B3D8DD23206EAA9E008FAC42 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF1206EAA9C008FAC42 /* Optional.swift */; };
+		B3D8DD24206EAA9E008FAC42 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF2206EAA9C008FAC42 /* Sync.swift */; };
+		B3D8DD25206EAA9E008FAC42 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF2206EAA9C008FAC42 /* Sync.swift */; };
+		B3D8DD26206EAA9E008FAC42 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF2206EAA9C008FAC42 /* Sync.swift */; };
+		B3D8DD27206EAA9E008FAC42 /* Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF2206EAA9C008FAC42 /* Sync.swift */; };
+		B3D8DD28206EAA9E008FAC42 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF3206EAA9D008FAC42 /* Error.swift */; };
+		B3D8DD29206EAA9E008FAC42 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF3206EAA9D008FAC42 /* Error.swift */; };
+		B3D8DD2A206EAA9E008FAC42 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF3206EAA9D008FAC42 /* Error.swift */; };
+		B3D8DD2B206EAA9E008FAC42 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF3206EAA9D008FAC42 /* Error.swift */; };
+		B3D8DD2C206EAA9E008FAC42 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF4206EAA9D008FAC42 /* Aliases.swift */; };
+		B3D8DD2D206EAA9E008FAC42 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF4206EAA9D008FAC42 /* Aliases.swift */; };
+		B3D8DD2E206EAA9E008FAC42 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF4206EAA9D008FAC42 /* Aliases.swift */; };
+		B3D8DD2F206EAA9E008FAC42 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF4206EAA9D008FAC42 /* Aliases.swift */; };
+		B3D8DD30206EAA9E008FAC42 /* SwiftVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF5206EAA9D008FAC42 /* SwiftVersion.swift */; };
+		B3D8DD31206EAA9E008FAC42 /* SwiftVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF5206EAA9D008FAC42 /* SwiftVersion.swift */; };
+		B3D8DD32206EAA9E008FAC42 /* SwiftVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF5206EAA9D008FAC42 /* SwiftVersion.swift */; };
+		B3D8DD33206EAA9E008FAC42 /* SwiftVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF5206EAA9D008FAC42 /* SwiftVersion.swift */; };
+		B3D8DD34206EAA9E008FAC42 /* ThreadSafeReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF6206EAA9D008FAC42 /* ThreadSafeReference.swift */; };
+		B3D8DD35206EAA9E008FAC42 /* ThreadSafeReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF6206EAA9D008FAC42 /* ThreadSafeReference.swift */; };
+		B3D8DD36206EAA9E008FAC42 /* ThreadSafeReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF6206EAA9D008FAC42 /* ThreadSafeReference.swift */; };
+		B3D8DD37206EAA9E008FAC42 /* ThreadSafeReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF6206EAA9D008FAC42 /* ThreadSafeReference.swift */; };
+		B3D8DD38206EAA9E008FAC42 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF7206EAA9D008FAC42 /* RealmConfiguration.swift */; };
+		B3D8DD39206EAA9E008FAC42 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF7206EAA9D008FAC42 /* RealmConfiguration.swift */; };
+		B3D8DD3A206EAA9E008FAC42 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF7206EAA9D008FAC42 /* RealmConfiguration.swift */; };
+		B3D8DD3B206EAA9E008FAC42 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF7206EAA9D008FAC42 /* RealmConfiguration.swift */; };
+		B3D8DD3C206EAA9E008FAC42 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF8206EAA9E008FAC42 /* List.swift */; };
+		B3D8DD3D206EAA9E008FAC42 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF8206EAA9E008FAC42 /* List.swift */; };
+		B3D8DD3E206EAA9E008FAC42 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF8206EAA9E008FAC42 /* List.swift */; };
+		B3D8DD3F206EAA9E008FAC42 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF8206EAA9E008FAC42 /* List.swift */; };
+		B3D8DD40206EAA9E008FAC42 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF9206EAA9E008FAC42 /* Results.swift */; };
+		B3D8DD41206EAA9E008FAC42 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF9206EAA9E008FAC42 /* Results.swift */; };
+		B3D8DD42206EAA9E008FAC42 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF9206EAA9E008FAC42 /* Results.swift */; };
+		B3D8DD43206EAA9E008FAC42 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCF9206EAA9E008FAC42 /* Results.swift */; };
+		B3D8DD44206EAA9E008FAC42 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCFA206EAA9E008FAC42 /* Property.swift */; };
+		B3D8DD45206EAA9E008FAC42 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCFA206EAA9E008FAC42 /* Property.swift */; };
+		B3D8DD46206EAA9E008FAC42 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCFA206EAA9E008FAC42 /* Property.swift */; };
+		B3D8DD47206EAA9E008FAC42 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCFA206EAA9E008FAC42 /* Property.swift */; };
+		B3D8DD48206EAA9E008FAC42 /* LinkingObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCFB206EAA9E008FAC42 /* LinkingObjects.swift */; };
+		B3D8DD49206EAA9E008FAC42 /* LinkingObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCFB206EAA9E008FAC42 /* LinkingObjects.swift */; };
+		B3D8DD4A206EAA9E008FAC42 /* LinkingObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCFB206EAA9E008FAC42 /* LinkingObjects.swift */; };
+		B3D8DD4B206EAA9E008FAC42 /* LinkingObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D8DCFB206EAA9E008FAC42 /* LinkingObjects.swift */; };
 		B3DB11A8205C52B800A6E845 /* UIAlertController+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB11A7205C52B800A6E845 /* UIAlertController+Theming.swift */; };
 		B3DB11AB205C7F7B00A6E845 /* UIView+Theming.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB11AA205C7F7B00A6E845 /* UIView+Theming.swift */; };
 		B3DB11AD205C973F00A6E845 /* PVCoresTableViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB11AC205C973E00A6E845 /* PVCoresTableViewContorller.swift */; };
 		B3DB11AE205C973F00A6E845 /* PVCoresTableViewContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB11AC205C973E00A6E845 /* PVCoresTableViewContorller.swift */; };
+		B3DBF13C2094669A005935A8 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DBF13B2094669A005935A8 /* UTI.swift */; };
+		B3DBF13D2094669A005935A8 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DBF13B2094669A005935A8 /* UTI.swift */; };
+		B3DBF13E2094669A005935A8 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DBF13B2094669A005935A8 /* UTI.swift */; };
+		B3DBF13F2094669A005935A8 /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DBF13B2094669A005935A8 /* UTI.swift */; };
 		B3DDB0A820291E8E001C6B64 /* PVMupen64PlusRspHLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3DDB0A720291E8E001C6B64 /* PVMupen64PlusRspHLE.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B3DDB0A920291E8E001C6B64 /* PVMupen64PlusRspHLE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3DDB0A720291E8E001C6B64 /* PVMupen64PlusRspHLE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3DEE8E91E9E9C880004D25E /* PVAtari800.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3DEE8E81E9E9C880004D25E /* PVAtari800.framework */; };
@@ -637,8 +750,6 @@
 		B3E21D6E203211BE009939D3 /* IndexRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E21D6D203211BE009939D3 /* IndexRequestHandler.swift */; };
 		B3E21D72203211BE009939D3 /* Spotlight.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B3E21D6B203211BE009939D3 /* Spotlight.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B3E21D7820321AA8009939D3 /* RomDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E3B5C3202E21B400A11871 /* RomDatabase.swift */; };
-		B3E21D7920321B17009939D3 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E3B5CA202ED22100A11871 /* RealmSwift.framework */; };
-		B3E21D7A20321B1A009939D3 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AAE7D411BC870A2003066C0 /* Realm.framework */; };
 		B3E21D7B20321B53009939D3 /* PVGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35BB7F9202F3F2100FCB513 /* PVGame.swift */; };
 		B3E21D7C20321BCC009939D3 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E21D602032074F009939D3 /* Logging.swift */; };
 		B3E21D7D20321BE4009939D3 /* PVAppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1E266C1C22552800499BA0 /* PVAppConstants.swift */; };
@@ -646,10 +757,10 @@
 		B3E3B5C4202E21B400A11871 /* RomDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E3B5C3202E21B400A11871 /* RomDatabase.swift */; };
 		B3E3B5C5202E21B400A11871 /* RomDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E3B5C3202E21B400A11871 /* RomDatabase.swift */; };
 		B3E3B5C8202E3BE200A11871 /* RomDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E3B5C3202E21B400A11871 /* RomDatabase.swift */; };
-		B3E3B5CB202ED22100A11871 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E3B5CA202ED22100A11871 /* RealmSwift.framework */; };
-		B3E3B5CE202ED24600A11871 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E3B5CC202ED24600A11871 /* RealmSwift.framework */; };
 		B3E3B5D9202ED84100A11871 /* PVGameLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E3B5D8202ED84100A11871 /* PVGameLibraryViewController.swift */; };
 		B3E3B5DA202ED84100A11871 /* PVGameLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E3B5D8202ED84100A11871 /* PVGameLibraryViewController.swift */; };
+		B3EA0CD32070BCCE00BBEAA1 /* PVSaveStateInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EA0CD22070BCCE00BBEAA1 /* PVSaveStateInfoViewController.swift */; };
+		B3EA0CD42070BCCE00BBEAA1 /* PVSaveStateInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EA0CD22070BCCE00BBEAA1 /* PVSaveStateInfoViewController.swift */; };
 		B3F64EC9205CBC6100C273C7 /* PVLicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8D52451D9198E000C29F90 /* PVLicensesViewController.swift */; };
 		B3F64ECA205CBD1200C273C7 /* licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 1F8D52471D91993000C29F90 /* licenses.html */; };
 		B3F64ECC205CD1D600C273C7 /* JSDPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F64ECB205CD1D600C273C7 /* JSDPad.swift */; };
@@ -664,8 +775,6 @@
 		B3F64ED9205CD22000C273C7 /* PVControllerSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F64ED7205CD21F00C273C7 /* PVControllerSelectionViewController.swift */; };
 		B3F7BE79204A289B000D0B4D /* PVConflictViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F7BE78204A289B000D0B4D /* PVConflictViewController.swift */; };
 		B3F7BE7A204A289B000D0B4D /* PVConflictViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F7BE78204A289B000D0B4D /* PVConflictViewController.swift */; };
-		B3F9CDA120315599007F808D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E3B5CC202ED24600A11871 /* RealmSwift.framework */; };
-		B3F9CDA220315599007F808D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3E3B5CC202ED24600A11871 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3F9CDA42031FF4D007F808D /* TopShelf.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BE9FDCB71C210B9E0046DF0E /* TopShelf.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B3FF4413205F94EF00E5A84B /* PV32XControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D2E3901D6E8B3C0058544D /* PV32XControllerViewController.swift */; };
 		B3FF4414205F9AAF00E5A84B /* PVAtari2600ControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DF87641D6A5A5300D216D4 /* PVAtari2600ControllerViewController.swift */; };
@@ -683,23 +792,18 @@
 		B3FF4420205F9C3F00E5A84B /* PVSNESControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E63AE817E12ECE00FE7098 /* PVSNESControllerViewController.swift */; };
 		B3FF4421205F9C3F00E5A84B /* PVWonderSwanControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32893721E0B250B0090B97A /* PVWonderSwanControllerViewController.swift */; };
 		B3FF4422205F9C3F00E5A84B /* PVVBControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B328937C1E0B87960090B97A /* PVVBControllerViewController.swift */; };
-		B3FF744E202F7C4D008C964A /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3E3B5CA202ED22100A11871 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE1E266D1C22552800499BA0 /* PVAppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1E266C1C22552800499BA0 /* PVAppConstants.swift */; };
 		BE1E266E1C22552800499BA0 /* PVAppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1E266C1C22552800499BA0 /* PVAppConstants.swift */; };
 		BE9FDCB91C210B9E0046DF0E /* TVServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9FDCB81C210B9E0046DF0E /* TVServices.framework */; };
 		BE9FDCBD1C210B9F0046DF0E /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9FDCBC1C210B9F0046DF0E /* ServiceProvider.swift */; };
 		BE9FDCC91C210C470046DF0E /* PVRecentGame+TopShelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9FDCC81C210C470046DF0E /* PVRecentGame+TopShelf.swift */; };
-		BE9FDCCA1C210CC20046DF0E /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AACCAE01BB60D8200DC21AE /* Realm.framework */; };
+		C6E8F64D2095CAE4003CC2D9 /* SubtleVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8F64C2095CAE4003CC2D9 /* SubtleVolume.swift */; };
 		DF0035C5203C97D900F63831 /* GLideN64.custom.ini in Resources */ = {isa = PBXBuildFile; fileRef = DF0035C4203C97D800F63831 /* GLideN64.custom.ini */; };
 		DF0035C6203C97E100F63831 /* GLideN64.custom.ini in Resources */ = {isa = PBXBuildFile; fileRef = DF0035C4203C97D800F63831 /* GLideN64.custom.ini */; };
 		DF0035C8203C97FA00F63831 /* GLideN64.ini in Resources */ = {isa = PBXBuildFile; fileRef = DF0035C7203C97FA00F63831 /* GLideN64.ini */; };
 		DF0035C9203C97FA00F63831 /* GLideN64.ini in Resources */ = {isa = PBXBuildFile; fileRef = DF0035C7203C97FA00F63831 /* GLideN64.ini */; };
 		DF3751942026B83600EE727E /* PVRSPCXD4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B3B97B1DED14AE00602746 /* PVRSPCXD4.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DF3751952026B83600EE727E /* PVRSPCXD4.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3B3B97B1DED14AE00602746 /* PVRSPCXD4.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DFB603BB2038B6AF001E70F1 /* PVMupen64PlusVideoGlideN64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB603BA2038B6AF001E70F1 /* PVMupen64PlusVideoGlideN64.framework */; };
-		DFB603BC2038B6AF001E70F1 /* PVMupen64PlusVideoGlideN64.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DFB603BA2038B6AF001E70F1 /* PVMupen64PlusVideoGlideN64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DFB603BE2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB603BD2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework */; };
-		DFB603BF2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DFB603BD2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFCD6EBF203762AF00719289 /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = DFCD6EBE203762AE00719289 /* shaders */; };
 		DFCD6EC0203762AF00719289 /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = DFCD6EBE203762AE00719289 /* shaders */; };
 		E414488B1B3125D90056D80A /* iCadeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E41448891B3125D90056D80A /* iCadeReaderView.m */; };
@@ -746,12 +850,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B3661722206EC4FC00A4F306 /* Realm.framework in Embed Frameworks */,
 				B3AD689C1D6EA6180021B949 /* PicoDrive.framework in Embed Frameworks */,
 				B3CB85C31E9BFB16009155A6 /* PVPokeMini.framework in Embed Frameworks */,
-				B3F9CDA220315599007F808D /* RealmSwift.framework in Embed Frameworks */,
 				B3C9D5E21DEA8A290068D057 /* PVGenesis.framework in Embed Frameworks */,
 				B3C9D4B21DEA74500068D057 /* PVGB.framework in Embed Frameworks */,
-				DFB603BF2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework in Embed Frameworks */,
+				B302BFA520825ADC0029CEDB /* PVMupen64PlusVideoGlideN64.framework in Embed Frameworks */,
 				B3995E502058229F001D4985 /* PVFCEU.framework in Embed Frameworks */,
 				B3C9D5DC1DEA8A200068D057 /* PVGBA.framework in Embed Frameworks */,
 				B3C9D5E51DEA8AED0068D057 /* PVStella.framework in Embed Frameworks */,
@@ -759,7 +863,6 @@
 				B3C9D5611DEA85D10068D057 /* PVSNES.framework in Embed Frameworks */,
 				B32F46351D6A8BD70085BA9F /* PVSupport.framework in Embed Frameworks */,
 				B3AD68A41D6EA7070021B949 /* ProSystem.framework in Embed Frameworks */,
-				1AACCAE51BB60DB500DC21AE /* Realm.framework in Embed Frameworks */,
 				B3B3B97A1DED14A100602746 /* PVMupen64PlusVideoRice.framework in Embed Frameworks */,
 				B3DDB0A920291E8E001C6B64 /* PVMupen64PlusRspHLE.framework in Embed Frameworks */,
 				B3B3B9801DED169100602746 /* PVRSPCXD4.framework in Embed Frameworks */,
@@ -775,14 +878,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B3661720206EC4D100A4F306 /* Realm.framework in Embed Frameworks */,
 				B3D2E39C1D6E8BCD0058544D /* PVSupport.framework in Embed Frameworks */,
 				B3CB85C01E9BFB07009155A6 /* PVPokeMini.framework in Embed Frameworks */,
-				B3FF744E202F7C4D008C964A /* RealmSwift.framework in Embed Frameworks */,
 				B3C9D4AF1DEA74390068D057 /* PVGB.framework in Embed Frameworks */,
 				B3B0860B1E71316A007F39E1 /* PVMednafen.framework in Embed Frameworks */,
+				1A19EE162080EA8000A9147B /* PVMupen64PlusVideoGlideN64.framework in Embed Frameworks */,
 				B311698D1D70A3A200D7AECA /* ProSystem.framework in Embed Frameworks */,
 				B3995E4D2058228E001D4985 /* PVFCEU.framework in Embed Frameworks */,
-				DFB603BC2038B6AF001E70F1 /* PVMupen64PlusVideoGlideN64.framework in Embed Frameworks */,
 				B3B3B8991DECF8C700602746 /* PVMupen64PlusRspHLE.framework in Embed Frameworks */,
 				B3AD689E1D6EA6450021B949 /* PicoDrive.framework in Embed Frameworks */,
 				B3C9D55E1DEA85C60068D057 /* PVSNES.framework in Embed Frameworks */,
@@ -791,7 +894,6 @@
 				B3C9D5221DEA787D0068D057 /* PVGBA.framework in Embed Frameworks */,
 				DF3751952026B83600EE727E /* PVRSPCXD4.framework in Embed Frameworks */,
 				B3C9D4341DEA1B340068D057 /* PVGenesis.framework in Embed Frameworks */,
-				1AAE7D431BC870A8003066C0 /* Realm.framework in Embed Frameworks */,
 				B3B3B8961DECF8C200602746 /* PVMupen64PlusVideoRice.framework in Embed Frameworks */,
 				B3B3B8931DECF8BC00602746 /* PVMupen64Plus.framework in Embed Frameworks */,
 			);
@@ -841,6 +943,9 @@
 		1A2B0E8A1AD187F4005FB77C /* testdata.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testdata.txt; sourceTree = "<group>"; };
 		1A2B0E8D1AD18961005FB77C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		1A2B13CC1D0DFF5100D0B863 /* PVSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVSearchViewController.swift; sourceTree = "<group>"; };
+		1A2FB108206EE8A700A1F942 /* PVSaveStatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVSaveStatesViewController.swift; sourceTree = "<group>"; };
+		1A2FB10B206EF07C00A1F942 /* PVSaveStateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVSaveStateCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A2FB10E206EF29E00A1F942 /* PVSaveStateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVSaveStateHeaderView.swift; sourceTree = "<group>"; };
 		1A34C58517D517760058E7D1 /* Systems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Systems.plist; sourceTree = "<group>"; };
 		1A3D409417B2DCE4004DFFFC /* Provenance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Provenance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A3D409717B2DCE4004DFFFC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -878,7 +983,6 @@
 		1A9FBE1A1ABD23DD004E778B /* vba-over.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vba-over.ini"; sourceTree = "<group>"; };
 		1A9FBE221ABD28DA004E778B /* PVGBAControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVGBAControllerViewController.swift; sourceTree = "<group>"; };
 		1AABE0CF1ABE3E5900FF6AEF /* PVGBControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVGBControllerViewController.swift; sourceTree = "<group>"; };
-		1AACCAE01BB60D8200DC21AE /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		1AACCAE71BB615FE00DC21AE /* PVSynchronousURLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVSynchronousURLSession.h; sourceTree = "<group>"; };
 		1AACCAE81BB615FE00DC21AE /* PVSynchronousURLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PVSynchronousURLSession.m; sourceTree = "<group>"; };
 		1AACCAEC1BB61D5600DC21AE /* PVTVSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVTVSplitViewController.swift; sourceTree = "<group>"; };
@@ -886,7 +990,6 @@
 		1AADCDB317BD998A00F53CFE /* UIActionSheet+BlockAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+BlockAdditions.m"; sourceTree = "<group>"; };
 		1AADCDB417BD998A00F53CFE /* UIView+FrameAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FrameAdditions.h"; sourceTree = "<group>"; };
 		1AADCDB517BD998A00F53CFE /* UIView+FrameAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FrameAdditions.m"; sourceTree = "<group>"; };
-		1AAE7D411BC870A2003066C0 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		1AB183601AD9BF8000E094F6 /* NSFileManager+Hashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Hashing.h"; sourceTree = "<group>"; };
 		1AB183611AD9BF8000E094F6 /* NSFileManager+Hashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Hashing.m"; sourceTree = "<group>"; };
 		1AB95FFB17C563C100D3E392 /* PVSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVSettingsViewController.swift; sourceTree = "<group>"; };
@@ -977,6 +1080,9 @@
 		42E63F0517DE78AB005802B0 /* UIImage+Scaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scaling.m"; sourceTree = "<group>"; };
 		7556CF7919DC15C1007F8F97 /* Default.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Default.xib; sourceTree = "<group>"; };
 		AA9B6EDD1D70981000422E5F /* PVPSXControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVPSXControllerViewController.swift; sourceTree = "<group>"; };
+		B302BFA320825ADC0029CEDB /* PVMupen64PlusVideoGlideN64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMupen64PlusVideoGlideN64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3081C072080693000C5E77B /* PViCadeMocuteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PViCadeMocuteController.m; sourceTree = "<group>"; };
+		B3081C082080693000C5E77B /* PViCadeMocuteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PViCadeMocuteController.h; sourceTree = "<group>"; };
 		B32893721E0B250B0090B97A /* PVWonderSwanControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVWonderSwanControllerViewController.swift; sourceTree = "<group>"; };
 		B32893771E0B4EA30090B97A /* PVLynxControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVLynxControllerViewController.swift; sourceTree = "<group>"; };
 		B328937C1E0B87960090B97A /* PVVBControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVVBControllerViewController.swift; sourceTree = "<group>"; };
@@ -1311,10 +1417,20 @@
 		B35469371DECD8570018B6F3 /* PVAtari5200ControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVAtari5200ControllerViewController.swift; sourceTree = "<group>"; };
 		B354693B1DECDA710018B6F3 /* PVAtari800.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVAtari800.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3584CBE1C730C200031EC77 /* PVRSPCXD4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = PVRSPCXD4.framework; path = "/Users/jmattiello/Library/Developer/Xcode/DerivedData/Provenance-cqyrqlnsqskspscgaptpbmkqmvze/Build/Products/Debug-iphonesimulator/PVRSPCXD4.framework"; sourceTree = "<absolute>"; };
+		B3592CE42070B9DE00533593 /* PVSaveStateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PVSaveStateCollectionViewCell.xib; sourceTree = "<group>"; };
+		B35B31CA206CA04A00AEAF88 /* Version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Version.h; sourceTree = "<group>"; };
 		B35BB7F9202F3F2100FCB513 /* PVGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVGame.swift; sourceTree = "<group>"; };
 		B35BB7FA202F3F2100FCB513 /* PVRecentGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVRecentGame.swift; sourceTree = "<group>"; };
 		B35D26F920337D1C00F17D58 /* GameLaunchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLaunchingViewController.swift; sourceTree = "<group>"; };
-		B35D26FC2033977500F17D58 /* VolumeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumeBar.swift; sourceTree = "<group>"; };
+		B35E6C18207ED7030040709A /* AppearanceScope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceScope.swift; sourceTree = "<group>"; };
+		B35E6C19207ED7040040709A /* UIAppearanceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAppearanceExtensions.swift; sourceTree = "<group>"; };
+		B35E6C1A207ED7040040709A /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
+		B35E6C1B207ED7040040709A /* AppearanceStyleable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceStyleable.swift; sourceTree = "<group>"; };
+		B35E6C1C207ED7040040709A /* AppearanceStyleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceStyleExtensions.swift; sourceTree = "<group>"; };
+		B35E6C1D207ED7040040709A /* UITraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITraitCollectionExtensions.swift; sourceTree = "<group>"; };
+		B35E6C1E207ED7040040709A /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
+		B35E6C1F207ED7040040709A /* AppearanceStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceStyle.swift; sourceTree = "<group>"; };
+		B35E6C20207ED7050040709A /* AppearanceStyleHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceStyleHelpers.swift; sourceTree = "<group>"; };
 		B36CBFEA20397D9100728482 /* PVMednafen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMednafen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36D9DF420351C9600D583C4 /* PVEmulatorConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVEmulatorConfiguration.swift; sourceTree = "<group>"; };
 		B36D9DF7203562E000D583C4 /* PVControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVControllerViewController.swift; sourceTree = "<group>"; };
@@ -1332,6 +1448,7 @@
 		B3995E51205840CE001D4985 /* PlistDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistDataModels.swift; sourceTree = "<group>"; };
 		B3AD689A1D6EA6180021B949 /* PicoDrive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PicoDrive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3AD68A21D6EA7070021B949 /* ProSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3AE1F752073504400AD06D4 /* PVSaveStateCollectionViewCell~tvOS.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "PVSaveStateCollectionViewCell~tvOS.xib"; sourceTree = "<group>"; };
 		B3B3B8911DECF8BC00602746 /* PVMupen64Plus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMupen64Plus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B3B8941DECF8C200602746 /* PVMupen64PlusVideoRice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMupen64PlusVideoRice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B3B8971DECF8C700602746 /* PVMupen64PlusRspHLE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMupen64PlusRspHLE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1342,16 +1459,10 @@
 		B3B3B97E1DED169100602746 /* PVRSPCXD4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVRSPCXD4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B9239C202D054B00580FFC /* Provenance-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Provenance-Bridging-Header.h"; sourceTree = "<group>"; };
 		B3B9239D202D054B00580FFC /* ProvenanceTV-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProvenanceTV-Bridging-Header.h"; sourceTree = "<group>"; };
-		B3B923A3202D2EAE00580FFC /* UIAppearanceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAppearanceExtensions.swift; sourceTree = "<group>"; };
-		B3B923A4202D2EAE00580FFC /* UITraitCollectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITraitCollectionExtensions.swift; sourceTree = "<group>"; };
-		B3B923A5202D2EAE00580FFC /* AppearanceStyleable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceStyleable.swift; sourceTree = "<group>"; };
-		B3B923A6202D2EAE00580FFC /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
-		B3B923A7202D2EAE00580FFC /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
-		B3B923A8202D2EAE00580FFC /* AppearanceScope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceScope.swift; sourceTree = "<group>"; };
 		B3B923A9202D2EAE00580FFC /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B3B923B2202D417700580FFC /* Spotlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spotlight.swift; sourceTree = "<group>"; };
-		B3BDEC8D1DED5EDD002BD7A4 /* RiceVideoLinux.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RiceVideoLinux.ini; path = "PVMupen64Plus/mupen64plus-video-rice/data/RiceVideoLinux.ini"; sourceTree = "<group>"; };
-		B3BDEC921DED60A1002BD7A4 /* mupen64plus.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mupen64plus.ini; path = "PVMupen64Plus/mupen64plus-core/data/mupen64plus.ini"; sourceTree = "<group>"; };
+		B3BDEC8D1DED5EDD002BD7A4 /* RiceVideoLinux.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RiceVideoLinux.ini; path = "PVMupen64Plus/Plugins/mupen64plus-video-rice/data/RiceVideoLinux.ini"; sourceTree = "<group>"; };
+		B3BDEC921DED60A1002BD7A4 /* mupen64plus.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mupen64plus.ini; path = "PVMupen64Plus/Plugins/mupen64plus-core/data/mupen64plus.ini"; sourceTree = "<group>"; };
 		B3BE96792055F2B400281880 /* PVGame+Spotlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PVGame+Spotlight.swift"; sourceTree = "<group>"; };
 		B3BE967D2055F2F400281880 /* PVSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVSystem.swift; sourceTree = "<group>"; };
 		B3BE96802055F33500281880 /* PVBIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVBIOS.swift; sourceTree = "<group>"; };
@@ -1374,9 +1485,39 @@
 		B3CB85C11E9BFB16009155A6 /* PVPokeMini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVPokeMini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CB85C61E9BFBA1009155A6 /* PVPokeMiniControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVPokeMiniControllerViewController.swift; sourceTree = "<group>"; };
 		B3D2E3901D6E8B3C0058544D /* PV32XControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PV32XControllerViewController.swift; sourceTree = "<group>"; };
+		B3D8DC5A206EA681008FAC42 /* PVFCEU.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PVFCEU.framework; sourceTree = "<group>"; };
+		B3D8DC5E206EA682008FAC42 /* PVMupen64PlusVideoGlideN64.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PVMupen64PlusVideoGlideN64.framework; sourceTree = "<group>"; };
+		B3D8DC5F206EA682008FAC42 /* PVMednafen.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVMednafen.framework; path = "../../../Library/Developer/Xcode/DerivedData/Provenance-dxxctpxdxguofwbxweirtnyaiucn/Build/Products/Release-iphoneos/PVMednafen.framework"; sourceTree = "<group>"; };
+		B3D8DC61206EA6BC008FAC42 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		B3D8DC62206EA6BC008FAC42 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		B3D8DC63206EA6BC008FAC42 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		B3D8DC65206EA6BD008FAC42 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		B3D8DC66206EA6BD008FAC42 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		B3D8DC67206EA6BD008FAC42 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		B3D8DCE8206EAA9B008FAC42 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
+		B3D8DCE9206EAA9B008FAC42 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		B3D8DCEA206EAA9B008FAC42 /* ObjectiveCSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveCSupport.swift; sourceTree = "<group>"; };
+		B3D8DCEB206EAA9B008FAC42 /* Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
+		B3D8DCEC206EAA9B008FAC42 /* Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
+		B3D8DCED206EAA9C008FAC42 /* RealmCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmCollection.swift; sourceTree = "<group>"; };
+		B3D8DCEE206EAA9C008FAC42 /* SortDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortDescriptor.swift; sourceTree = "<group>"; };
+		B3D8DCEF206EAA9C008FAC42 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		B3D8DCF0206EAA9C008FAC42 /* ObjectSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectSchema.swift; sourceTree = "<group>"; };
+		B3D8DCF1206EAA9C008FAC42 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
+		B3D8DCF2206EAA9C008FAC42 /* Sync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sync.swift; sourceTree = "<group>"; };
+		B3D8DCF3206EAA9D008FAC42 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		B3D8DCF4206EAA9D008FAC42 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
+		B3D8DCF5206EAA9D008FAC42 /* SwiftVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftVersion.swift; sourceTree = "<group>"; };
+		B3D8DCF6206EAA9D008FAC42 /* ThreadSafeReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadSafeReference.swift; sourceTree = "<group>"; };
+		B3D8DCF7206EAA9D008FAC42 /* RealmConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
+		B3D8DCF8206EAA9E008FAC42 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		B3D8DCF9206EAA9E008FAC42 /* Results.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
+		B3D8DCFA206EAA9E008FAC42 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
+		B3D8DCFB206EAA9E008FAC42 /* LinkingObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkingObjects.swift; sourceTree = "<group>"; };
 		B3DB11A7205C52B800A6E845 /* UIAlertController+Theming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIAlertController+Theming.swift"; path = "Provenance/User Interface/Themes/UIAlertController+Theming.swift"; sourceTree = SOURCE_ROOT; };
 		B3DB11AA205C7F7B00A6E845 /* UIView+Theming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Theming.swift"; sourceTree = "<group>"; };
 		B3DB11AC205C973E00A6E845 /* PVCoresTableViewContorller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVCoresTableViewContorller.swift; sourceTree = "<group>"; };
+		B3DBF13B2094669A005935A8 /* UTI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTI.swift; sourceTree = "<group>"; };
 		B3DDB0A720291E8E001C6B64 /* PVMupen64PlusRspHLE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMupen64PlusRspHLE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3DEE8E81E9E9C880004D25E /* PVAtari800.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVAtari800.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3DF87641D6A5A5300D216D4 /* PVAtari2600ControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVAtari2600ControllerViewController.swift; sourceTree = "<group>"; };
@@ -1387,9 +1528,8 @@
 		B3E21D7E20321EE0009939D3 /* Spotlight-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotlight-Bridging-Header.h"; sourceTree = "<group>"; };
 		B3E3B5C3202E21B400A11871 /* RomDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RomDatabase.swift; sourceTree = "<group>"; };
 		B3E3B5C7202E3AB700A11871 /* TopShelf-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TopShelf-Bridging-Header.h"; sourceTree = "<group>"; };
-		B3E3B5CA202ED22100A11871 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
-		B3E3B5CC202ED24600A11871 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		B3E3B5D8202ED84100A11871 /* PVGameLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVGameLibraryViewController.swift; sourceTree = "<group>"; };
+		B3EA0CD22070BCCE00BBEAA1 /* PVSaveStateInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVSaveStateInfoViewController.swift; sourceTree = "<group>"; };
 		B3F64ECB205CD1D600C273C7 /* JSDPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSDPad.swift; sourceTree = "<group>"; };
 		B3F64ECE205CD1F100C273C7 /* JSButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSButton.swift; sourceTree = "<group>"; };
 		B3F64ED1205CD20800C273C7 /* PVButtonGroupOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVButtonGroupOverlayView.swift; sourceTree = "<group>"; };
@@ -1404,9 +1544,9 @@
 		BE9FDCC81C210C470046DF0E /* PVRecentGame+TopShelf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PVRecentGame+TopShelf.swift"; sourceTree = "<group>"; };
 		BE9FDCCC1C21109B0046DF0E /* Provenance.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Provenance.entitlements; sourceTree = "<group>"; };
 		BE9FDCCD1C21194B0046DF0E /* TopShelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TopShelf.entitlements; sourceTree = "<group>"; };
-		DF0035C4203C97D800F63831 /* GLideN64.custom.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GLideN64.custom.ini; path = "PVMupen64Plus/mupen64plus-video-gliden64/ini/GLideN64.custom.ini"; sourceTree = "<group>"; };
-		DF0035C7203C97FA00F63831 /* GLideN64.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GLideN64.ini; path = "PVMupen64Plus/mupen64plus-video-gliden64/ini/GLideN64.ini"; sourceTree = "<group>"; };
-		DFB601882038AD65001E70F1 /* PVMupen64PlusVideoGlideN64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMupen64PlusVideoGlideN64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6E8F64C2095CAE4003CC2D9 /* SubtleVolume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtleVolume.swift; sourceTree = "<group>"; };
+		DF0035C4203C97D800F63831 /* GLideN64.custom.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GLideN64.custom.ini; path = "PVMupen64Plus/Plugins/mupen64plus-video-gliden64/ini/GLideN64.custom.ini"; sourceTree = "<group>"; };
+		DF0035C7203C97FA00F63831 /* GLideN64.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GLideN64.ini; path = "PVMupen64Plus/Plugins/mupen64plus-video-gliden64/ini/GLideN64.ini"; sourceTree = "<group>"; };
 		DFB603BA2038B6AF001E70F1 /* PVMupen64PlusVideoGlideN64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMupen64PlusVideoGlideN64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB603BD2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMupen64PlusVideoGlideN64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFCD6EBE203762AE00719289 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shaders; sourceTree = "<group>"; };
@@ -1439,13 +1579,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D8DC6D206EA6E9008FAC42 /* Realm.framework in Frameworks */,
 				B3D2E39B1D6E8BCD0058544D /* PVSupport.framework in Frameworks */,
 				B3AD689D1D6EA6450021B949 /* PicoDrive.framework in Frameworks */,
-				B3E3B5CB202ED22100A11871 /* RealmSwift.framework in Frameworks */,
 				B3A9F4251DE86389008450F5 /* ProSystem.framework in Frameworks */,
 				DF3751942026B83600EE727E /* PVRSPCXD4.framework in Frameworks */,
 				B3B3B8921DECF8BC00602746 /* PVMupen64Plus.framework in Frameworks */,
-				DFB603BB2038B6AF001E70F1 /* PVMupen64PlusVideoGlideN64.framework in Frameworks */,
 				1A4869D817C8D54D0019F6D2 /* libxml2.dylib in Frameworks */,
 				B3C9D4AE1DEA74390068D057 /* PVGB.framework in Frameworks */,
 				1A3D432C17B2FDFE004DFFFC /* libz.dylib in Frameworks */,
@@ -1464,10 +1603,12 @@
 				1A4869D617C8D5450019F6D2 /* CoreData.framework in Frameworks */,
 				1A47C94417BC1BC400C27644 /* AudioToolbox.framework in Frameworks */,
 				1ADDA5B417B30CD7008A7ADD /* GLKit.framework in Frameworks */,
+				1A19EE142080EA2000A9147B /* PVMupen64PlusVideoGlideN64.framework in Frameworks */,
 				B3C9D5211DEA787D0068D057 /* PVGBA.framework in Frameworks */,
 				B3B3B8951DECF8C200602746 /* PVMupen64PlusVideoRice.framework in Frameworks */,
 				1A3D431E17B2F01F004DFFFC /* OpenGLES.framework in Frameworks */,
 				B3B3B8981DECF8C700602746 /* PVMupen64PlusRspHLE.framework in Frameworks */,
+				1A19EE152080EA8000A9147B /* PVMupen64PlusVideoGlideN64.framework in Frameworks */,
 				B3C9D55D1DEA85C60068D057 /* PVSNES.framework in Frameworks */,
 				1A3D409817B2DCE4004DFFFC /* UIKit.framework in Frameworks */,
 				1A3D409A17B2DCE4004DFFFC /* Foundation.framework in Frameworks */,
@@ -1475,7 +1616,7 @@
 				1A3D409C17B2DCE4004DFFFC /* CoreGraphics.framework in Frameworks */,
 				B3995E4C2058228E001D4985 /* PVFCEU.framework in Frameworks */,
 				B3B0860A1E71316A007F39E1 /* PVMednafen.framework in Frameworks */,
-				1AAE7D421BC870A2003066C0 /* Realm.framework in Frameworks */,
+				B366171F206EC4D100A4F306 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1485,11 +1626,10 @@
 			files = (
 				B3C9D4B11DEA74500068D057 /* PVGB.framework in Frameworks */,
 				B3995E4F2058229F001D4985 /* PVFCEU.framework in Frameworks */,
-				DFB603BE2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework in Frameworks */,
 				B3AD68A31D6EA7070021B949 /* ProSystem.framework in Frameworks */,
-				B3F9CDA120315599007F808D /* RealmSwift.framework in Frameworks */,
 				B3CB85C21E9BFB16009155A6 /* PVPokeMini.framework in Frameworks */,
 				1AD4821B1BA3594300FDA50A /* libstdc++.tbd in Frameworks */,
+				B302BFA420825ADC0029CEDB /* PVMupen64PlusVideoGlideN64.framework in Frameworks */,
 				1AD482191BA3593900FDA50A /* libc++.tbd in Frameworks */,
 				1AD482171BA3592D00FDA50A /* libsqlite3.tbd in Frameworks */,
 				1AD482251BA3598C00FDA50A /* libxml2.tbd in Frameworks */,
@@ -1505,7 +1645,6 @@
 				1AD482331BA35A0500FDA50A /* Foundation.framework in Frameworks */,
 				1AD482311BA359FF00FDA50A /* UIKit.framework in Frameworks */,
 				1AD4822F1BA359DA00FDA50A /* OpenGLES.framework in Frameworks */,
-				1AACCAE31BB60D8E00DC21AE /* Realm.framework in Frameworks */,
 				B3C9D5E41DEA8AED0068D057 /* PVStella.framework in Frameworks */,
 				1AD4822B1BA359C800FDA50A /* GLKit.framework in Frameworks */,
 				B36CBFEB20397D9100728482 /* PVMednafen.framework in Frameworks */,
@@ -1536,8 +1675,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E21D7A20321B1A009939D3 /* Realm.framework in Frameworks */,
-				B3E21D7920321B17009939D3 /* RealmSwift.framework in Frameworks */,
+				B3D8DC6F206EA6F5008FAC42 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1545,9 +1683,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D8DC6B206EA6D3008FAC42 /* Realm.framework in Frameworks */,
 				BE9FDCB91C210B9E0046DF0E /* TVServices.framework in Frameworks */,
-				BE9FDCCA1C210CC20046DF0E /* Realm.framework in Frameworks */,
-				B3E3B5CE202ED24600A11871 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1560,6 +1697,8 @@
 				B3B923A1202D2EAE00580FFC /* Themes */,
 				1AB95FFF17C5640A00D3E392 /* Provenance.storyboard */,
 				7556CF7919DC15C1007F8F97 /* Default.xib */,
+				B3592CE42070B9DE00533593 /* PVSaveStateCollectionViewCell.xib */,
+				B3AE1F752073504400AD06D4 /* PVSaveStateCollectionViewCell~tvOS.xib */,
 			);
 			path = "User Interface";
 			sourceTree = "<group>";
@@ -1619,29 +1758,22 @@
 		1A3D408B17B2DCE4004DFFFC = {
 			isa = PBXGroup;
 			children = (
-				B3995E4E2058229F001D4985 /* PVFCEU.framework */,
-				B3995E4B2058228E001D4985 /* PVFCEU.framework */,
-				DFB603BD2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework */,
-				DFB603BA2038B6AF001E70F1 /* PVMupen64PlusVideoGlideN64.framework */,
-				B36CBFEA20397D9100728482 /* PVMednafen.framework */,
-				B3DDB0A720291E8E001C6B64 /* PVMupen64PlusRspHLE.framework */,
-				DF0035C7203C97FA00F63831 /* GLideN64.ini */,
-				DF0035C4203C97D800F63831 /* GLideN64.custom.ini */,
-				B3BDEC921DED60A1002BD7A4 /* mupen64plus.ini */,
-				B3BDEC8D1DED5EDD002BD7A4 /* RiceVideoLinux.ini */,
 				1A3D409D17B2DCE4004DFFFC /* Provenance */,
 				1AD9AA361ACC988F00EC87A0 /* Provenance Tests */,
 				1AD481B51BA350A400FDA50A /* ProvenanceTV */,
 				BE9FDCBA1C210B9E0046DF0E /* TopShelf */,
 				B3E21D6C203211BE009939D3 /* Spotlight */,
 				1A3D409617B2DCE4004DFFFC /* Frameworks */,
-				1AACCADD1BB60D8200DC21AE /* Realm-iOS */,
-				1AACCADF1BB60D8200DC21AE /* Realm-tvOS */,
 				1A3D409517B2DCE4004DFFFC /* Products */,
 				B3B9239C202D054B00580FFC /* Provenance-Bridging-Header.h */,
 				B3B9239D202D054B00580FFC /* ProvenanceTV-Bridging-Header.h */,
 				B3E21D7E20321EE0009939D3 /* Spotlight-Bridging-Header.h */,
 				B3E3B5C7202E3AB700A11871 /* TopShelf-Bridging-Header.h */,
+				DF0035C7203C97FA00F63831 /* GLideN64.ini */,
+				DF0035C4203C97D800F63831 /* GLideN64.custom.ini */,
+				B3BDEC921DED60A1002BD7A4 /* mupen64plus.ini */,
+				B3BDEC8D1DED5EDD002BD7A4 /* RiceVideoLinux.ini */,
+				B366171E206EBF6900A4F306 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1660,36 +1792,13 @@
 		1A3D409617B2DCE4004DFFFC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DFB601882038AD65001E70F1 /* PVMupen64PlusVideoGlideN64.framework */,
+				B3684578206EBF1A0078FEC2 /* Linked */,
 				B3EFD10F1C76D5A1000DD650 /* Cores */,
-				B3DEE8E81E9E9C880004D25E /* PVAtari800.framework */,
-				B32D8F811EA7FDBE00175FBF /* GameController.framework */,
-				B32D8F7E1EA7FD6300175FBF /* PVSupport.framework */,
-				B3CB85C11E9BFB16009155A6 /* PVPokeMini.framework */,
-				B3CB85BE1E9BFB07009155A6 /* PVPokeMini.framework */,
-				B3C653071E6F73450096053B /* PVMednafen.framework */,
-				B340E5FE1E088CA700AD0E8B /* PVMednafen.framework */,
-				B340E6091E088CF900AD0E8B /* PVMednafen.framework */,
 				1A4DF9F91C0E411500DDBC20 /* iOS */,
+				B3D8DC60206EA6BC008FAC42 /* Realm-iOS */,
+				B3D8DC64206EA6BD008FAC42 /* Realm-tvOS */,
+				B3D8DC70206EA73E008FAC42 /* RealmSwift */,
 				1A4DF9F81C0E40FE00DDBC20 /* tvOS */,
-				B3AD689A1D6EA6180021B949 /* PicoDrive.framework */,
-				B3B3B8971DECF8C700602746 /* PVMupen64PlusRspHLE.framework */,
-				B3B3B8941DECF8C200602746 /* PVMupen64PlusVideoRice.framework */,
-				B3B3B8911DECF8BC00602746 /* PVMupen64Plus.framework */,
-				B3AD68A21D6EA7070021B949 /* ProSystem.framework */,
-				B3C9D4B01DEA74500068D057 /* PVGB.framework */,
-				B35469311DECCD4A0018B6F3 /* PVAtari800.framework */,
-				B354693B1DECDA710018B6F3 /* PVAtari800.framework */,
-				B3C9D4AD1DEA74390068D057 /* PVGB.framework */,
-				B3C9D5DA1DEA8A200068D057 /* PVGBA.framework */,
-				B3C9D5201DEA787D0068D057 /* PVGBA.framework */,
-				B3C9D5E01DEA8A290068D057 /* PVGenesis.framework */,
-				B3C9D4321DEA1B340068D057 /* PVGenesis.framework */,
-				B3C9D55F1DEA85D10068D057 /* PVSNES.framework */,
-				B3C9D55C1DEA85C60068D057 /* PVSNES.framework */,
-				B3C9D5E31DEA8AED0068D057 /* PVStella.framework */,
-				B3C9D5E61DEAA7E80068D057 /* PVStella.framework */,
-				B32F46331D6A8BD70085BA9F /* PVSupport.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1697,22 +1806,21 @@
 		1A3D409D17B2DCE4004DFFFC /* Provenance */ = {
 			isa = PBXGroup;
 			children = (
-				378F4A121B63F2240065FA39 /* Reachability */,
-				378F49DB1B63D7CD0065FA39 /* http */,
 				1A3D40A717B2DCE4004DFFFC /* PVAppDelegate.swift */,
-				1F8D523E1D9190E900C29F90 /* PVAvailability.h */,
-				1A48696917C8C0C60019F6D2 /* Game Library */,
-				1A1237F417CA27B700CEC788 /* Emulator */,
-				1A1237F317CA27AD00CEC788 /* Settings */,
-				1A1237F217CA279900CEC788 /* User Interface */,
-				B349ACEC1E9ABCF800ACD416 /* LzmaSDKObjC */,
-				1A26EE261AD9FFBF004EA30B /* SSZipArchive */,
 				1AADCDB117BD997500F53CFE /* Categories */,
 				1A47C94A17BC310700C27644 /* Controller */,
+				1A1237F417CA27B700CEC788 /* Emulator */,
+				1A48696917C8C0C60019F6D2 /* Game Library */,
+				378F49DB1B63D7CD0065FA39 /* http */,
+				B349ACEC1E9ABCF800ACD416 /* LzmaSDKObjC */,
+				378F4A121B63F2240065FA39 /* Reachability */,
 				1A4869BB17C8CA2C0019F6D2 /* Resources */,
-				DFCD6EBE203762AE00719289 /* shaders */,
+				1A1237F317CA27AD00CEC788 /* Settings */,
+				1A26EE261AD9FFBF004EA30B /* SSZipArchive */,
 				1A3D409E17B2DCE4004DFFFC /* Supporting Files */,
-				B3E21D602032074F009939D3 /* Logging.swift */,
+				1A1237F217CA279900CEC788 /* User Interface */,
+				B3DBF13A2094669A005935A8 /* Utilities */,
+				DFCD6EBE203762AE00719289 /* shaders */,
 			);
 			path = Provenance;
 			sourceTree = "<group>";
@@ -1725,6 +1833,7 @@
 				1A3D40A517B2DCE4004DFFFC /* Provenance-Prefix.pch */,
 				1A0938B917CD45D400029021 /* README.mdown */,
 				1F8D52471D91993000C29F90 /* licenses.html */,
+				B35B31CA206CA04A00AEAF88 /* Version.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1881,24 +1990,6 @@
 				1AABE0CF1ABE3E5900FF6AEF /* PVGBControllerViewController.swift */,
 			);
 			name = GB;
-			sourceTree = "<group>";
-		};
-		1AACCADD1BB60D8200DC21AE /* Realm-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				B3E3B5CA202ED22100A11871 /* RealmSwift.framework */,
-				1AAE7D411BC870A2003066C0 /* Realm.framework */,
-			);
-			path = "Realm-iOS";
-			sourceTree = "<group>";
-		};
-		1AACCADF1BB60D8200DC21AE /* Realm-tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				B3E3B5CC202ED24600A11871 /* RealmSwift.framework */,
-				1AACCAE01BB60D8200DC21AE /* Realm.framework */,
-			);
-			path = "Realm-tvOS";
 			sourceTree = "<group>";
 		};
 		1AADCDB117BD997500F53CFE /* Categories */ = {
@@ -2536,6 +2627,56 @@
 			name = Atari5200;
 			sourceTree = "<group>";
 		};
+		B366171E206EBF6900A4F306 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				DFB603BA2038B6AF001E70F1 /* PVMupen64PlusVideoGlideN64.framework */,
+				B3995E4B2058228E001D4985 /* PVFCEU.framework */,
+				B36CBFEA20397D9100728482 /* PVMednafen.framework */,
+				B3C9D5DA1DEA8A200068D057 /* PVGBA.framework */,
+				B3DEE8E81E9E9C880004D25E /* PVAtari800.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		B3684578206EBF1A0078FEC2 /* Linked */ = {
+			isa = PBXGroup;
+			children = (
+				B302BFA320825ADC0029CEDB /* PVMupen64PlusVideoGlideN64.framework */,
+				B340E5FE1E088CA700AD0E8B /* PVMednafen.framework */,
+				B340E6091E088CF900AD0E8B /* PVMednafen.framework */,
+				B3D8DC5A206EA681008FAC42 /* PVFCEU.framework */,
+				DFB603BD2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework */,
+				B3CB85BE1E9BFB07009155A6 /* PVPokeMini.framework */,
+				B32F46331D6A8BD70085BA9F /* PVSupport.framework */,
+				B3B3B8971DECF8C700602746 /* PVMupen64PlusRspHLE.framework */,
+				B354693B1DECDA710018B6F3 /* PVAtari800.framework */,
+				B3C9D4AD1DEA74390068D057 /* PVGB.framework */,
+				B3C9D4321DEA1B340068D057 /* PVGenesis.framework */,
+				B3C9D55C1DEA85C60068D057 /* PVSNES.framework */,
+				B3C9D5E61DEAA7E80068D057 /* PVStella.framework */,
+				B32D8F811EA7FDBE00175FBF /* GameController.framework */,
+				B3AD689A1D6EA6180021B949 /* PicoDrive.framework */,
+				B3AD68A21D6EA7070021B949 /* ProSystem.framework */,
+				B3C9D4B01DEA74500068D057 /* PVGB.framework */,
+				B3995E4E2058229F001D4985 /* PVFCEU.framework */,
+				B3C9D5E01DEA8A290068D057 /* PVGenesis.framework */,
+				B3C653071E6F73450096053B /* PVMednafen.framework */,
+				B3B3B8911DECF8BC00602746 /* PVMupen64Plus.framework */,
+				B3DDB0A720291E8E001C6B64 /* PVMupen64PlusRspHLE.framework */,
+				B3D8DC5E206EA682008FAC42 /* PVMupen64PlusVideoGlideN64.framework */,
+				B3B3B8941DECF8C200602746 /* PVMupen64PlusVideoRice.framework */,
+				B3CB85C11E9BFB16009155A6 /* PVPokeMini.framework */,
+				B3C9D55F1DEA85D10068D057 /* PVSNES.framework */,
+				B3C9D5E31DEA8AED0068D057 /* PVStella.framework */,
+				B32D8F7E1EA7FD6300175FBF /* PVSupport.framework */,
+				B35469311DECCD4A0018B6F3 /* PVAtari800.framework */,
+				B3C9D5201DEA787D0068D057 /* PVGBA.framework */,
+				B3D8DC5F206EA682008FAC42 /* PVMednafen.framework */,
+			);
+			name = Linked;
+			sourceTree = "<group>";
+		};
 		B36DE7CD1D6B80DA002EE3ED /* Atari7800 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2592,12 +2733,15 @@
 		B3B923A2202D2EAE00580FFC /* SwiftyAppearance */ = {
 			isa = PBXGroup;
 			children = (
-				B3B923A3202D2EAE00580FFC /* UIAppearanceExtensions.swift */,
-				B3B923A4202D2EAE00580FFC /* UITraitCollectionExtensions.swift */,
-				B3B923A5202D2EAE00580FFC /* AppearanceStyleable.swift */,
-				B3B923A6202D2EAE00580FFC /* UIWindowExtensions.swift */,
-				B3B923A7202D2EAE00580FFC /* UIApplicationExtensions.swift */,
-				B3B923A8202D2EAE00580FFC /* AppearanceScope.swift */,
+				B35E6C18207ED7030040709A /* AppearanceScope.swift */,
+				B35E6C1F207ED7040040709A /* AppearanceStyle.swift */,
+				B35E6C1B207ED7040040709A /* AppearanceStyleable.swift */,
+				B35E6C1C207ED7040040709A /* AppearanceStyleExtensions.swift */,
+				B35E6C20207ED7050040709A /* AppearanceStyleHelpers.swift */,
+				B35E6C19207ED7040040709A /* UIAppearanceExtensions.swift */,
+				B35E6C1A207ED7040040709A /* UIApplicationExtensions.swift */,
+				B35E6C1D207ED7040040709A /* UITraitCollectionExtensions.swift */,
+				B35E6C1E207ED7040040709A /* UIWindowExtensions.swift */,
 			);
 			path = SwiftyAppearance;
 			sourceTree = "<group>";
@@ -2624,6 +2768,66 @@
 				B3D2E3901D6E8B3C0058544D /* PV32XControllerViewController.swift */,
 			);
 			name = 32X;
+			sourceTree = "<group>";
+		};
+		B3D8DC60206EA6BC008FAC42 /* Realm-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B3D8DC61206EA6BC008FAC42 /* RealmSwift.framework */,
+				B3D8DC62206EA6BC008FAC42 /* Realm.framework */,
+				B3D8DC63206EA6BC008FAC42 /* LICENSE.txt */,
+			);
+			name = "Realm-iOS";
+			path = "Frameworks/Realm-iOS";
+			sourceTree = "<group>";
+		};
+		B3D8DC64206EA6BD008FAC42 /* Realm-tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				B3D8DC65206EA6BD008FAC42 /* RealmSwift.framework */,
+				B3D8DC66206EA6BD008FAC42 /* Realm.framework */,
+				B3D8DC67206EA6BD008FAC42 /* LICENSE.txt */,
+			);
+			name = "Realm-tvOS";
+			path = "Frameworks/Realm-tvOS";
+			sourceTree = "<group>";
+		};
+		B3D8DC70206EA73E008FAC42 /* RealmSwift */ = {
+			isa = PBXGroup;
+			children = (
+				B3D8DCF4206EAA9D008FAC42 /* Aliases.swift */,
+				B3D8DCF3206EAA9D008FAC42 /* Error.swift */,
+				B3D8DCFB206EAA9E008FAC42 /* LinkingObjects.swift */,
+				B3D8DCF8206EAA9E008FAC42 /* List.swift */,
+				B3D8DCEC206EAA9B008FAC42 /* Migration.swift */,
+				B3D8DCEF206EAA9C008FAC42 /* Object.swift */,
+				B3D8DCEA206EAA9B008FAC42 /* ObjectiveCSupport.swift */,
+				B3D8DCF0206EAA9C008FAC42 /* ObjectSchema.swift */,
+				B3D8DCF1206EAA9C008FAC42 /* Optional.swift */,
+				B3D8DCFA206EAA9E008FAC42 /* Property.swift */,
+				B3D8DCEB206EAA9B008FAC42 /* Realm.swift */,
+				B3D8DCED206EAA9C008FAC42 /* RealmCollection.swift */,
+				B3D8DCF7206EAA9D008FAC42 /* RealmConfiguration.swift */,
+				B3D8DCF9206EAA9E008FAC42 /* Results.swift */,
+				B3D8DCE8206EAA9B008FAC42 /* Schema.swift */,
+				B3D8DCEE206EAA9C008FAC42 /* SortDescriptor.swift */,
+				B3D8DCF5206EAA9D008FAC42 /* SwiftVersion.swift */,
+				B3D8DCF2206EAA9C008FAC42 /* Sync.swift */,
+				B3D8DCF6206EAA9D008FAC42 /* ThreadSafeReference.swift */,
+				B3D8DCE9206EAA9B008FAC42 /* Util.swift */,
+			);
+			name = RealmSwift;
+			path = Frameworks/RealmSwift;
+			sourceTree = "<group>";
+		};
+		B3DBF13A2094669A005935A8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1F8D523E1D9190E900C29F90 /* PVAvailability.h */,
+				B3E21D602032074F009939D3 /* Logging.swift */,
+				B3DBF13B2094669A005935A8 /* UTI.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		B3DF87681D6A5A6200D216D4 /* Atari2600 */ = {
@@ -2674,9 +2878,13 @@
 				1A48696F17C8C0DE0019F6D2 /* PVGameLibraryCollectionViewCell.swift */,
 				42BC83A817E6775E00E9A607 /* PVGameLibrarySectionHeaderView.swift */,
 				B3F7BE78204A289B000D0B4D /* PVConflictViewController.swift */,
-				B35D26FC2033977500F17D58 /* VolumeBar.swift */,
+				C6E8F64C2095CAE4003CC2D9 /* SubtleVolume.swift */,
 				B385542D20336D02006CA50B /* PVGameMoreInfoViewController.swift */,
 				B35D26F920337D1C00F17D58 /* GameLaunchingViewController.swift */,
+				1A2FB108206EE8A700A1F942 /* PVSaveStatesViewController.swift */,
+				1A2FB10B206EF07C00A1F942 /* PVSaveStateCollectionViewCell.swift */,
+				1A2FB10E206EF29E00A1F942 /* PVSaveStateHeaderView.swift */,
+				B3EA0CD22070BCCE00BBEAA1 /* PVSaveStateInfoViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2722,6 +2930,8 @@
 				E41448901B34B9600056D80A /* PViCadeController.m */,
 				E4F936981B50829F009403C5 /* PViCade8BitdoController.h */,
 				E4F936991B50829F009403C5 /* PViCade8BitdoController.m */,
+				B3081C082080693000C5E77B /* PViCadeMocuteController.h */,
+				B3081C072080693000C5E77B /* PViCadeMocuteController.m */,
 				F43211981BFB6AB300387909 /* PViCadeSteelSeriesController.h */,
 				F43211991BFB6AB300387909 /* PViCadeSteelSeriesController.m */,
 				E41448921B34BBAB0056D80A /* PViCadeReader.h */,
@@ -2847,8 +3057,8 @@
 			attributes = {
 				CLASSPREFIX = PV;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = "James Addyman";
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = Provenance;
 				TargetAttributes = {
 					1A3D409317B2DCE4004DFFFC = {
 						DevelopmentTeam = 63497P68S6;
@@ -2871,7 +3081,7 @@
 					};
 					B3E21D6A203211BE009939D3 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = V78REPMQFZ;
+						DevelopmentTeam = 63497P68S6;
 						ProvisioningStyle = Automatic;
 					};
 					BE9FDCB61C210B9E0046DF0E = {
@@ -2886,7 +3096,7 @@
 				};
 			};
 			buildConfigurationList = 1A3D408F17B2DCE4004DFFFC /* Build configuration list for PBXProject "Provenance" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -2931,6 +3141,7 @@
 				DF0035C5203C97D900F63831 /* GLideN64.custom.ini in Resources */,
 				377152D61B61D77300BAE15B /* openvgdb.sqlite in Resources */,
 				1A34C58617D517760058E7D1 /* Systems.plist in Resources */,
+				B3592CE52070B9DE00533593 /* PVSaveStateCollectionViewCell.xib in Resources */,
 				B3BDEC8E1DED5EDD002BD7A4 /* RiceVideoLinux.ini in Resources */,
 				B349AE3B1E9ABCF900ACD416 /* CHANGELOG in Resources */,
 			);
@@ -2946,6 +3157,7 @@
 				1AD481D61BA3542D00FDA50A /* GCDWebUploader.bundle in Resources */,
 				1AD482371BA35A3300FDA50A /* Systems.plist in Resources */,
 				B3BDEC8F1DED5EDD002BD7A4 /* RiceVideoLinux.ini in Resources */,
+				B3AE1F762073504400AD06D4 /* PVSaveStateCollectionViewCell~tvOS.xib in Resources */,
 				B349AE3A1E9ABCF900ACD416 /* .travis.yml in Resources */,
 				B349AF4E1E9ABCF900ACD416 /* LzmaSDKObjC.podspec in Resources */,
 				B3F64ECA205CBD1200C273C7 /* licenses.html in Resources */,
@@ -3029,7 +3241,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = ./Provenance/Resources/createVersionHeader.sh;
 		};
 		B3FF744F202F7D67008C964A /* Create Version.h */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3083,9 +3295,9 @@
 				1A26EE371AD9FFBF004EA30B /* SSZipArchive.m in Sources */,
 				B349AEA31E9ABCF900ACD416 /* 7zOut.cpp in Sources */,
 				B349AEF51E9ABCF900ACD416 /* BranchMisc.cpp in Sources */,
-				B3B923AB202D2EAE00580FFC /* UITraitCollectionExtensions.swift in Sources */,
 				B349AEFF1E9ABCF900ACD416 /* CopyRegister.cpp in Sources */,
 				E41448971B34C4080056D80A /* PViCadeGamepadButtonInput.m in Sources */,
+				1A2FB109206EE8A700A1F942 /* PVSaveStatesViewController.swift in Sources */,
 				1A26EE341AD9FFBF004EA30B /* mztools.c in Sources */,
 				378F4A001B63D7CD0065FA39 /* GCDWebServer.m in Sources */,
 				B349AEFB1E9ABCF900ACD416 /* CodecExports.cpp in Sources */,
@@ -3096,21 +3308,26 @@
 				B349AE891E9ABCF900ACD416 /* XzCrc64Opt.c in Sources */,
 				B349AEDD1E9ABCF900ACD416 /* OutBuffer.cpp in Sources */,
 				B38D30FD202AC26500E9A068 /* GCDWebDAVServer.m in Sources */,
+				B3D8DD18206EAA9E008FAC42 /* Object.swift in Sources */,
 				1A3FD78E1AC7744100F8C23C /* MBProgressHUD.m in Sources */,
 				F432119A1BFB6AB300387909 /* PViCadeSteelSeriesController.m in Sources */,
 				B3F64ECC205CD1D600C273C7 /* JSDPad.swift in Sources */,
 				378F4A071B63D7CD0065FA39 /* GCDWebServerMultiPartFormRequest.m in Sources */,
+				B3D8DD0C206EAA9E008FAC42 /* Migration.swift in Sources */,
 				423BB97F17DD46BC0048F457 /* NSData+Hashing.m in Sources */,
 				B349AE811E9ABCF900ACD416 /* Sort.c in Sources */,
 				B35BB7FB202F3F2200FCB513 /* PVGame.swift in Sources */,
 				B349AF3D1E9ABCF900ACD416 /* TextConfig.cpp in Sources */,
 				B349AF571E9ABCF900ACD416 /* LzmaSDKObjCCommon.cpp in Sources */,
+				B3D8DD38206EAA9E008FAC42 /* RealmConfiguration.swift in Sources */,
 				B3F7BE79204A289B000D0B4D /* PVConflictViewController.swift in Sources */,
 				B375C68D2053E73E00BECC77 /* PVEmulatorConfiguration+Frameworks.swift in Sources */,
 				B349AE5D1E9ABCF900ACD416 /* Bra86.c in Sources */,
 				378F4A031B63D7CD0065FA39 /* GCDWebServerRequest.m in Sources */,
 				E414488E1B3126190056D80A /* PViCadeGamepad.m in Sources */,
+				B3081C092080693100C5E77B /* PViCadeMocuteController.m in Sources */,
 				B349AF051E9ABCF900ACD416 /* Lzma2Encoder.cpp in Sources */,
+				B3EA0CD32070BCCE00BBEAA1 /* PVSaveStateInfoViewController.swift in Sources */,
 				B3E3B5C4202E21B400A11871 /* RomDatabase.swift in Sources */,
 				B349AEE51E9ABCF900ACD416 /* StreamObjects.cpp in Sources */,
 				B349AEE91E9ABCF900ACD416 /* UniqBlocks.cpp in Sources */,
@@ -3118,9 +3335,11 @@
 				B3FF441B205F9C3F00E5A84B /* PVNeoGeoPocketControllerViewController.swift in Sources */,
 				E41448911B34B9600056D80A /* PViCadeController.m in Sources */,
 				B3F64ED5205CD21400C273C7 /* PVControllerManager.swift in Sources */,
+				B3D8DD24206EAA9E008FAC42 /* Sync.swift in Sources */,
 				B3DB11A8205C52B800A6E845 /* UIAlertController+Theming.swift in Sources */,
 				B3FF441F205F9C3F00E5A84B /* PVPokeMiniControllerViewController.swift in Sources */,
 				B349AF0D1E9ABCF900ACD416 /* LzmaRegister.cpp in Sources */,
+				B3D8DD04206EAA9E008FAC42 /* ObjectiveCSupport.swift in Sources */,
 				378F4A081B63D7CD0065FA39 /* GCDWebServerURLEncodedFormRequest.m in Sources */,
 				B349AE611E9ABCF900ACD416 /* CpuArch.c in Sources */,
 				B349AF231E9ABCF900ACD416 /* CRC.cpp in Sources */,
@@ -3135,15 +3354,20 @@
 				1A3D433B17B30BA3004DFFFC /* PVGLViewController.m in Sources */,
 				B349AE3F1E9ABCF900ACD416 /* 7zAlloc.c in Sources */,
 				1A164EB317BC03E800FAC391 /* PVEmulatorViewController.swift in Sources */,
+				B35E6C2D207ED7050040709A /* UIWindowExtensions.swift in Sources */,
 				1AACCAE91BB615FE00DC21AE /* PVSynchronousURLSession.m in Sources */,
 				B349AEF11E9ABCF900ACD416 /* BcjCoder.cpp in Sources */,
 				B349AEB71E9ABCF900ACD416 /* ItemNameUtils.cpp in Sources */,
+				1A2FB10F206EF29E00A1F942 /* PVSaveStateHeaderView.swift in Sources */,
 				378F4A0E1B63D7CD0065FA39 /* GCDWebUploader.m in Sources */,
+				B3DBF13C2094669A005935A8 /* UTI.swift in Sources */,
+				1A2FB10C206EF07C00A1F942 /* PVSaveStateCollectionViewCell.swift in Sources */,
 				B349AE491E9ABCF900ACD416 /* 7zCrcOpt.c in Sources */,
 				E4F9369D1B50BF3B009403C5 /* PViCadeControllerViewController.swift in Sources */,
 				B349AE431E9ABCF900ACD416 /* 7zBuf.c in Sources */,
 				B3FF441D205F9C3F00E5A84B /* PVPSXControllerViewController.swift in Sources */,
 				B394C98A20609E180014A65D /* UIColor+Hex.swift in Sources */,
+				B3D8DD00206EAA9E008FAC42 /* Util.swift in Sources */,
 				B349AF311E9ABCF900ACD416 /* NewHandler.cpp in Sources */,
 				E414488B1B3125D90056D80A /* iCadeReaderView.m in Sources */,
 				B349AEB11E9ABCF900ACD416 /* DummyOutStream.cpp in Sources */,
@@ -3162,9 +3386,11 @@
 				B349AEDB1E9ABCF900ACD416 /* OffsetStream.cpp in Sources */,
 				B349AF611E9ABCFA00ACD416 /* LzmaSDKObjCFileEncoder.cpp in Sources */,
 				E41448941B34BBAB0056D80A /* PViCadeReader.m in Sources */,
+				B3D8DD40206EAA9E008FAC42 /* Results.swift in Sources */,
 				B349AEE71E9ABCF900ACD416 /* StreamUtils.cpp in Sources */,
 				B349AF011E9ABCF900ACD416 /* DeltaFilter.cpp in Sources */,
 				B349AEF91E9ABCF900ACD416 /* ByteSwap.cpp in Sources */,
+				B3D8DD1C206EAA9E008FAC42 /* ObjectSchema.swift in Sources */,
 				B3BE96812055F33500281880 /* PVBIOS.swift in Sources */,
 				B349AF171E9ABCF900ACD416 /* 7zAesRegister.cpp in Sources */,
 				B349AF411E9ABCF900ACD416 /* Wildcard.cpp in Sources */,
@@ -3184,10 +3410,14 @@
 				B349AE9D1E9ABCF900ACD416 /* 7zHandlerOut.cpp in Sources */,
 				B349AF2B1E9ABCF900ACD416 /* MyString.cpp in Sources */,
 				B3FF441C205F9C3F00E5A84B /* PVPCEControllerViewController.swift in Sources */,
+				B35E6C2F207ED7050040709A /* AppearanceStyle.swift in Sources */,
+				B35E6C27207ED7050040709A /* AppearanceStyleable.swift in Sources */,
 				B349AE971E9ABCF900ACD416 /* 7zExtract.cpp in Sources */,
 				B349AECF1E9ABCF900ACD416 /* InBuffer.cpp in Sources */,
+				B3D8DD3C206EAA9E008FAC42 /* List.swift in Sources */,
 				B349AE531E9ABCF900ACD416 /* AesOpt.c in Sources */,
 				B349AF6F1E9ABCFA00ACD416 /* LzmaSDKObjCUpdateCallback.mm in Sources */,
+				B35E6C23207ED7050040709A /* UIAppearanceExtensions.swift in Sources */,
 				B349AEF71E9ABCF900ACD416 /* BranchRegister.cpp in Sources */,
 				1AB183621AD9BF8000E094F6 /* NSFileManager+Hashing.m in Sources */,
 				B349AE471E9ABCF900ACD416 /* 7zCrc.c in Sources */,
@@ -3203,13 +3433,18 @@
 				B349AEA11E9ABCF900ACD416 /* 7zIn.cpp in Sources */,
 				B349AF6B1E9ABCFA00ACD416 /* LzmaSDKObjCOutFile.cpp in Sources */,
 				B349AE991E9ABCF900ACD416 /* 7zFolderInStream.cpp in Sources */,
+				B35E6C29207ED7050040709A /* AppearanceStyleExtensions.swift in Sources */,
 				B349AE6F1E9ABCF900ACD416 /* Lzma86Enc.c in Sources */,
+				B3D8DCFC206EAA9E008FAC42 /* Schema.swift in Sources */,
 				B3BE96872055F40000281880 /* PVFile.swift in Sources */,
+				B35E6C31207ED7050040709A /* AppearanceStyleHelpers.swift in Sources */,
 				B349AED51E9ABCF900ACD416 /* LockedStream.cpp in Sources */,
 				B3F64ED2205CD20800C273C7 /* PVButtonGroupOverlayView.swift in Sources */,
+				B3D8DD28206EAA9E008FAC42 /* Error.swift in Sources */,
 				B3DB11AB205C7F7B00A6E845 /* UIView+Theming.swift in Sources */,
 				B3FF4415205F9C3F00E5A84B /* PVAtari5200ControllerViewController.swift in Sources */,
 				B349AF151E9ABCF900ACD416 /* 7zAes.cpp in Sources */,
+				B3D8DD2C206EAA9E008FAC42 /* Aliases.swift in Sources */,
 				378F4A011B63D7CD0065FA39 /* GCDWebServerConnection.m in Sources */,
 				B349AEB51E9ABCF900ACD416 /* InStreamWithCRC.cpp in Sources */,
 				378F4A111B63DCF00065FA39 /* PVWebServer.m in Sources */,
@@ -3217,7 +3452,6 @@
 				378F4A061B63D7CD0065FA39 /* GCDWebServerFileRequest.m in Sources */,
 				B349AE9B1E9ABCF900ACD416 /* 7zHandler.cpp in Sources */,
 				378F4A0B1B63D7CD0065FA39 /* GCDWebServerFileResponse.m in Sources */,
-				B3B923AD202D2EAE00580FFC /* UIWindowExtensions.swift in Sources */,
 				1A26EE351AD9FFBF004EA30B /* unzip.c in Sources */,
 				B349AEEF1E9ABCF900ACD416 /* Bcj2Register.cpp in Sources */,
 				1A65D1C619917D55004E1777 /* UIImage+ImageEffects.m in Sources */,
@@ -3228,6 +3462,7 @@
 				B349AF031E9ABCF900ACD416 /* Lzma2Decoder.cpp in Sources */,
 				B349AF631E9ABCFA00ACD416 /* LzmaSDKObjCInFile.cpp in Sources */,
 				B349AEAD1E9ABCF900ACD416 /* ArchiveExports.cpp in Sources */,
+				B3D8DD08206EAA9E008FAC42 /* Realm.swift in Sources */,
 				1A48697417C8C0DE0019F6D2 /* PVDirectoryWatcher.swift in Sources */,
 				1A26EE361AD9FFBF004EA30B /* zip.c in Sources */,
 				B3FF4413205F94EF00E5A84B /* PV32XControllerViewController.swift in Sources */,
@@ -3237,22 +3472,23 @@
 				B3FF4421205F9C3F00E5A84B /* PVWonderSwanControllerViewController.swift in Sources */,
 				B349AF531E9ABCF900ACD416 /* LzmaSDKObjCBaseCoder.cpp in Sources */,
 				378F4A041B63D7CD0065FA39 /* GCDWebServerResponse.m in Sources */,
+				B35E6C21207ED7050040709A /* AppearanceScope.swift in Sources */,
 				B3BE967A2055F2B400281880 /* PVGame+Spotlight.swift in Sources */,
 				B349AF2D1E9ABCF900ACD416 /* MyVector.cpp in Sources */,
 				B349AE8F1E9ABCF900ACD416 /* XzIn.c in Sources */,
+				B35E6C2B207ED7050040709A /* UITraitCollectionExtensions.swift in Sources */,
 				B349AF471E9ABCF900ACD416 /* PropVariant.cpp in Sources */,
 				E414489A1B34C48D0056D80A /* PViCadeGamepadDirectionPad.m in Sources */,
 				B349AEED1E9ABCF900ACD416 /* Bcj2Coder.cpp in Sources */,
 				B349AED91E9ABCF900ACD416 /* MethodProps.cpp in Sources */,
 				B3BE96902056025B00281880 /* PVSaveState.swift in Sources */,
 				B349AE711E9ABCF900ACD416 /* LzmaDec.c in Sources */,
-				B3B923AC202D2EAE00580FFC /* AppearanceStyleable.swift in Sources */,
 				B3FF4422205F9C3F00E5A84B /* PVVBControllerViewController.swift in Sources */,
 				1A48697617C8C0DE0019F6D2 /* PVGameLibraryCollectionViewCell.swift in Sources */,
 				B349AEE31E9ABCF900ACD416 /* StreamBinder.cpp in Sources */,
 				B349AE7D1E9ABCF900ACD416 /* Ppmd7Enc.c in Sources */,
+				B3D8DD14206EAA9E008FAC42 /* SortDescriptor.swift in Sources */,
 				378F4A051B63D7CD0065FA39 /* GCDWebServerDataRequest.m in Sources */,
-				B3B923AF202D2EAE00580FFC /* AppearanceScope.swift in Sources */,
 				B349AE751E9ABCF900ACD416 /* LzmaLib.c in Sources */,
 				E4F936A01B50C95E009403C5 /* kICadeControllerSetting.m in Sources */,
 				1A9442571AD9A7AA008B32D4 /* NSDate+NSDate_SignificantDates.m in Sources */,
@@ -3270,33 +3506,37 @@
 				B349AEAB1E9ABCF900ACD416 /* 7zUpdate.cpp in Sources */,
 				B349AEBF1E9ABCF900ACD416 /* DllExports2.cpp in Sources */,
 				B349AE8B1E9ABCF900ACD416 /* XzDec.c in Sources */,
+				B3D8DD10206EAA9E008FAC42 /* RealmCollection.swift in Sources */,
 				B349AE411E9ABCF900ACD416 /* 7zArcIn.c in Sources */,
 				B349AE4B1E9ABCF900ACD416 /* 7zDec.c in Sources */,
 				B349AEB91E9ABCF900ACD416 /* MultiStream.cpp in Sources */,
 				B349AED71E9ABCF900ACD416 /* MethodId.cpp in Sources */,
 				B3BE967E2055F2F400281880 /* PVSystem.swift in Sources */,
+				B3D8DD44206EAA9E008FAC42 /* Property.swift in Sources */,
 				B3BE96842055F3D900281880 /* PVCore.swift in Sources */,
 				B349AED31E9ABCF900ACD416 /* LimitedStreams.cpp in Sources */,
 				B349AE911E9ABCF900ACD416 /* 7zCompressionMode.cpp in Sources */,
+				B3D8DD20206EAA9E008FAC42 /* Optional.swift in Sources */,
 				1A48697817C8C0DE0019F6D2 /* PVMediaCache.swift in Sources */,
 				B35D26FA20337D1C00F17D58 /* GameLaunchingViewController.swift in Sources */,
 				B3F64ED8205CD22000C273C7 /* PVControllerSelectionViewController.swift in Sources */,
-				B3B923AA202D2EAE00580FFC /* UIAppearanceExtensions.swift in Sources */,
 				B3FF4417205F9C3F00E5A84B /* PVLynxControllerViewController.swift in Sources */,
 				B349AF6D1E9ABCFA00ACD416 /* LzmaSDKObjCReader.mm in Sources */,
-				B3B923AE202D2EAE00580FFC /* UIApplicationExtensions.swift in Sources */,
 				B3FF441E205F9C3F00E5A84B /* PVNESControllerViewController.swift in Sources */,
 				B349AE571E9ABCF900ACD416 /* Bcj2.c in Sources */,
 				B349AE5F1E9ABCF900ACD416 /* BraIA64.c in Sources */,
 				1A48698317C8C1170019F6D2 /* NSString+Hashing.m in Sources */,
+				B35E6C25207ED7050040709A /* UIApplicationExtensions.swift in Sources */,
 				B349AE731E9ABCF900ACD416 /* LzmaEnc.c in Sources */,
 				B349AEC31E9ABCF900ACD416 /* SplitHandler.cpp in Sources */,
 				B3FF4418205F9C3F00E5A84B /* PVGBControllerViewController.swift in Sources */,
 				B349AEBB1E9ABCF900ACD416 /* OutStreamWithCRC.cpp in Sources */,
 				B349AEC11E9ABCF900ACD416 /* LzmaHandler.cpp in Sources */,
 				B349AE511E9ABCF900ACD416 /* Aes.c in Sources */,
+				B3D8DD34206EAA9E008FAC42 /* ThreadSafeReference.swift in Sources */,
 				B3995E52205840CE001D4985 /* PlistDataModels.swift in Sources */,
 				B3E3B5D9202ED84100A11871 /* PVGameLibraryViewController.swift in Sources */,
+				C6E8F64D2095CAE4003CC2D9 /* SubtleVolume.swift in Sources */,
 				B349AE791E9ABCF900ACD416 /* Ppmd7.c in Sources */,
 				B349AE4F1E9ABCF900ACD416 /* 7zStream.c in Sources */,
 				B349AF091E9ABCF900ACD416 /* LzmaDecoder.cpp in Sources */,
@@ -3306,7 +3546,6 @@
 				B3E21D6620320E6F009939D3 /* Logging.swift in Sources */,
 				B349AE591E9ABCF900ACD416 /* Bcj2Enc.c in Sources */,
 				1FB125961D93E57F00D045D0 /* PVAppearanceViewController.swift in Sources */,
-				B35D26FD2033977600F17D58 /* VolumeBar.swift in Sources */,
 				B349AE4D1E9ABCF900ACD416 /* 7zFile.c in Sources */,
 				B349AE7F1E9ABCF900ACD416 /* Sha256.c in Sources */,
 				B349AE931E9ABCF900ACD416 /* 7zDecode.cpp in Sources */,
@@ -3324,6 +3563,7 @@
 				B36D9DFD203605BC00D583C4 /* PVCoreFactory.swift in Sources */,
 				B349AF251E9ABCF900ACD416 /* CrcReg.cpp in Sources */,
 				B349AF211E9ABCF900ACD416 /* CommandLineParser.cpp in Sources */,
+				B3D8DD48206EAA9E008FAC42 /* LinkingObjects.swift in Sources */,
 				378F4A0C1B63D7CD0065FA39 /* GCDWebServerStreamedResponse.m in Sources */,
 				B349AE771E9ABCF900ACD416 /* MtCoder.c in Sources */,
 				E4F9369A1B50829F009403C5 /* PViCade8BitdoController.m in Sources */,
@@ -3337,6 +3577,7 @@
 				B349AEEB1E9ABCF900ACD416 /* VirtThread.cpp in Sources */,
 				B349AF651E9ABCFA00ACD416 /* LzmaSDKObjCItem.mm in Sources */,
 				B349AE451E9ABCF900ACD416 /* 7zBuf2.c in Sources */,
+				B3D8DD30206EAA9E008FAC42 /* SwiftVersion.swift in Sources */,
 				B349AF191E9ABCF900ACD416 /* MyAes.cpp in Sources */,
 				B349AE7B1E9ABCF900ACD416 /* Ppmd7Dec.c in Sources */,
 			);
@@ -3347,8 +3588,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FE10F291D94ECC600A20D1A /* PVAppearanceViewController.swift in Sources */,
+				B35E6C30207ED7050040709A /* AppearanceStyle.swift in Sources */,
 				1AD481FF1BA354B100FDA50A /* PViCadeGamepadDirectionPad.m in Sources */,
 				B349AEFA1E9ABCF900ACD416 /* ByteSwap.cpp in Sources */,
+				B35E6C32207ED7050040709A /* AppearanceStyleHelpers.swift in Sources */,
 				B3F64ED9205CD22000C273C7 /* PVControllerSelectionViewController.swift in Sources */,
 				1AD481CF1BA3540000FDA50A /* PVGameLibraryCollectionViewCell.swift in Sources */,
 				B349AF241E9ABCF900ACD416 /* CRC.cpp in Sources */,
@@ -3356,6 +3599,7 @@
 				1AD481F31BA3549700FDA50A /* NSFileManager+Hashing.m in Sources */,
 				B349AF5C1E9ABCFA00ACD416 /* LzmaSDKObjCExtern.mm in Sources */,
 				B349AE721E9ABCF900ACD416 /* LzmaDec.c in Sources */,
+				B3D8DD31206EAA9E008FAC42 /* SwiftVersion.swift in Sources */,
 				B349AF161E9ABCF900ACD416 /* 7zAes.cpp in Sources */,
 				B349AF581E9ABCFA00ACD416 /* LzmaSDKObjCCommon.cpp in Sources */,
 				B349AE4E1E9ABCF900ACD416 /* 7zFile.c in Sources */,
@@ -3370,6 +3614,7 @@
 				B349AE481E9ABCF900ACD416 /* 7zCrc.c in Sources */,
 				B35BB7FC202F3F2200FCB513 /* PVGame.swift in Sources */,
 				B349AECE1E9ABCF900ACD416 /* FilterCoder.cpp in Sources */,
+				B35E6C28207ED7050040709A /* AppearanceStyleable.swift in Sources */,
 				B394C98520609D0D0014A65D /* PVPokeMiniControllerViewController.swift in Sources */,
 				1A2B13CD1D0DFF5100D0B863 /* PVSearchViewController.swift in Sources */,
 				1AD481EB1BA3547E00FDA50A /* mztools.c in Sources */,
@@ -3412,11 +3657,14 @@
 				B349AE701E9ABCF900ACD416 /* Lzma86Enc.c in Sources */,
 				1AD481FE1BA354B100FDA50A /* PViCadeGamepadButtonInput.m in Sources */,
 				1AD481C91BA3530B00FDA50A /* PVAppDelegate.swift in Sources */,
+				B35E6C2E207ED7050040709A /* UIWindowExtensions.swift in Sources */,
 				B349AEA81E9ABCF900ACD416 /* 7zRegister.cpp in Sources */,
 				1AACCAEA1BB615FE00DC21AE /* PVSynchronousURLSession.m in Sources */,
+				B3D8DD29206EAA9E008FAC42 /* Error.swift in Sources */,
 				B349AE9A1E9ABCF900ACD416 /* 7zFolderInStream.cpp in Sources */,
 				1AD481FD1BA354B100FDA50A /* PViCadeReader.m in Sources */,
 				B349AE901E9ABCF900ACD416 /* XzIn.c in Sources */,
+				B3D8DD21206EAA9E008FAC42 /* Optional.swift in Sources */,
 				B349AEEA1E9ABCF900ACD416 /* UniqBlocks.cpp in Sources */,
 				B349AE6E1E9ABCF900ACD416 /* Lzma86Dec.c in Sources */,
 				B349AF541E9ABCF900ACD416 /* LzmaSDKObjCBaseCoder.cpp in Sources */,
@@ -3431,7 +3679,9 @@
 				B349AE9C1E9ABCF900ACD416 /* 7zHandler.cpp in Sources */,
 				B349AF601E9ABCFA00ACD416 /* LzmaSDKObjCFileDecoder.cpp in Sources */,
 				1AD481E31BA3545D00FDA50A /* GCDWebServerStreamedResponse.m in Sources */,
+				B3D8DD3D206EAA9E008FAC42 /* List.swift in Sources */,
 				B394C97D20609D0D0014A65D /* PVGBControllerViewController.swift in Sources */,
+				B3D8DD45206EAA9E008FAC42 /* Property.swift in Sources */,
 				1ACE9A0A1BACBC9E00C72AA5 /* PVTVSettingsViewController.swift in Sources */,
 				1AD481CC1BA353F900FDA50A /* PVDirectoryWatcher.swift in Sources */,
 				1AD481ED1BA3548400FDA50A /* zip.c in Sources */,
@@ -3443,16 +3693,21 @@
 				B349AE5E1E9ABCF900ACD416 /* Bra86.c in Sources */,
 				B349AF261E9ABCF900ACD416 /* CrcReg.cpp in Sources */,
 				B349AEA01E9ABCF900ACD416 /* 7zHeader.cpp in Sources */,
+				B3D8DD01206EAA9E008FAC42 /* Util.swift in Sources */,
 				B3BE96912056025B00281880 /* PVSaveState.swift in Sources */,
 				B349AEF21E9ABCF900ACD416 /* BcjCoder.cpp in Sources */,
 				1AD482001BA354B100FDA50A /* PViCadeInputAxis.m in Sources */,
 				B349AF441E9ABCF900ACD416 /* XzCrc64Reg.cpp in Sources */,
 				B349AF721E9ABCFA00ACD416 /* LzmaSDKObjCWriter.mm in Sources */,
+				B3D8DCFD206EAA9E008FAC42 /* Schema.swift in Sources */,
+				B35E6C2C207ED7050040709A /* UITraitCollectionExtensions.swift in Sources */,
 				B349AE7E1E9ABCF900ACD416 /* Ppmd7Enc.c in Sources */,
+				B35E6C22207ED7050040709A /* AppearanceScope.swift in Sources */,
 				B349AF5E1E9ABCFA00ACD416 /* LzmaSDKObjCExtractCallback.mm in Sources */,
 				B394C97E20609D0D0014A65D /* PVGBAControllerViewController.swift in Sources */,
 				B394C98B20609E180014A65D /* UIColor+Hex.swift in Sources */,
 				B349AEB01E9ABCF900ACD416 /* CoderMixer2.cpp in Sources */,
+				B3081C0A2080693100C5E77B /* PViCadeMocuteController.m in Sources */,
 				B349AEA21E9ABCF900ACD416 /* 7zIn.cpp in Sources */,
 				B3F64ED6205CD21400C273C7 /* PVControllerManager.swift in Sources */,
 				1AD481E21BA3545B00FDA50A /* GCDWebServerFileResponse.m in Sources */,
@@ -3463,7 +3718,9 @@
 				1AD481F21BA3549400FDA50A /* NSString+Hashing.m in Sources */,
 				B349AE921E9ABCF900ACD416 /* 7zCompressionMode.cpp in Sources */,
 				1AD481E01BA3545400FDA50A /* GCDWebServerDataResponse.m in Sources */,
+				B3D8DD0D206EAA9E008FAC42 /* Migration.swift in Sources */,
 				B349AF121E9ABCF900ACD416 /* PpmdEncoder.cpp in Sources */,
+				B35E6C2A207ED7050040709A /* AppearanceStyleExtensions.swift in Sources */,
 				B349AE8A1E9ABCF900ACD416 /* XzCrc64Opt.c in Sources */,
 				1AD481D41BA3542200FDA50A /* PVWebServer.m in Sources */,
 				B349AEBA1E9ABCF900ACD416 /* MultiStream.cpp in Sources */,
@@ -3471,6 +3728,7 @@
 				B394C98220609D0D0014A65D /* PVPSXControllerViewController.swift in Sources */,
 				B349AF521E9ABCF900ACD416 /* LzmaSDKObjC.mm in Sources */,
 				B349AF0E1E9ABCF900ACD416 /* LzmaRegister.cpp in Sources */,
+				B3D8DD1D206EAA9E008FAC42 /* ObjectSchema.swift in Sources */,
 				1AD481E11BA3545800FDA50A /* GCDWebServerErrorResponse.m in Sources */,
 				1AD481F71BA354A200FDA50A /* NSDate+NSDate_SignificantDates.m in Sources */,
 				B349AF001E9ABCF900ACD416 /* CopyRegister.cpp in Sources */,
@@ -3481,12 +3739,15 @@
 				B349AEDA1E9ABCF900ACD416 /* MethodProps.cpp in Sources */,
 				B349AF3E1E9ABCF900ACD416 /* TextConfig.cpp in Sources */,
 				B349AEEE1E9ABCF900ACD416 /* Bcj2Coder.cpp in Sources */,
+				B3D8DD35206EAA9E008FAC42 /* ThreadSafeReference.swift in Sources */,
 				B349AEF41E9ABCF900ACD416 /* BcjRegister.cpp in Sources */,
 				B349AEB61E9ABCF900ACD416 /* InStreamWithCRC.cpp in Sources */,
 				B349AE941E9ABCF900ACD416 /* 7zDecode.cpp in Sources */,
 				B349AF321E9ABCF900ACD416 /* NewHandler.cpp in Sources */,
 				1AD481EC1BA3548200FDA50A /* unzip.c in Sources */,
+				B3D8DD39206EAA9E008FAC42 /* RealmConfiguration.swift in Sources */,
 				B349AE841E9ABCF900ACD416 /* Threads.c in Sources */,
+				B3D8DD09206EAA9E008FAC42 /* Realm.swift in Sources */,
 				B349AE741E9ABCF900ACD416 /* LzmaEnc.c in Sources */,
 				B349AEC61E9ABCF900ACD416 /* CreateCoder.cpp in Sources */,
 				B394C97C20609D0D0014A65D /* PVLynxControllerViewController.swift in Sources */,
@@ -3499,6 +3760,7 @@
 				1AD481FC1BA354B100FDA50A /* PViCade8BitdoController.m in Sources */,
 				1AD481F51BA3549C00FDA50A /* UIImage+Scaling.m in Sources */,
 				B349AF401E9ABCF900ACD416 /* UTFConvert.cpp in Sources */,
+				1A2FB10A206EE8A700A1F942 /* PVSaveStatesViewController.swift in Sources */,
 				B349AE861E9ABCF900ACD416 /* Xz.c in Sources */,
 				B349AEA61E9ABCF900ACD416 /* 7zProperties.cpp in Sources */,
 				B3BE96882055F40000281880 /* PVFile.swift in Sources */,
@@ -3506,6 +3768,7 @@
 				B349AE501E9ABCF900ACD416 /* 7zStream.c in Sources */,
 				B349AEC01E9ABCF900ACD416 /* DllExports2.cpp in Sources */,
 				B349AE8E1E9ABCF900ACD416 /* XzEnc.c in Sources */,
+				B3D8DD25206EAA9E008FAC42 /* Sync.swift in Sources */,
 				B349AED81E9ABCF900ACD416 /* MethodId.cpp in Sources */,
 				B349AF1A1E9ABCF900ACD416 /* MyAes.cpp in Sources */,
 				B3CF44CB203B6589005BEB14 /* PViCadeControllerViewController.swift in Sources */,
@@ -3514,23 +3777,30 @@
 				B349AF0A1E9ABCF900ACD416 /* LzmaDecoder.cpp in Sources */,
 				B349AEB21E9ABCF900ACD416 /* DummyOutStream.cpp in Sources */,
 				B394C97F20609D0D0014A65D /* PVGenesisControllerViewController.swift in Sources */,
+				B3D8DD2D206EAA9E008FAC42 /* Aliases.swift in Sources */,
 				B349AED61E9ABCF900ACD416 /* LockedStream.cpp in Sources */,
 				1AD481DE1BA3544A00FDA50A /* GCDWebServerMultiPartFormRequest.m in Sources */,
 				1AD481DA1BA3543E00FDA50A /* GCDWebServerRequest.m in Sources */,
 				B3E3B5C5202E21B400A11871 /* RomDatabase.swift in Sources */,
 				B349AEFC1E9ABCF900ACD416 /* CodecExports.cpp in Sources */,
+				1A2FB110206EF29E00A1F942 /* PVSaveStateHeaderView.swift in Sources */,
 				B349AEF61E9ABCF900ACD416 /* BranchMisc.cpp in Sources */,
+				B35E6C26207ED7050040709A /* UIApplicationExtensions.swift in Sources */,
 				B349AE5A1E9ABCF900ACD416 /* Bcj2Enc.c in Sources */,
 				B349AE6A1E9ABCF900ACD416 /* Lzma2Dec.c in Sources */,
 				B394C98020609D0D0014A65D /* PVNeoGeoPocketControllerViewController.swift in Sources */,
 				B349AEB41E9ABCF900ACD416 /* HandlerOut.cpp in Sources */,
 				B349AEDE1E9ABCF900ACD416 /* OutBuffer.cpp in Sources */,
 				B349AEE01E9ABCF900ACD416 /* ProgressUtils.cpp in Sources */,
+				B3DBF13D2094669A005935A8 /* UTI.swift in Sources */,
+				B3D8DD05206EAA9E008FAC42 /* ObjectiveCSupport.swift in Sources */,
 				B394C97720609BEF0014A65D /* PVControllerViewController.swift in Sources */,
 				1AD481E81BA3547200FDA50A /* PVSettingsModel.swift in Sources */,
 				B349AF421E9ABCF900ACD416 /* Wildcard.cpp in Sources */,
 				B394C98820609D0D0014A65D /* PVVBControllerViewController.swift in Sources */,
 				B394C98620609D0D0014A65D /* PVSNESControllerViewController.swift in Sources */,
+				B3D8DD19206EAA9E008FAC42 /* Object.swift in Sources */,
+				B3D8DD49206EAA9E008FAC42 /* LinkingObjects.swift in Sources */,
 				B394C98420609D0D0014A65D /* PVNESControllerViewController.swift in Sources */,
 				B349AEF81E9ABCF900ACD416 /* BranchRegister.cpp in Sources */,
 				1AD481DF1BA3544D00FDA50A /* GCDWebServerURLEncodedFormRequest.m in Sources */,
@@ -3542,6 +3812,7 @@
 				B349AE641E9ABCF900ACD416 /* Delta.c in Sources */,
 				B349AF6E1E9ABCFA00ACD416 /* LzmaSDKObjCReader.mm in Sources */,
 				B394C97920609D0D0014A65D /* PVAtari2600ControllerViewController.swift in Sources */,
+				B3EA0CD42070BCCE00BBEAA1 /* PVSaveStateInfoViewController.swift in Sources */,
 				B349AE781E9ABCF900ACD416 /* MtCoder.c in Sources */,
 				1AD481CB1BA353F600FDA50A /* PVMediaCache.swift in Sources */,
 				B349AF101E9ABCF900ACD416 /* PpmdDecoder.cpp in Sources */,
@@ -3556,6 +3827,7 @@
 				B349AE7A1E9ABCF900ACD416 /* Ppmd7.c in Sources */,
 				B349AF081E9ABCF900ACD416 /* Lzma2Register.cpp in Sources */,
 				1AD481FA1BA354B100FDA50A /* PViCadeGamepad.m in Sources */,
+				B35E6C24207ED7050040709A /* UIAppearanceExtensions.swift in Sources */,
 				B349AF621E9ABCFA00ACD416 /* LzmaSDKObjCFileEncoder.cpp in Sources */,
 				B3BE96852055F3D900281880 /* PVCore.swift in Sources */,
 				B349AED41E9ABCF900ACD416 /* LimitedStreams.cpp in Sources */,
@@ -3564,6 +3836,9 @@
 				B349AED21E9ABCF900ACD416 /* InOutTempBuffer.cpp in Sources */,
 				B349AE621E9ABCF900ACD416 /* CpuArch.c in Sources */,
 				1AD481DD1BA3544800FDA50A /* GCDWebServerFileRequest.m in Sources */,
+				B3D8DD11206EAA9E008FAC42 /* RealmCollection.swift in Sources */,
+				1A2FB10D206EF07C00A1F942 /* PVSaveStateCollectionViewCell.swift in Sources */,
+				B3D8DD41206EAA9E008FAC42 /* Results.swift in Sources */,
 				B349AEC41E9ABCF900ACD416 /* SplitHandler.cpp in Sources */,
 				1AD481D31BA3541E00FDA50A /* Reachability.m in Sources */,
 				BE1E266D1C22552800499BA0 /* PVAppConstants.swift in Sources */,
@@ -3594,6 +3869,7 @@
 				B38D30FE202AC26500E9A068 /* GCDWebDAVServer.m in Sources */,
 				B349AF041E9ABCF900ACD416 /* Lzma2Decoder.cpp in Sources */,
 				B3BE967F2055F2F400281880 /* PVSystem.swift in Sources */,
+				B3D8DD15206EAA9E008FAC42 /* SortDescriptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3611,21 +3887,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D8DD47206EAA9E008FAC42 /* Property.swift in Sources */,
+				B3D8DD4B206EAA9E008FAC42 /* LinkingObjects.swift in Sources */,
 				B3BE96932056026800281880 /* PVSaveState.swift in Sources */,
+				B3D8DD13206EAA9E008FAC42 /* RealmCollection.swift in Sources */,
+				B3D8DD2F206EAA9E008FAC42 /* Aliases.swift in Sources */,
+				B3D8DD03206EAA9E008FAC42 /* Util.swift in Sources */,
+				B3DBF13F2094669A005935A8 /* UTI.swift in Sources */,
+				B3D8DD23206EAA9E008FAC42 /* Optional.swift in Sources */,
+				B3D8DD1F206EAA9E008FAC42 /* ObjectSchema.swift in Sources */,
 				B360F92D2032439900E3E678 /* PVMediaCache.swift in Sources */,
 				B3E21D6E203211BE009939D3 /* IndexRequestHandler.swift in Sources */,
 				B3E21D7B20321B53009939D3 /* PVGame.swift in Sources */,
+				B3D8DD0F206EAA9E008FAC42 /* Migration.swift in Sources */,
+				B3D8DD37206EAA9E008FAC42 /* ThreadSafeReference.swift in Sources */,
 				B3E21D7820321AA8009939D3 /* RomDatabase.swift in Sources */,
 				B3BE96982056032600281880 /* PVGame+BoxArt.swift in Sources */,
 				B3E21D7C20321BCC009939D3 /* Logging.swift in Sources */,
+				B3D8DD2B206EAA9E008FAC42 /* Error.swift in Sources */,
 				B36D9DFA2035AC8600D583C4 /* PVEmulatorConfiguration.swift in Sources */,
+				B3D8DD27206EAA9E008FAC42 /* Sync.swift in Sources */,
+				B3D8DD3F206EAA9E008FAC42 /* List.swift in Sources */,
 				B36D9DFB2035F6AB00D583C4 /* PVRecentGame.swift in Sources */,
 				B3E21D7D20321BE4009939D3 /* PVAppConstants.swift in Sources */,
+				B3D8DD33206EAA9E008FAC42 /* SwiftVersion.swift in Sources */,
 				B3995E55205840CE001D4985 /* PlistDataModels.swift in Sources */,
+				B3D8DD43206EAA9E008FAC42 /* Results.swift in Sources */,
 				B3BE968C2055F41A00281880 /* PVSystem.swift in Sources */,
+				B3D8DD17206EAA9E008FAC42 /* SortDescriptor.swift in Sources */,
+				B3D8DCFF206EAA9E008FAC42 /* Schema.swift in Sources */,
 				B3BE968B2055F41A00281880 /* PVBIOS.swift in Sources */,
+				B3D8DD0B206EAA9E008FAC42 /* Realm.swift in Sources */,
+				B3D8DD07206EAA9E008FAC42 /* ObjectiveCSupport.swift in Sources */,
 				B3780B402057F1F70018211E /* PVCore.swift in Sources */,
+				B3D8DD3B206EAA9E008FAC42 /* RealmConfiguration.swift in Sources */,
 				B3BE967C2055F2B400281880 /* PVGame+Spotlight.swift in Sources */,
+				B3D8DD1B206EAA9E008FAC42 /* Object.swift in Sources */,
 				B3BE968A2055F40000281880 /* PVFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3634,21 +3931,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D8DD46206EAA9E008FAC42 /* Property.swift in Sources */,
+				B3D8DD4A206EAA9E008FAC42 /* LinkingObjects.swift in Sources */,
 				B3BE96922056026700281880 /* PVSaveState.swift in Sources */,
+				B3D8DD12206EAA9E008FAC42 /* RealmCollection.swift in Sources */,
+				B3D8DD2E206EAA9E008FAC42 /* Aliases.swift in Sources */,
+				B3D8DD02206EAA9E008FAC42 /* Util.swift in Sources */,
+				B3D8DD22206EAA9E008FAC42 /* Optional.swift in Sources */,
+				B3D8DD1E206EAA9E008FAC42 /* ObjectSchema.swift in Sources */,
 				B35BB7FD202F3F2200FCB513 /* PVGame.swift in Sources */,
 				B35BB800202F3F2200FCB513 /* PVRecentGame.swift in Sources */,
 				BE9FDCBD1C210B9F0046DF0E /* ServiceProvider.swift in Sources */,
+				B3D8DD0E206EAA9E008FAC42 /* Migration.swift in Sources */,
+				B3D8DD36206EAA9E008FAC42 /* ThreadSafeReference.swift in Sources */,
 				BE9FDCC91C210C470046DF0E /* PVRecentGame+TopShelf.swift in Sources */,
 				B3BE96972056032600281880 /* PVGame+BoxArt.swift in Sources */,
 				B3E3B5C8202E3BE200A11871 /* RomDatabase.swift in Sources */,
+				B3D8DD2A206EAA9E008FAC42 /* Error.swift in Sources */,
 				B3E21D6520320E6E009939D3 /* Logging.swift in Sources */,
+				B3D8DD26206EAA9E008FAC42 /* Sync.swift in Sources */,
+				B3D8DD3E206EAA9E008FAC42 /* List.swift in Sources */,
 				B36D9DF92035AC8300D583C4 /* PVEmulatorConfiguration.swift in Sources */,
 				B3995E54205840CE001D4985 /* PlistDataModels.swift in Sources */,
+				B3D8DD32206EAA9E008FAC42 /* SwiftVersion.swift in Sources */,
 				B3BE968E2055F41A00281880 /* PVSystem.swift in Sources */,
+				B3D8DD42206EAA9E008FAC42 /* Results.swift in Sources */,
 				B3BE968D2055F41A00281880 /* PVBIOS.swift in Sources */,
+				B3D8DD16206EAA9E008FAC42 /* SortDescriptor.swift in Sources */,
+				B3AE1F7220734DE800AD06D4 /* PVMediaCache.swift in Sources */,
+				B3D8DCFE206EAA9E008FAC42 /* Schema.swift in Sources */,
 				B3780B3F2057F1F60018211E /* PVCore.swift in Sources */,
+				B3D8DD0A206EAA9E008FAC42 /* Realm.swift in Sources */,
+				B3D8DD06206EAA9E008FAC42 /* ObjectiveCSupport.swift in Sources */,
 				BE1E266E1C22552800499BA0 /* PVAppConstants.swift in Sources */,
+				B3D8DD3A206EAA9E008FAC42 /* RealmConfiguration.swift in Sources */,
+				B3DBF13E2094669A005935A8 /* UTI.swift in Sources */,
 				B3BE96892055F40000281880 /* PVFile.swift in Sources */,
+				B3D8DD1A206EAA9E008FAC42 /* Object.swift in Sources */,
 				B315F0152058E14200138074 /* PVGame+Spotlight.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3703,11 +4022,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -3736,6 +4057,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=300 -Xfrontend -warn-long-expression-type-checking=200";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 			};
@@ -3751,11 +4073,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -3776,6 +4100,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=300 -Xfrontend -warn-long-expression-type-checking=200";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -3792,11 +4117,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Realm-iOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Provenance/Provenance-Prefix.pch";
@@ -3813,13 +4139,12 @@
 					"$(BUILD_DIR)/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "";
-				"OTHER_SWIFT_FLAGS[arch=*]" = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.provenance-emu.provenance";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Provenance-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = NO;
@@ -3838,11 +4163,11 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Realm-iOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Provenance/Provenance-Prefix.pch";
@@ -3860,11 +4185,11 @@
 				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1 ";
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.provenance-emu.provenance";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Provenance-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = NO;
@@ -3889,12 +4214,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Realm-tvOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-tvOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3945,13 +4270,13 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Realm-tvOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-tvOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4001,13 +4326,13 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Realm-tvOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-tvOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4213,11 +4538,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -4238,6 +4565,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=300 -Xfrontend -warn-long-expression-type-checking=200";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4253,11 +4581,12 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Realm-iOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Provenance/Provenance-Prefix.pch";
@@ -4273,13 +4602,13 @@
 					"$(inherited)",
 					"$(BUILD_DIR)/**",
 				);
-				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1 ";
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.provenance-emu.provenance";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Provenance-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = NO;
@@ -4304,10 +4633,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Realm-iOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -4316,11 +4645,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_SWIFT_FLAGS = "-DEXTENSION";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.provenance-emu.provenance.Spotlight";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG EXTENSION";
 				SWIFT_OBJC_BRIDGING_HEADER = "Spotlight-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -4345,11 +4674,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Realm-iOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -4358,10 +4687,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DEXTENSION";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.provenance-emu.provenance.Spotlight";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = EXTENSION;
 				SWIFT_OBJC_BRIDGING_HEADER = "Spotlight-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4385,11 +4715,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Realm-iOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -4398,10 +4728,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DEXTENSION";
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-function-bodies=200 -Xfrontend -warn-long-expression-type-checking=200";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.provenance-emu.provenance.Spotlight";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = EXTENSION;
 				SWIFT_OBJC_BRIDGING_HEADER = "Spotlight-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4420,11 +4751,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = V78REPMQFZ;
+				DEVELOPMENT_TEAM = 63497P68S6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Realm-tvOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-tvOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -4464,7 +4795,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Realm-tvOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-tvOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -4504,7 +4835,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Realm-tvOS",
+					"$(PROJECT_DIR)/Frameworks/Realm-tvOS",
 				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

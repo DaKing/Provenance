@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RealmSwift
+// import RealmSwift
 #if os(iOS)
 import SafariServices
 import AssetsLibrary
@@ -159,7 +159,7 @@ class GameMoreInfoPageViewController: UIPageViewController, UIPageViewController
     // MARK: Actions
     @IBAction func playButtonTapped(_ sender: UIBarButtonItem) {
         if let game = game {
-            load(game)
+			load(game, sender: sender, core:nil)
         }
     }
 
@@ -265,6 +265,10 @@ class PVGameMoreInfoViewController: UIViewController, GameLaunchingViewControlle
 		artworkImageView.ignoresInvertColors = true
         #endif
     }
+
+	deinit {
+		token?.invalidate()
+	}
 
 //    override func viewWillDisappear(_ animated: Bool) {
 //        super.viewWillDisappear(animated)
@@ -429,7 +433,7 @@ class PVGameMoreInfoViewController: UIViewController, GameLaunchingViewControlle
 
     @IBAction func playButtonTapped(_ sender: UIBarButtonItem) {
         if let game = game {
-            load(game)
+			load(game, sender: sender, core: nil)
         }
     }
 
@@ -605,10 +609,11 @@ class PVGameMoreInfoViewController: UIViewController, GameLaunchingViewControlle
 
     var token: NotificationToken?
     func registerForChange() {
+		token?.invalidate()
         token = game?.observe({ (change) in
             switch change {
             case .change(let properties):
-                if !properties.isEmpty {
+                if !properties.isEmpty, self.isViewLoaded {
                     DispatchQueue.main.async {
                         self.updateContent()
                     }
@@ -629,7 +634,7 @@ extension PVGameMoreInfoViewController {
     override var previewActionItems: [UIPreviewActionItem] {
         let playAction = UIPreviewAction(title: "Play", style: .default) { (action, viewController) in
             if let libVC = self.presentingViewController as? PVGameLibraryViewController {
-                libVC.load(self.game!)
+				libVC.load(self.game!, sender: self.view, core: nil)
             }
         }
 
@@ -648,19 +653,13 @@ extension PVGameMoreInfoViewController {
             let alert = UIAlertController(title: "Delete \(self.game!.title)", message: "Any save states and battery saves will also be deleted, are you sure?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {(_ action: UIAlertAction) -> Void in
                 // Delete from Realm
-//                self.delete(game: self.game!)
+				RomDatabase.sharedInstance.delete(game: self.game!)
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-            self.present(alert, animated: true) {() -> Void in }
+			(UIApplication.shared.delegate?.window??.rootViewController ?? self).present(alert, animated: true)
         }
-        //        let action2 = UIPreviewAction(title: "Press Me!", style: .default) { (action, viewController) in
-//            print("I believe I can fly")
-//        }
-//        let action3 = UIPreviewAction(title: "Press Me!", style: .default) { (action, viewController) in
-//            print("I believe I can fly")
-//        }
-//        let actionGroup = UIPreviewActionGroup(title: "Look at me, I can grow!", style: .default, actions: [action1, action2, action3])
-        return [playAction, favoriteToggle, deleteAction]
+
+		return [playAction, favoriteToggle, deleteAction]
     }
 }
 
@@ -705,9 +704,9 @@ extension PVGameMoreInfoViewController {
     }
 
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        coordinator.addCoordinatedAnimations({ [unowned self] in
-
-            }, completion: nil)
+//        coordinator.addCoordinatedAnimations({ [unowned self] in
+//
+//            }, completion: nil)
     }
 
 //    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {

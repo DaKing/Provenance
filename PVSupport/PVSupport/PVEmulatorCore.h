@@ -30,8 +30,6 @@ typedef NS_ENUM(NSInteger, PVEmulatorCoreErrorCode) {
     PVEmulatorCoreErrorCodeMissingM3U               = -7,
 };
 
-#define GetSecondsSince(x) (-[x timeIntervalSinceNow])
-
 @protocol PVAudioDelegate
 @required
 - (void)audioSampleRateDidChange;
@@ -68,6 +66,7 @@ typedef NS_ENUM(NSInteger, PVEmulatorCoreErrorCode) {
 @property (nonatomic, copy) NSString *batterySavesPath;
 @property (nonatomic, copy) NSString *BIOSPath;
 @property (nonatomic, copy) NSString *systemIdentifier;
+@property (nonatomic, copy) NSString *coreIdentifier;
 @property (nonatomic, strong) NSString* romMD5;
 @property (nonatomic, strong) NSString* romSerial;
 
@@ -78,6 +77,13 @@ typedef NS_ENUM(NSInteger, GameSpeed) {
 	GameSpeedNormal,
 	GameSpeedFast
 };
+
+typedef NS_ENUM(NSInteger, GLESVersion) {
+	GLESVersion1,
+	GLESVersion2,
+	GLESVersion3
+};
+
 @property (nonatomic, assign) GameSpeed gameSpeed;
 @property (nonatomic, readonly, getter=isSpeedModified) BOOL speedModified;
 
@@ -90,6 +96,7 @@ typedef NS_ENUM(NSInteger, GameSpeed) {
 @property (nonatomic, strong) NSCondition  *frontBufferCondition;
 @property (nonatomic, strong) NSLock  *frontBufferLock;
 @property (nonatomic, assign) BOOL isFrontBufferReady;
+@property (nonatomic, assign) GLESVersion glesVersion;
 
 - (BOOL)rendersToOpenGL;
 - (void)startEmulation;
@@ -126,7 +133,6 @@ typedef NS_ENUM(NSInteger, GameSpeed) {
 - (void)loadSaveFile:(NSString *)path forType:(int)type;
 - (void)writeSaveFile:(NSString *)path forType:(int)type;
 
-- (BOOL)autoSaveState;
 - (BOOL)saveStateToFileAtPath:(NSString *)path;
 - (BOOL)loadStateFromFileAtPath:(NSString *)path;
 

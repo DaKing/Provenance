@@ -41,18 +41,29 @@ class PVSettingsViewController: UITableViewController, SFSafariViewControllerDel
     @IBOutlet weak var fpsCountSwitch: UISwitch!
     @IBOutlet weak var importLabel: UILabel!
     @IBOutlet weak var tintSwitch: UISwitch!
-
+    @IBOutlet weak var startSelectSwitch: UISwitch!
+    @IBOutlet weak var volumeHUDSwitch: UISwitch!
+    @IBOutlet weak var allRightShouldersSwitch: UISwitch!
     @IBOutlet weak var themeValueLabel: UILabel!
 
     var gameImporter: PVGameImporter?
 
     @IBAction func wikiLinkButton(_ sender: Any) {
-        UIApplication.shared.openURL((URL(string: "https://github.com/jasarien/Provenance/wiki/Importing-ROMs"))!)
+		let webVC = WebkitViewController(url: URL(string: "https://github.com/Provenance-Emu/Provenance/wiki/Formatting-ROMs")!)
+		navigationController?.pushViewController(webVC, animated: true)
     }
 
     @IBAction func done(_ sender: Any) {
         presentingViewController?.dismiss(animated: true) {() -> Void in }
     }
+
+	// Check to see if we are connected to WiFi. Cannot continue otherwise.
+	lazy var reachability : Reachability = Reachability.forLocalWiFi()
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		reachability.stopNotifier()
+	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,11 +78,22 @@ class PVSettingsViewController: UITableViewController, SFSafariViewControllerDel
         crtFilterSwitch.isOn = settings.crtFilterEnabled
         fpsCountSwitch.isOn = settings.showFPSCount
         tintSwitch.isOn = settings.buttonTints
+        startSelectSwitch.isOn = settings.startSelectAlwaysOn
+        allRightShouldersSwitch.isOn = settings.allRightShoulders
+        volumeHUDSwitch.isOn = settings.volumeHUD
         volumeSlider.value = settings.volume
         volumeValueLabel.text = String(format: "%.0f%%", volumeSlider.value * 100)
         opacityValueLabel.text = String(format: "%.0f%%", opacitySlider.value * 100)
+
+        let masterBranch = kGITBranch.lowercased() == "master"
+
         var versionText = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         versionText = versionText ?? "" + (" (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? ""))")
+        if !masterBranch {
+            versionText = "\(versionText ?? "") Beta"
+            versionLabel.textColor = UIColor.init(hex: "#F5F5A0")
+        }
+
         versionLabel.text = versionText
 #if DEBUG
         modeLabel.text = "DEBUG"
@@ -79,7 +101,10 @@ class PVSettingsViewController: UITableViewController, SFSafariViewControllerDel
         modeLabel.text = "RELEASE"
 #endif
         let color: UIColor? = UIColor(white: 0.0, alpha: 0.1)
-        if let revisionString = Bundle.main.infoDictionary?["Revision"] as? String, !revisionString.isEmpty {
+        if var revisionString = Bundle.main.infoDictionary?["Revision"] as? String, !revisionString.isEmpty {
+            if !masterBranch {
+                revisionString = "\(kGITBranch)/\(revisionString)"
+            }
             revisionLabel.text = revisionString
         } else {
             revisionLabel.textColor = color ?? UIColor.clear
@@ -93,6 +118,9 @@ class PVSettingsViewController: UITableViewController, SFSafariViewControllerDel
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+		reachability.startNotifier()
+
         let settings = PVSettingsModel.shared
         iCadeControllerSetting.text = iCadeControllerSettingToString(settings.myiCadeControllerSetting)
 
@@ -106,7 +134,8 @@ class PVSettingsViewController: UITableViewController, SFSafariViewControllerDel
     }
 
     @IBAction func help(_ sender: Any) {
-        UIApplication.shared.openURL((URL(string: "https://github.com/jasarien/Provenance/wiki"))!)
+		let webVC = WebkitViewController(url: URL(string: "https://github.com/Provenance-Emu/Provenance/wiki")!)
+		navigationController?.pushViewController(webVC, animated: true)
     }
 
     @IBAction func toggleFPSCount(_ sender: Any) {
@@ -122,8 +151,8 @@ class PVSettingsViewController: UITableViewController, SFSafariViewControllerDel
     }
 
     @IBAction func controllerOpacityChanged(_ sender: Any) {
-        opacitySlider.value = floor(opacitySlider.value / 0.05) * 0.05
-        opacityValueLabel.text = String(format: "%.0f%%", opacitySlider.value * 100)
+        opacitySlider.value = floor(opacitySlider.value / Float(0.05)) * Float(0.05)
+        opacityValueLabel.text = String(format: "%.0f%%", opacitySlider.value * Float(100.0))
         PVSettingsModel.shared.controllerOpacity = CGFloat(opacitySlider.value)
     }
 
@@ -151,6 +180,19 @@ class PVSettingsViewController: UITableViewController, SFSafariViewControllerDel
     @IBAction func toggleButtonTints(_ sender: Any) {
         PVSettingsModel.sharedInstance().buttonTints = tintSwitch.isOn
     }
+
+    @IBAction func toggleStartSelectAlwaysOn(_ sender: Any) {
+        PVSettingsModel.sharedInstance().startSelectAlwaysOn = startSelectSwitch.isOn
+    }
+    
+    @IBAction func toggleVolumeHUD(_ sender: Any) {
+        PVSettingsModel.sharedInstance().volumeHUD = volumeHUDSwitch.isOn
+    }
+    
+    @IBAction func toggleAllRightShoulders(_ sender: Any) {
+        PVSettingsModel.sharedInstance().allRightShoulders = allRightShouldersSwitch.isOn
+    }
+    
 
     // Show web server (stays on)
     @available(iOS 9.0, *)
@@ -190,7 +232,7 @@ class PVSettingsViewController: UITableViewController, SFSafariViewControllerDel
         ipField.font = UIFont.systemFont(ofSize: 13)
         ipField.textColor = UIColor.gray
 		let ipFieldText = """
-        WebUI:  \(PVWebServer.shared.urlString)
+        WebUI: \(PVWebServer.shared.urlString)
         WebDav: \(PVWebServer.shared.webDavURLString)
         """
         ipField.text = ipFieldText
@@ -211,17 +253,16 @@ class PVSettingsViewController: UITableViewController, SFSafariViewControllerDel
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 && indexPath.row == 3 {
+        if indexPath.section == 2 && indexPath.row == 6 {
             let iCadeControllerViewController = PViCadeControllerViewController()
             navigationController?.pushViewController(iCadeControllerViewController, animated: true)
         } else if indexPath.section == 3 && indexPath.row == 0 {
             // import/export roms and game saves button
             tableView.deselectRow(at: tableView.indexPathForSelectedRow ?? IndexPath(row: 0, section: 0), animated: true)
-                // Check to see if we are connected to WiFi. Cannot continue otherwise.
-            let reachability = Reachability.forLocalWiFi()
-            reachability.startNotifier()
-            let status: NetworkStatus = reachability.currentReachabilityStatus()
-            if status != ReachableViaWiFi {
+
+			let status: NetworkStatus = reachability.currentReachabilityStatus()
+
+			if status != .reachableViaWiFi {
                 let alert = UIAlertController(title: "Unable to start web server!", message: "Your device needs to be connected to a WiFi network to continue!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(_ action: UIAlertAction) -> Void in
                 }))
@@ -305,10 +346,10 @@ class ThemeSelectorViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            Theme.setTheme(LightTheme())
+            Theme.currentTheme = Theme.lightTheme
             PVSettingsModel.shared.theme = .light
         } else if indexPath.row == 1 {
-            Theme.setTheme(DarkTheme())
+            Theme.currentTheme = Theme.darkTheme
             PVSettingsModel.shared.theme = .dark
         }
 

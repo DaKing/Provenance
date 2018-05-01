@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import RealmSwift
+// import RealmSwift
 import UIKit
 
 public extension Notification.Name {
@@ -105,7 +105,7 @@ public class RealmConfiguration {
         #else
             let deleteIfMigrationNeeded = false
         #endif
-        let config = Realm.Configuration(fileURL: realmURL, inMemoryIdentifier: nil, syncConfiguration: nil, encryptionKey: nil, readOnly: false, schemaVersion: 2, migrationBlock: migrationBlock, deleteRealmIfMigrationNeeded: false, shouldCompactOnLaunch: nil, objectTypes: nil)
+        let config = Realm.Configuration(fileURL: realmURL, inMemoryIdentifier: nil, syncConfiguration: nil, encryptionKey: nil, readOnly: false, schemaVersion: 3, migrationBlock: migrationBlock, deleteRealmIfMigrationNeeded: false, shouldCompactOnLaunch: nil, objectTypes: nil)
         return config
     }()
 }
@@ -139,11 +139,18 @@ extension Thread {
 
 public final class RomDatabase {
 
+	static var databaseInitilized = false
+
+	public class func initDefaultDatabase() throws {
+		if !databaseInitilized {
+			RealmConfiguration.setDefaultRealmConfig()
+			try _sharedInstance = RomDatabase()
+			databaseInitilized = true
+		}
+	}
+
     // Private shared instance that propery initializes
-    private static var _sharedInstance: RomDatabase = {
-        RealmConfiguration.setDefaultRealmConfig()
-        return RomDatabase()
-    }()
+    private static var _sharedInstance: RomDatabase?
 
     // Public shared instance that makes sure threads are handeled right
     // TODO: Since if a function calls a bunch of RomDatabase.sharedInstance calls,
@@ -154,7 +161,7 @@ public final class RomDatabase {
     // and RomDatabase would just exist to provide context instances and init the initial database - jm
     public static var sharedInstance: RomDatabase {
         // Make sure real shared is inited first
-        let shared = RomDatabase._sharedInstance
+        let shared = RomDatabase._sharedInstance!
 
         if Thread.isMainThread {
             return shared
@@ -162,7 +169,7 @@ public final class RomDatabase {
             if let realm = Thread.current.realm {
                 return realm
             } else {
-                let realm = RomDatabase.temporaryDatabaseContext()
+                let realm = try! RomDatabase.temporaryDatabaseContext()
                 Thread.current.realm = realm
                 return realm
             }
@@ -170,18 +177,14 @@ public final class RomDatabase {
     }
 
     // For multi-threading
-    fileprivate static func temporaryDatabaseContext() -> RomDatabase {
-        return RomDatabase()
+    fileprivate static func temporaryDatabaseContext() throws -> RomDatabase {
+        return try RomDatabase()
     }
 
     private(set) public var realm: Realm
 
-    private init() {
-        do {
-            self.realm = try Realm()
-        } catch {
-            fatalError("\(error.localizedDescription)")
-        }
+    private init() throws {
+		self.realm = try Realm()
     }
 }
 
@@ -250,44 +253,171 @@ public extension RomDatabase {
 public extension RomDatabase {
     @objc
     public func writeTransaction(_ block: () -> Void) throws {
-        try realm.write {
-            block()
-        }
+		if realm.isInWriteTransaction {
+			block()
+		} else {
+			try realm.write {
+				block()
+			}
+		}
     }
 
     @objc
     public func add(_ object: Object, update: Bool = false) throws {
-        try realm.write {
+		try writeTransaction {
             realm.add(object, update: update)
         }
     }
 
     public func add<T: Object>(objects: [T], update: Bool = false) throws {
-        try realm.write {
+		try writeTransaction {
             realm.add(objects, update: update)
         }
     }
 
     @objc
     public func deleteAll() throws {
-        try realm.write {
+		try writeTransaction {
             realm.deleteAll()
         }
     }
 
     public func deleteAll<T: Object>(_ type: T.Type) throws {
-        try realm.write {
-            realm.delete(realm.objects(type))
-        }
+		try writeTransaction {
+			realm.delete(realm.objects(type))
+		}
     }
 
     @objc
     public func delete(_ object: Object) throws {
-        try realm.write {
+		try writeTransaction {
             realm.delete(object)
         }
     }
+
+	func renameGame(_ game: PVGame, toTitle title: String) {
+		if title.count != 0 {
+			do {
+				try RomDatabase.sharedInstance.writeTransaction {
+					game.title = title
+				}
+			} catch {
+				ELOG("Failed to rename game \(game.title)\n\(error.localizedDescription)")
+			}
+		}
+	}
+
+	func delete(game: PVGame) {
+		let romURL = PVEmulatorConfiguration.path(forGame: game)
+
+		if !game.customArtworkURL.isEmpty {
+			do {
+				try PVMediaCache.deleteImage(forKey: game.customArtworkURL)
+			} catch {
+				ELOG("Failed to delete image " + game.customArtworkURL)
+			}
+		}
+
+		let savesPath = PVEmulatorConfiguration.saveStatePath(forGame: game)
+		do {
+			try FileManager.default.removeItem(at: savesPath)
+		} catch {
+			WLOG("Unable to delete save states at path: " + savesPath.path + "because: " + error.localizedDescription)
+		}
+
+		let batteryPath = PVEmulatorConfiguration.batterySavesPath(forGame: game)
+		do {
+			try FileManager.default.removeItem(at: batteryPath)
+		} catch {
+			WLOG("Unable to delete battery states at path: \(batteryPath.path) because: \(error.localizedDescription)")
+		}
+
+		do {
+			try FileManager.default.removeItem(at: romURL)
+		} catch {
+			WLOG("Unable to delete rom at path: \(romURL.path) because: \(error.localizedDescription)")
+		}
+
+		// Delete from Spotlight search
+		#if os(iOS)
+		if #available(iOS 9.0, *) {
+			deleteFromSpotlight(game: game)
+		}
+		#endif
+
+		game.saveStates.forEach { try? $0.delete() }
+		game.recentPlays.forEach { try? $0.delete() }
+		game.screenShots.forEach { try? $0.delete() }
+
+		deleteRelatedFilesGame(game)
+		try? game.delete()
+	}
+
+	func deleteRelatedFilesGame(_ game: PVGame) {
+
+		game.relatedFiles.forEach {
+			try? FileManager.default.removeItem(at: $0.url )
+		}
+		
+		guard let system = game.system else {
+			ELOG("Game \(game.title) belongs to an unknown system \(game.systemIdentifier)")
+			return
+		}
+
+		let romDirectory = system.romsDirectory
+		let relatedFileName: String = game.url.deletingPathExtension().lastPathComponent
+
+		let contents: [URL]
+		do {
+			contents = try FileManager.default.contentsOfDirectory(at: romDirectory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+		} catch {
+			ELOG("scanning \(romDirectory) \(error.localizedDescription)")
+			return
+		}
+
+		let matchingFiles = contents.filter {
+			let filename = $0.deletingPathExtension().lastPathComponent
+			return filename.contains(relatedFileName)
+		}
+
+		matchingFiles.forEach {
+			let file = romDirectory.appendingPathComponent( $0.lastPathComponent, isDirectory: false)
+			do {
+				try FileManager.default.removeItem(at: file)
+			} catch {
+				ELOG("Failed to remove item \(file.path).\n \(error.localizedDescription)")
+			}
+		}
+	}
 }
+
+// MARK: - Spotlight
+#if os(iOS)
+import CoreSpotlight
+
+@available(iOS 9.0, *)
+extension RomDatabase {
+	private func deleteFromSpotlight(game: PVGame) {
+		CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [game.spotlightUniqueIdentifier], completionHandler: { (error) in
+			if let error = error {
+				print("Error deleting game spotlight item: \(error)")
+			} else {
+				print("Game indexing deleted.")
+			}
+		})
+	}
+
+	private func deleteAllGamesFromSpotlight() {
+		CSSearchableIndex.default().deleteAllSearchableItems { (error) in
+			if let error = error {
+				print("Error deleting all games spotlight index: \(error)")
+			} else {
+				print("Game indexing deleted.")
+			}
+		}
+	}
+}
+#endif
 
 public extension RomDatabase {
     @objc

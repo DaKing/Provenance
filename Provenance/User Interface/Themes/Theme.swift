@@ -112,7 +112,7 @@ struct DarkTheme: iOSTheme {
     var defaultTintColor: UIColor? { return UIColor(hex: "#848489")! }
     var keyboardAppearance: UIKeyboardAppearance = .dark
 
-    var switchON: UIColor? { return UIColor(hex: "#848489")! }
+    var switchON: UIColor? { return UIColor(hex: "#18A9F7")! }
     var switchThumb: UIColor? { return UIColor(hex: "#eee")! }
 
     var gameLibraryBackground: UIColor { return UIColor.black }
@@ -121,7 +121,7 @@ struct DarkTheme: iOSTheme {
     var gameLibraryHeaderBackground: UIColor {return UIColor.black}
     var gameLibraryHeaderText: UIColor { return UIColor(hex: "#333")! }
 
-    var barButtonItemTint: UIColor? { return UIColor.darkGray }
+	var barButtonItemTint: UIColor? { return UIColor(hex: "#18A9F7") }
     var navigationBarBackgroundColor: UIColor? {return UIColor(hex: "#1C1C1C") }
 
     var alertViewBackground: UIColor { return UIColor.darkGray }
@@ -152,22 +152,30 @@ struct LightTheme: iOSTheme {
 }
 
 //@available(iOS 9.0, *)
-public class Theme: NSObject {
+public class Theme {
 
-    public static var currentTheme: iOSTheme = LightTheme()
+	public static var currentTheme: iOSTheme = LightTheme() {
+		didSet {
+			setTheme(currentTheme)
+			UIApplication.shared.refreshAppearance(animated: true)
+		}
+	}
 
-    class func setTheme(_ theme: iOSTheme) {
-        currentTheme = theme
+//	class func test() {
+//		let light = AppearanceStyle("light")
+//	}
 
+    private class func setTheme(_ theme: iOSTheme) {
         UINavigationBar.appearance {
             $0.backgroundColor = theme.navigationBarBackgroundColor
-            $0.barTintColor = theme.navigationBarBackgroundColor
+            $0.tintColor = theme.barButtonItemTint
             $0.barStyle = theme.navigationBarStyle
+			$0.isTranslucent = true
         }
 
-        UIView.appearance {
-            $0.tintColor = theme.defaultTintColor
-        }
+//        UIView.appearance {
+//            $0.tintColor = theme.defaultTintColor
+//        }
 
         UIBarButtonItem.appearance {
             $0.tintColor = theme.barButtonItemTint
@@ -189,29 +197,31 @@ public class Theme: NSObject {
         }
 
         // Settings
-        appearance(in: SettingsTableView.self) {
-            UITableViewCell.appearance {
-                $0.backgroundColor = theme.settingsCellBackground
-                $0.textLabel?.backgroundColor = theme.settingsCellBackground
-                $0.textLabel?.textColor = theme.settingsCellText
-                $0.detailTextLabel?.textColor = theme.settingsCellText
-            }
-        }
+		if #available(iOS 9.0, *) {
+			appearance(in: [SettingsTableView.self]) {
+				UITableViewCell.appearance {
+					$0.backgroundColor = theme.settingsCellBackground
+					$0.textLabel?.backgroundColor = theme.settingsCellBackground
+					$0.textLabel?.textColor = theme.settingsCellText
+					$0.detailTextLabel?.textColor = theme.settingsCellText
+				}
+			}
 
-        appearance(in: UITableViewCell.self) {
-            UILabel.appearance {
-                $0.textColor = theme.settingsCellText
-            }
-        }
+			appearance(in: [UITableViewCell.self]) {
+				UILabel.appearance {
+					$0.textColor = theme.settingsCellText
+				}
+			}
+
+			appearance(in: [UITableViewHeaderFooterView.self]) {
+				UILabel.appearance {
+					$0.textColor = theme.settingsHeaderText
+				}
+			}
+		}
 
         UITableViewHeaderFooterView.appearance {
             $0.backgroundColor = theme.settingsHeaderBackground
-        }
-
-        appearance(in: UITableViewHeaderFooterView.self) {
-            UILabel.appearance {
-                $0.textColor = theme.settingsHeaderText
-            }
         }
 
         let selectedView = UIView()
@@ -232,7 +242,7 @@ public class Theme: NSObject {
 
         // Appearacne in is only in 9+
         if #available(iOS 9.0, *) {
-            appearance(in: PVGameLibrarySectionHeaderView.self) {
+            appearance(in: [PVGameLibrarySectionHeaderView.self]) {
                 UILabel.appearance {
                     $0.backgroundColor = theme.gameLibraryHeaderBackground
                     $0.textColor = theme.gameLibraryHeaderText
@@ -279,6 +289,10 @@ public class Theme: NSObject {
                 }
             }
         }
-
     }
+}
+
+extension Theme {
+	static let lightTheme = LightTheme()
+	static let darkTheme = DarkTheme()
 }

@@ -8,6 +8,7 @@
 
 #import "PVGLViewController.h"
 #import <PVSupport/PVEmulatorCore.h>
+#import <PVSupport/DebugUtils.h>
 #import "Provenance-Swift.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -55,6 +56,8 @@ struct RenderSettings {
 @property (nonatomic, strong) EAGLContext *glContext;
 @property (nonatomic, strong) EAGLContext *alternateThreadGLContext;
 @property (nonatomic, strong) EAGLContext *alternateThreadBufferCopyGLContext;
+@property (nonatomic, assign) GLESVersion glesVersion;
+
 @end
 
 @implementation PVGLViewController
@@ -147,11 +150,15 @@ struct RenderSettings {
 
 	[self setPreferredFramesPerSecond:60];
 
-	self.glContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-    if (self.glContext == nil)
-    {
-        self.glContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    self.glContext = [self bestContext];
+
+    if (self.glContext == nil) {
+        // TODO: Alert NO gl here
+        return;
     }
+
+    ILOG("Initiated GLES version %lu", (unsigned long)self.glContext.API);
+
 	[EAGLContext setCurrentContext:self.glContext];
 
 	GLKView *view = (GLKView *)self.view;
@@ -168,6 +175,22 @@ struct RenderSettings {
     alternateThreadColorTextureBack = 0;
     alternateThreadColorTextureFront = 0;
     alternateThreadDepthRenderbuffer = 0;
+}
+
+-(EAGLContext*)bestContext {
+    EAGLContext* context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+    self.glesVersion = GLESVersion3;
+    if (context == nil)
+    {
+        context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        self.glesVersion = GLESVersion2;
+        if (context == nil) {
+            context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+            self.glesVersion = GLESVersion1;
+        }
+    }
+
+    return context;
 }
 
 - (void)viewDidLayoutSubviews
@@ -412,23 +435,27 @@ struct RenderSettings {
         videoBufferSize = [self.emulatorCore bufferSize];
         videoBuffer = [self.emulatorCore videoBuffer];
     };
-    
+
+    MAKEWEAK(self);
+
     void (^renderBlock)(void) = ^()
     {
+        MAKESTRONG(self);
+
         glClearColor(1.0, 1.0, 1.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
         
         GLuint frontBufferTex;
         if ([self.emulatorCore rendersToOpenGL])
         {
-            frontBufferTex = alternateThreadColorTextureFront;
+            frontBufferTex = strongself->alternateThreadColorTextureFront;
             [self.emulatorCore.frontBufferLock lock];
         }
         else
         {
-            glBindTexture(GL_TEXTURE_2D, texture);
+            glBindTexture(GL_TEXTURE_2D, strongself->texture);
             glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, videoBufferSize.width, videoBufferSize.height, videoBufferPixelFormat, videoBufferPixelType, videoBuffer);
-            frontBufferTex = texture;
+            frontBufferTex = strongself->texture;
         }
         
         if (frontBufferTex)
@@ -437,20 +464,20 @@ struct RenderSettings {
             glBindTexture(GL_TEXTURE_2D, frontBufferTex);
         }
         
-        if (renderSettings.crtFilterEnabled)
+        if (strongself->renderSettings.crtFilterEnabled)
         {
-            glUseProgram(crtShaderProgram);
-            glUniform4f(crtUniform_DisplayRect, screenRect.origin.x, screenRect.origin.y, screenRect.size.width, screenRect.size.height);
-            glUniform1i(crtUniform_EmulatedImage, 0);
-            glUniform2f(crtUniform_EmulatedImageSize, videoBufferSize.width, videoBufferSize.height);
+            glUseProgram(strongself->crtShaderProgram);
+            glUniform4f(strongself->crtUniform_DisplayRect, screenRect.origin.x, screenRect.origin.y, screenRect.size.width, screenRect.size.height);
+            glUniform1i(strongself->crtUniform_EmulatedImage, 0);
+            glUniform2f(strongself->crtUniform_EmulatedImageSize, videoBufferSize.width, videoBufferSize.height);
             float finalResWidth = view.drawableWidth;
             float finalResHeight = view.drawableHeight;
-            glUniform2f(crtUniform_FinalRes, finalResWidth, finalResHeight);
+            glUniform2f(strongself->crtUniform_FinalRes, finalResWidth, finalResHeight);
         }
         else
         {
-            glUseProgram(blitShaderProgram);
-            glUniform1i(blitUniform_EmulatedImage, 0);
+            glUseProgram(strongself->blitShaderProgram);
+            glUniform1i(strongself->blitUniform_EmulatedImage, 0);
         }
         
         glDisable(GL_DEPTH_TEST);
@@ -458,7 +485,7 @@ struct RenderSettings {
         
         [self updateVBOWithScreenRect:screenRect andVideoBufferSize:videoBufferSize];
         
-        glBindBuffer(GL_ARRAY_BUFFER, vertexVBO);
+        glBindBuffer(GL_ARRAY_BUFFER, strongself->vertexVBO);
         
         glEnableVertexAttribArray(GLKVertexAttribPosition);
         glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(struct PVVertex), BUFFER_OFFSET(0));
@@ -468,7 +495,7 @@ struct RenderSettings {
         
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexVBO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, strongself->indexVBO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, NULL);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         
@@ -477,10 +504,10 @@ struct RenderSettings {
         
         glBindTexture(GL_TEXTURE_2D, 0);
         
-        if ([self.emulatorCore rendersToOpenGL])
+        if ([strongself->_emulatorCore rendersToOpenGL])
         {
             glFlush();
-            [self.emulatorCore.frontBufferLock unlock];
+            [strongself->_emulatorCore.frontBufferLock unlock];
         }
     };
     
@@ -539,6 +566,7 @@ struct RenderSettings {
 
 - (void)startRenderingOnAlternateThread
 {
+    self.emulatorCore.glesVersion = self.glesVersion;
     self.alternateThreadBufferCopyGLContext = [[EAGLContext alloc] initWithAPI:[self.glContext API] sharegroup:[self.glContext sharegroup]];
     [EAGLContext setCurrentContext:self.alternateThreadBufferCopyGLContext];
     

@@ -39,7 +39,17 @@ import UIKit
         override open func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
             setDefaultOverrides()
+			if let popoverPresentationController = popoverPresentationController {
+				popoverPresentationController.backgroundColor = .clear
+
+			}
         }
+
+		open override func viewWillAppear(_ animated: Bool) {
+			super.viewWillAppear(animated)
+			setDefaultOverrides()
+
+		}
 
         // Set how you want your defaults to be for all instances of UIAlertController
         func setDefaultOverrides() {
@@ -47,10 +57,10 @@ import UIKit
             let overrides = UIAlertControllerOverrides(backgroundColor: Theme.currentTheme.settingsCellBackground,
                                                        textColor: Theme.currentTheme.settingsCellText,
                                                        borderColor:  Theme.currentTheme.settingsCellText?.withAlphaComponent(0.6),
-                                                       borderWidth: 0.5,
+                                                       borderWidth: 0.0,
                                                        cornerRadius: 10.0,
                                                        cancelBackgroundColor: Theme.currentTheme.settingsCellBackground,
-                                                       cancelTextColor: UIColor.green.withAlphaComponent(0.85),
+                                                       cancelTextColor: UIColor.init(white: 0.9, alpha: 1),
                                                        destructiveBackgroundColor: UIColor.init(red: 0.5, green: 0.15, blue: 0.15, alpha: 1.0),
                                                        destructiveTextColor: UIColor.init(white: 0.9, alpha: 1))
             setOverrideSettings(overrides)
@@ -61,15 +71,23 @@ import UIKit
             let AlertContentViews: [UIView?] = [FirstSubview?.subviews.first, FirstSubview?.subviews.last]
 
             // Find the titles of UIAlertActions that are .cancel type
-            let cancelTitles: [String] = self.actions.filter {$0.style == .cancel}.flatMap {return $0.title}
+			#if swift(>=4.1)
+            let cancelTitles: [String] = self.actions.filter {$0.style == .cancel}.compactMap {return $0.title}
+			#else
+			let cancelTitles: [String] = self.actions.filter {$0.style == .cancel}.flatMap {return $0.title}
+			#endif
 
             // Find the titles of UIAlertActions that are .destructive type
-            let destructiveTitles: [String] = self.actions.filter {$0.style == .destructive}.flatMap {return $0.title}
+			#if swift(>=4.1)
+            let destructiveTitles: [String] = self.actions.filter {$0.style == .destructive}.compactMap {return $0.title}
+			#else
+			let destructiveTitles: [String] = self.actions.filter {$0.style == .destructive}.flatMap {return $0.title}
+			#endif
 
             // TODO: Could do the same for 'destructive' types
 
             AlertContentViews.forEach {
-                print("AlertContentSubview \(String(describing: $0))")
+//                print("AlertContentSubview \(String(describing: $0))")
 
                 $0?.subviews.forEach({ (subview) in
                     if let backgroundColor = settings.backgroundColor {
@@ -137,14 +155,25 @@ import UIKit
 
         // Assistance function to recursively get all subviews of a type
         func getAllSubviews<T: UIView>(ofType type: T.Type, forView view: UIView?) -> [T]? {
-            let mapped = view?.subviews.flatMap { subView -> [T]? in
-                var result = getAllSubviews(ofType: T.self, forView: subView)
-                if let view = subView as? T {
-                    result = result ?? [T]()
-                    result!.append(view)
-                }
-                return result
-            }
+			#if swift(>=4.1)
+			let mapped = view?.subviews.compactMap { subView -> [T]? in
+				var result = getAllSubviews(ofType: T.self, forView: subView)
+				if let view = subView as? T {
+					result = result ?? [T]()
+					result!.append(view)
+				}
+				return result
+			}
+			#else
+			let mapped = view?.subviews.flatMap { subView -> [T]? in
+				var result = getAllSubviews(ofType: T.self, forView: subView)
+				if let view = subView as? T {
+					result = result ?? [T]()
+					result!.append(view)
+				}
+				return result
+			}
+			#endif
 
             return mapped != nil ? Array(mapped!.joined()) : nil
         }

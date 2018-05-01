@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import RealmSwift
+// import RealmSwift
 
 @objcMembers public class PVCore: Object {
     dynamic var identifier: String = ""
@@ -17,6 +17,9 @@ import RealmSwift
     dynamic var projectName = ""
     dynamic var projectURL = ""
     dynamic var projectVersion = ""
+
+	// Reverse links
+	var saveStates = LinkingObjects(fromType: PVSaveState.self, property: "core")
 
     public convenience init(withIdentifier identifier: String, principleClass: String, supportedSystems: [PVSystem], name: String, url: String, version: String) {
         self.init()
