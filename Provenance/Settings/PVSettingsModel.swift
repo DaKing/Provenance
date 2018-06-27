@@ -10,7 +10,7 @@
 import Foundation
 
 let kAutoSaveKey = "kAutoSaveKey"
-let kAutoLoadAutoSavesKey = "kAutoLoadAutoSavesKey"
+let kAutoLoadSavesKey = "kAutoLoadSavesKey"
 let kControllerOpacityKey = "kControllerOpacityKey"
 let kAskToAutoLoadKey = "kAskToAutoLoadKey"
 let kDisableAutoLockKey = "kDisableAutoLockKey"
@@ -19,6 +19,9 @@ let kImageSmoothingKey = "kImageSmoothingKey"
 let kCRTFilterKey = "kCRTFilterKey"
 let kShowRecentGamesKey = "kShowRecentGamesKey"
 let kShowRecentSavesKey = "kShowRecentSavesKey"
+let kShowGameBadgesKey = "kShowGameBadgesKey"
+let kTimedAutoSaves = "kTimedAutoSavesKey"
+let kTimedAutoSaveInterval = "kTimedAutoSaveIntervalKey"
 let kICadeControllerSettingKey = "kiCadeControllerSettingKey"
 let kVolumeSettingKey = "kVolumeSettingKey"
 let kFPSCountKey = "kFPSCountKey"
@@ -29,6 +32,7 @@ let kButtonTintsKey = "kButtonsTintsKey"
 let kStartSelectAlwaysOnKey = "kStartSelectAlwaysOnKey"
 let kAllRightShouldersKey = "kAllRightShouldersKey"
 let kVolumeHUDKey = "kVolumeHUDKey"
+let kGameLibraryScaleKey = "kkGameLibraryScaleKey"
 
 public class PVSettingsModel: NSObject {
 
@@ -40,6 +44,22 @@ public class PVSettingsModel: NSObject {
         }
     }
 
+	@objc
+	var timedAutoSaves: Bool {
+		didSet {
+			UserDefaults.standard.set(timedAutoSaves, forKey: kTimedAutoSaves)
+			UserDefaults.standard.synchronize()
+		}
+	}
+
+	@objc
+	var timedAutoSaveInterval: Double {
+		didSet {
+			UserDefaults.standard.set(timedAutoSaveInterval, forKey: kTimedAutoSaveInterval)
+			UserDefaults.standard.synchronize()
+		}
+	}
+
     @objc
     var askToAutoLoad: Bool {
       didSet {
@@ -49,9 +69,9 @@ public class PVSettingsModel: NSObject {
     }
 
     @objc
-    var autoLoadAutoSaves: Bool {
+    var autoLoadSaves: Bool {
        didSet {
-            UserDefaults.standard.set(autoLoadAutoSaves, forKey: kAutoLoadAutoSavesKey)
+            UserDefaults.standard.set(autoLoadSaves, forKey: kAutoLoadSavesKey)
             UserDefaults.standard.synchronize()
         }
     }
@@ -97,6 +117,14 @@ public class PVSettingsModel: NSObject {
 		}
 	}
 
+	@objc
+	var showGameBadges: Bool {
+		didSet {
+			UserDefaults.standard.set(showGameBadges, forKey: kShowGameBadgesKey)
+			UserDefaults.standard.synchronize()
+		}
+	}
+
     @objc
     var showRecentGames: Bool {
         didSet {
@@ -120,6 +148,14 @@ public class PVSettingsModel: NSObject {
             UserDefaults.standard.synchronize()
         }
     }
+
+	@objc
+	var gameLibraryScale: Double {
+		didSet {
+			UserDefaults.standard.set(gameLibraryScale, forKey: kGameLibraryScaleKey)
+			UserDefaults.standard.synchronize()
+		}
+	}
 
     @objc
     var webDavAlwaysOn: Bool {
@@ -168,7 +204,7 @@ public class PVSettingsModel: NSObject {
             UserDefaults.standard.synchronize()
         }
     }
-    
+
     @objc
     var volume: Float {
         didSet {
@@ -176,7 +212,7 @@ public class PVSettingsModel: NSObject {
             UserDefaults.standard.synchronize()
         }
     }
-    
+
     @objc
     var volumeHUD: Bool {
         didSet {
@@ -207,10 +243,17 @@ public class PVSettingsModel: NSObject {
         #else
         let theme = ""
         #endif
+		#if os(tvOS) && DEBUG
+		let initialkStartSelectAlwaysOnKey = true
+		#else
+		let initialkStartSelectAlwaysOnKey = false
+		#endif
 
         UserDefaults.standard.register(defaults: [kAutoSaveKey: true,
+												  kTimedAutoSaves: true,
+												  kTimedAutoSaveInterval: minutes(10),
                                                   kAskToAutoLoadKey: true,
-                                                  kAutoLoadAutoSavesKey: false,
+                                                  kAutoLoadSavesKey: false,
                                                   kControllerOpacityKey: 0.8,
                                                   kDisableAutoLockKey: false,
                                                   kButtonVibrationKey: true,
@@ -218,20 +261,24 @@ public class PVSettingsModel: NSObject {
                                                   kCRTFilterKey: false,
                                                   kShowRecentGamesKey: true,
 												  kShowRecentSavesKey: true,
+												  kShowGameBadgesKey: true,
                                                   kICadeControllerSettingKey: iCadeControllerSetting.settingDisabled.rawValue,
                                                   kVolumeSettingKey: 1.0,
                                                   kFPSCountKey: false,
                                                   kShowGameTitlesKey: true,
                                                   kWebDayAlwwaysOnKey: false,
                                                   kButtonTintsKey: false,
-                                                  kStartSelectAlwaysOnKey: false,
+												  kStartSelectAlwaysOnKey: initialkStartSelectAlwaysOnKey,
                                                   kAllRightShouldersKey: false,
                                                   kVolumeHUDKey: true,
+												  kGameLibraryScaleKey: 1.0,
                                                   kThemeKey: theme])
         UserDefaults.standard.synchronize()
 
         autoSave = UserDefaults.standard.bool(forKey: kAutoSaveKey)
-        autoLoadAutoSaves = UserDefaults.standard.bool(forKey: kAutoLoadAutoSavesKey)
+		timedAutoSaves = UserDefaults.standard.bool(forKey: kTimedAutoSaves)
+		timedAutoSaveInterval = UserDefaults.standard.double(forKey: kTimedAutoSaveInterval)
+        autoLoadSaves = UserDefaults.standard.bool(forKey: kAutoLoadSavesKey)
         controllerOpacity = CGFloat(UserDefaults.standard.float(forKey: kControllerOpacityKey))
         disableAutoLock = UserDefaults.standard.bool(forKey: kDisableAutoLockKey)
         buttonVibration = UserDefaults.standard.bool(forKey: kButtonVibrationKey)
@@ -239,6 +286,7 @@ public class PVSettingsModel: NSObject {
         crtFilterEnabled = UserDefaults.standard.bool(forKey: kCRTFilterKey)
 		showRecentSaveStates = UserDefaults.standard.bool(forKey: kShowRecentSavesKey)
         showRecentGames = UserDefaults.standard.bool(forKey: kShowRecentGamesKey)
+		showGameBadges = UserDefaults.standard.bool(forKey: kShowGameBadgesKey)
         let iCade = UserDefaults.standard.integer(forKey: kICadeControllerSettingKey)
         myiCadeControllerSetting = iCadeControllerSetting(rawValue: Int(iCade))!
         volume = UserDefaults.standard.float(forKey: kVolumeSettingKey)
@@ -250,6 +298,7 @@ public class PVSettingsModel: NSObject {
         startSelectAlwaysOn = UserDefaults.standard.bool(forKey: kStartSelectAlwaysOnKey)
         allRightShoulders = UserDefaults.standard.bool(forKey: kAllRightShouldersKey)
         volumeHUD = UserDefaults.standard.bool(forKey: kVolumeHUDKey)
+		gameLibraryScale = UserDefaults.standard.double(forKey: kGameLibraryScaleKey)
 
         #if os(iOS)
         let themeString = UserDefaults.standard.string(forKey: kThemeKey) ?? Themes.defaultTheme.rawValue
@@ -258,4 +307,15 @@ public class PVSettingsModel: NSObject {
 
         super.init()
     }
+
+	@discardableResult
+	func toggle(_ key : String) -> Bool {
+		guard var value = UserDefaults.standard.object(forKey: key) as? Bool else {
+			return false
+		}
+
+		value = !value
+		UserDefaults.standard.set(value, forKey: key)
+		return value
+	}
 }

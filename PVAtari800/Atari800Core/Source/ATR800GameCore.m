@@ -126,7 +126,7 @@ __weak static ATR800GameCore * _currentCore;
     return self.BIOSPath;
 }
 
-- (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
+- (BOOL)loadFileAtPath:(NSString *)path error:(NSError *__autoreleasing *)error
 {
     // Set the default palette (NTSC)
     NSString *palettePath = [[[NSBundle bundleForClass:[self class]] resourcePath] stringByAppendingPathComponent:@"Default.act"];
@@ -353,8 +353,22 @@ __weak static ATR800GameCore * _currentCore;
 }
 
 #pragma mark - Save States
-- (BOOL)saveStateToFileAtPath:(NSString *)fileName {
-    return StateSav_SaveAtariState([fileName UTF8String], "wb", TRUE);
+- (BOOL)saveStateToFileAtPath:(NSString *)fileName error:(NSError**)error {
+    BOOL success = StateSav_SaveAtariState([fileName UTF8String], "wb", TRUE);
+	if (!success) {
+		NSDictionary *userInfo = @{
+								   NSLocalizedDescriptionKey: @"Failed to save state.",
+								   NSLocalizedFailureReasonErrorKey: @"ATR800 failed to create save state.",
+								   NSLocalizedRecoverySuggestionErrorKey: @""
+								   };
+
+		NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+												code:PVEmulatorCoreErrorCodeCouldNotSaveState
+											userInfo:userInfo];
+
+		*error = newError;
+	}
+	return success;
 }
 
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
@@ -363,8 +377,22 @@ __weak static ATR800GameCore * _currentCore;
     if(block) block(success==YES, nil);
 }
 
-- (BOOL)loadStateFromFileAtPath:(NSString *)fileName {
-    return StateSav_ReadAtariState([fileName UTF8String], "rb");
+- (BOOL)loadStateFromFileAtPath:(NSString *)fileName error:(NSError**)error {
+    BOOL success = StateSav_ReadAtariState([fileName UTF8String], "rb");
+	if (!success) {
+		NSDictionary *userInfo = @{
+								   NSLocalizedDescriptionKey: @"Failed to save state.",
+								   NSLocalizedFailureReasonErrorKey: @"Core failed to load save state.",
+								   NSLocalizedRecoverySuggestionErrorKey: @""
+								   };
+
+		NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+												code:PVEmulatorCoreErrorCodeCouldNotLoadState
+											userInfo:userInfo];
+
+		*error = newError;
+	}
+	return success;
 }
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
@@ -632,31 +660,32 @@ __weak static ATR800GameCore * _currentCore;
             GCExtendedGamepad *gamepad     = [controller extendedGamepad];
             GCControllerDirectionPad *dpad = [gamepad dpad];
             
-            // DPAD
+            // D-Pad
             controllerStates[playerIndex].up    = dpad.up.isPressed;
             controllerStates[playerIndex].down  = dpad.down.isPressed;
             controllerStates[playerIndex].left  = dpad.left.isPressed;
             controllerStates[playerIndex].right = dpad.right.isPressed;
 
-            // Buttons
             // Fire 1
-            controllerStates[playerIndex].fire = gamepad.buttonA.isPressed || gamepad.buttonX.isPressed;
+            controllerStates[playerIndex].fire = gamepad.buttonA.isPressed || gamepad.buttonY.isPressed || gamepad.leftTrigger.isPressed;
 
             // Fire 2
-            INPUT_key_shift = gamepad.buttonB.isPressed || gamepad.buttonY.isPressed;
+            INPUT_key_shift = gamepad.buttonB.isPressed || gamepad.buttonX.isPressed || gamepad.rightTrigger.isPressed;
             
             // The following buttons are on a shared bus. Only one at a time.
             // If none, state is reset. Since only one button can be registered
             // at a time, there has to be an preference of order.
             
-            // Reset
-            if (gamepad.leftTrigger.isPressed) {
+            // Start
+            if (gamepad.rightShoulder.isPressed) {
                 INPUT_key_code = AKEY_5200_START;
             }
-            else if (gamepad.rightTrigger.isPressed) {
-                INPUT_key_code = AKEY_5200_PAUSE;
-            }
-            else if (gamepad.leftShoulder.isPressed || gamepad.rightShoulder.isPressed) {
+            // Pause - Opting out for system pause button…
+//            else if (gamepad.leftTrigger.isPressed) {
+//                INPUT_key_code = AKEY_5200_PAUSE;
+//            }
+            // Reset
+            else if (gamepad.leftShoulder.isPressed) {
                 INPUT_key_code = AKEY_5200_RESET;
             } else {
                 INPUT_key_code = AKEY_NONE;
@@ -665,31 +694,32 @@ __weak static ATR800GameCore * _currentCore;
             GCGamepad *gamepad = [controller gamepad];
             GCControllerDirectionPad *dpad = [gamepad dpad];
             
-            // DPAD
+            // D-Pad
             controllerStates[playerIndex].up    = dpad.up.isPressed;
             controllerStates[playerIndex].down  = dpad.down.isPressed;
             controllerStates[playerIndex].left  = dpad.left.isPressed;
             controllerStates[playerIndex].right = dpad.right.isPressed;
             
-            // Buttons
             // Fire 1
-            controllerStates[playerIndex].fire = gamepad.buttonA.isPressed || gamepad.buttonX.isPressed;
+            controllerStates[playerIndex].fire = gamepad.buttonA.isPressed || gamepad.buttonY.isPressed;
             
             // Fire 2
-            INPUT_key_shift = gamepad.buttonB.isPressed;
+            INPUT_key_shift = gamepad.buttonB.isPressed || gamepad.buttonX.isPressed;
             
             // The following buttons are on a shared bus. Only one at a time.
             // If none, state is reset. Since only one button can be registered
             // at a time, there has to be an preference of order.
             
-            // Reset
-            if (gamepad.leftShoulder.isPressed) {
+            // Start
+            if (gamepad.rightShoulder.isPressed) {
                 INPUT_key_code = AKEY_5200_START;
             }
-            else if (gamepad.rightShoulder.isPressed) {
-                INPUT_key_code = AKEY_5200_PAUSE;
-            }
-            else if (gamepad.buttonY.isPressed) {
+            // Pause - Opting out for system pause button…
+//            else if (gamepad.rightShoulder.isPressed) {
+//                INPUT_key_code = AKEY_5200_PAUSE;
+//            }
+            // Reset
+            else if (gamepad.leftShoulder.isPressed) {
                 INPUT_key_code = AKEY_5200_RESET;
             } else {
                 INPUT_key_code = AKEY_NONE;

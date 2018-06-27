@@ -52,6 +52,7 @@
 //#import "mupen64plus-core/src/main/main.h"
 #import <dispatch/dispatch.h>
 #import <PVSupport/PVSupport.h>
+#import <PVSupport/PVLogging.h>
 #import <OpenGLES/ES3/glext.h>
 #import <OpenGLES/ES3/gl.h>
 #import <GLKit/GLKit.h>
@@ -80,14 +81,14 @@ static void (*ptr_SetOSDCallback)(void (*inPV_OSD_Callback)(const char *_pText, 
 EXPORT static void PV_DrawOSD(const char *_pText, float _x, float _y)
 {
 #if DEBUG
-//	DLOG("%s", _pText);
+//	DLOG(@"%s", _pText);
 #endif
 }
 
 static void MupenDebugCallback(void *context, int level, const char *message)
 {
 #if DEBUG
-    NSLog(@"Mupen (%d): %s", level, message);
+    DLOG(@"Mupen (%d): %s", level, message);
 #endif
 }
 
@@ -101,7 +102,7 @@ static void MupenFrameCallback(unsigned int FrameIndex) {
 
 static void MupenStateCallback(void *context, m64p_core_param paramType, int newValue)
 {
-    NSLog(@"Mupen: param %d -> %d", paramType, newValue);
+    ILOG(@"Mupen: param %d -> %d", paramType, newValue);
     [((__bridge MupenGameCore *)context) OE_didReceiveStateChangeForParamType:paramType value:newValue];
 }
 
@@ -168,9 +169,9 @@ static void MupenStateCallback(void *context, m64p_core_param paramType, int new
         // Note: DL close doesn't really work as expected on iOS. The framework will still essentially be loaded
         // take care to reset static variables that are expected to have cleared memory between uses.
         if(dlclose(core_handle) != 0) {
-            NSLog(@"Failed to dlclose core framework.");
+            ELOG(@"Failed to dlclose core framework.");
         } else {
-            NSLog(@"dlclosed core framework.");
+            ILOG(@"dlclosed core framework.");
         }
         core_handle = NULL;
     }
@@ -291,53 +292,86 @@ static void MupenInitiateControllers (CONTROL_INFO ControlInfo)
             GCExtendedGamepad *gamepad     = [controller extendedGamepad];
             GCControllerDirectionPad *dpad = [gamepad dpad];
 
-			// Left Joystick -> Joystick
+			// Left Joystick → Joystick
             xAxis[playerIndex] = gamepad.leftThumbstick.xAxis.value * N64_ANALOG_MAX;
             yAxis[playerIndex] = gamepad.leftThumbstick.yAxis.value * N64_ANALOG_MAX;
 
-			// DPad -> DPad
+			// MFi-D-Pad → D-Pad
             padData[playerIndex][PVN64ButtonDPadUp] = dpad.up.isPressed;
             padData[playerIndex][PVN64ButtonDPadDown] = dpad.down.isPressed;
             padData[playerIndex][PVN64ButtonDPadLeft] = dpad.left.isPressed;
             padData[playerIndex][PVN64ButtonDPadRight] = dpad.right.isPressed;
 
-			// A,Y -> A
-			// X,B -> B
-            padData[playerIndex][PVN64ButtonA] = gamepad.buttonA.isPressed || gamepad.buttonY.isPressed;
-            padData[playerIndex][PVN64ButtonB] = gamepad.buttonX.isPressed || gamepad.buttonB.isPressed;
-
-			// Right Trigger -> Start
+			// MFi-R2 → Start
             padData[playerIndex][PVN64ButtonStart] = gamepad.rightTrigger.isPressed;
-
-			// L / R Shoulder -> L / R
-            padData[playerIndex][PVN64ButtonL] = gamepad.leftShoulder.isPressed;
-            padData[playerIndex][PVN64ButtonR] = gamepad.rightShoulder.isPressed;
-
-			// Left Trigger -> Z
-            padData[playerIndex][PVN64ButtonZ] = gamepad.leftTrigger.isPressed;
-
-			// Right Joystick -> C Buttons
-            float rightJoystickDeadZone = 0.45;
             
-            padData[playerIndex][PVN64ButtonCUp] = gamepad.rightThumbstick.up.value > rightJoystickDeadZone;
-            padData[playerIndex][PVN64ButtonCDown] = gamepad.rightThumbstick.down.value > rightJoystickDeadZone;
-            padData[playerIndex][PVN64ButtonCLeft] = gamepad.rightThumbstick.left.value > rightJoystickDeadZone;
-            padData[playerIndex][PVN64ButtonCRight] = gamepad.rightThumbstick.right.value > rightJoystickDeadZone;
+            // MFi-L2 → Z
+            padData[playerIndex][PVN64ButtonZ] = gamepad.leftTrigger.isPressed;
+            
+            // If MFi-L2 is not pressed… MFi-L1 → L
+            if (!gamepad.rightShoulder.isPressed) {
+                padData[playerIndex][PVN64ButtonL] = gamepad.leftShoulder.isPressed;
+            }
+            
+            // If MFi-L1 is not pressed… MFi-R1 → R
+            if (!gamepad.leftShoulder.isPressed) {
+                padData[playerIndex][PVN64ButtonR] = gamepad.rightShoulder.isPressed;
+            }
+            // If not C-Mode… MFi-X,A → A,B MFi-Y,B → C←,C↓
+            if (!(gamepad.leftShoulder.isPressed && gamepad.rightShoulder.isPressed)) {
+                padData[playerIndex][PVN64ButtonA] = gamepad.buttonA.isPressed;
+                padData[playerIndex][PVN64ButtonB] = gamepad.buttonX.isPressed;
+                padData[playerIndex][PVN64ButtonCLeft] = gamepad.buttonY.isPressed;
+                padData[playerIndex][PVN64ButtonCDown] = gamepad.buttonB.isPressed;
+            }
+            
+            //C-Mode: MFi-X,Y,A,B -> C←,C↑,C↓,C→
+            if (gamepad.leftShoulder.isPressed && gamepad.rightShoulder.isPressed) {
+                padData[playerIndex][PVN64ButtonCLeft] = gamepad.buttonX.isPressed;
+                padData[playerIndex][PVN64ButtonCUp] = gamepad.buttonY.isPressed;
+                padData[playerIndex][PVN64ButtonCDown] = gamepad.buttonA.isPressed;
+                padData[playerIndex][PVN64ButtonCRight] = gamepad.buttonB.isPressed;
+            }
+   
+			// Right Joystick → C Buttons
+            float rightJoystickDeadZone = 0.45;
+            if (!(gamepad.leftShoulder.isPressed && gamepad.rightShoulder.isPressed) && !(gamepad.buttonY.isPressed || gamepad.buttonB.isPressed)) {
+                padData[playerIndex][PVN64ButtonCUp] = gamepad.rightThumbstick.up.value > rightJoystickDeadZone;
+                padData[playerIndex][PVN64ButtonCDown] = gamepad.rightThumbstick.down.value > rightJoystickDeadZone;
+                padData[playerIndex][PVN64ButtonCLeft] = gamepad.rightThumbstick.left.value > rightJoystickDeadZone;
+                padData[playerIndex][PVN64ButtonCRight] = gamepad.rightThumbstick.right.value > rightJoystickDeadZone;
+            }
+            
         } else if ([controller gamepad]) {
             GCGamepad *gamepad = [controller gamepad];
             GCControllerDirectionPad *dpad = [gamepad dpad];
             
-            xAxis[playerIndex] = (dpad.left.value > 0.5 ? -N64_ANALOG_MAX : 0) + (dpad.right.value > 0.5 ? N64_ANALOG_MAX : 0);
-            yAxis[playerIndex] = (dpad.down.value > 0.5 ? -N64_ANALOG_MAX : 0) + (dpad.up.value > 0.5 ? N64_ANALOG_MAX : 0);
-            
-            padData[playerIndex][PVN64ButtonA] = gamepad.buttonA.isPressed;
-            padData[playerIndex][PVN64ButtonB] = gamepad.buttonX.isPressed;
-            
-            padData[playerIndex][PVN64ButtonCLeft] = gamepad.buttonY.isPressed;
-            padData[playerIndex][PVN64ButtonCDown] = gamepad.buttonB.isPressed;
+            if (!gamepad.rightShoulder.isPressed) {
+                // Default
+                xAxis[playerIndex] = (dpad.left.value > 0.5 ? -N64_ANALOG_MAX : 0) + (dpad.right.value > 0.5 ? N64_ANALOG_MAX : 0);
+                yAxis[playerIndex] = (dpad.down.value > 0.5 ? -N64_ANALOG_MAX : 0) + (dpad.up.value > 0.5 ? N64_ANALOG_MAX : 0);
+                
+                padData[playerIndex][PVN64ButtonA] = gamepad.buttonA.isPressed;
+                padData[playerIndex][PVN64ButtonB] = gamepad.buttonX.isPressed;
+                
+                padData[playerIndex][PVN64ButtonCLeft] = gamepad.buttonY.isPressed;
+                padData[playerIndex][PVN64ButtonCDown] = gamepad.buttonB.isPressed;
+            } else {
+                // Alt-Mode
+                padData[playerIndex][PVN64ButtonDPadUp] = dpad.up.isPressed;
+                padData[playerIndex][PVN64ButtonDPadDown] = dpad.down.isPressed;
+                padData[playerIndex][PVN64ButtonDPadLeft] = dpad.left.isPressed;
+                padData[playerIndex][PVN64ButtonDPadRight] = dpad.right.isPressed;
+                
+                padData[playerIndex][PVN64ButtonCLeft] = gamepad.buttonX.isPressed;
+                padData[playerIndex][PVN64ButtonCUp] = gamepad.buttonY.isPressed;
+                padData[playerIndex][PVN64ButtonCDown] = gamepad.buttonA.isPressed;
+                padData[playerIndex][PVN64ButtonCRight] = gamepad.buttonB.isPressed;
+            }
             
             padData[playerIndex][PVN64ButtonZ] = gamepad.leftShoulder.isPressed;
             padData[playerIndex][PVN64ButtonR] = gamepad.rightShoulder.isPressed;
+            
         }
 #if TARGET_OS_TV
         else if ([controller microGamepad]) {
@@ -374,7 +408,7 @@ static void MupenAudioSampleRateChanged(int SystemType)
     }
 
     [[current audioDelegate] audioSampleRateDidChange];
-    NSLog(@"Mupen rate changed %f -> %f\n", currentRate, current->sampleRate);
+    ILOG(@"Mupen rate changed %f -> %f\n", currentRate, current->sampleRate);
 }
 
 static void MupenAudioLenChanged()
@@ -552,7 +586,7 @@ static void ConfigureGLideN64(NSString *romFolder) {
 
 	// Warning, anything other than 0 crashes shader compilation
 	// "MultiSampling", config.video.multisampling, "Enable/Disable MultiSampling (0=off, 2,4,8,16=quality)"
-	int MultiSampling =0;
+	int MultiSampling = 0;
 	ConfigSetParameter(gliden64, "MultiSampling", M64TYPE_INT, &MultiSampling);
 #endif
 
@@ -560,10 +594,14 @@ static void ConfigureGLideN64(NSString *romFolder) {
 	 "txDeposterize", config.textureFilter.txDeposterize, "Deposterize texture before enhancement."
 	 "txFilterIgnoreBG", config.textureFilter.txFilterIgnoreBG, "Don't filter background textures."
 	 "txCacheSize", config.textureFilter.txCacheSize/ gc_uMegabyte, "Size of filtered textures cache in megabytes."
-	 "txHresAltCRC", config.textureFilter.txHresAltCRC, "Use alternative method of paletted textures CRC calculation."
 	 "txDump", config.textureFilter.txDump, "Enable dump of loaded N64 textures."
 	 "txForce16bpp", config.textureFilter.txForce16bpp, "Force use 16bit texture formats for HD textures."
 	*/
+
+	// "txHresAltCRC", config.textureFilter.txHresAltCRC, "Use alternative method of paletted textures CRC calculation."
+	int txHresAltCRC = 0;
+	ConfigSetParameter(gliden64, "txHresAltCRC", M64TYPE_BOOL, &txHresAltCRC);
+
 
 	// "txHiresFullAlphaChannel", "Allow to use alpha channel of high-res texture fully."
 	int txHiresFullAlphaChannel = 1;
@@ -648,6 +686,20 @@ static void ConfigureRICE() {
 	// Copy default config files if they don't exist
 	NSArray<NSString*>* iniFiles = @[@"GLideN64.ini", @"GLideN64.custom.ini", @"RiceVideoLinux.ini", @"mupen64plus.ini"];
 	NSFileManager *fm = [NSFileManager defaultManager];
+
+	// Create destination folder if missing
+
+	BOOL isDirectory;
+	if (![fm fileExistsAtPath:romFolder isDirectory:&isDirectory]) {
+		ILOG(@"ROM data folder doesn't exist, creating %@", romFolder);
+		NSError *error;
+		BOOL success = [fm createDirectoryAtPath:romFolder withIntermediateDirectories:YES attributes:nil error:&error];
+		if (!success) {
+			ELOG(@"Failed to create destination folder %@. Error: %@", romFolder, error.localizedDescription);
+			return;
+		}
+	}
+
 	for (NSString *iniFile in iniFiles) {
 		NSString *destinationPath = [romFolder stringByAppendingPathComponent:iniFile];
 
@@ -687,7 +739,7 @@ static void ConfigureRICE() {
 																	  attributes:nil
 																		   error:&error];
 			if (!success) {
-				NSLog(@"Error creating hi res texture path: %@", error.localizedDescription);
+				ELOG(@"Error creating hi res texture path: %@", error.localizedDescription);
 			}
 		}
 	}
@@ -722,6 +774,8 @@ static void ConfigureRICE() {
 
 	// Copy default ini files to the config path
 	[self copyIniFiles:configPath];
+	// Rice looks in the data path for some reason, fuck it copy it there too - joe m
+	[self copyIniFiles:dataPath];
 
 	// Setup configs
 	ConfigureAll(romFolder);
@@ -738,7 +792,7 @@ static void ConfigureRICE() {
     // Load ROM
     romData = [NSData dataWithContentsOfMappedFile:path];
 	if (romData == nil || romData.length == 0) {
-		NSLog(@"Error loading ROM at path: %@\n File does not exist.", path);
+		ELOG(@"Error loading ROM at path: %@\n File does not exist.", path);
 
 		NSDictionary *userInfo = @{
 								   NSLocalizedDescriptionKey: @"Failed to load game.",
@@ -757,7 +811,7 @@ static void ConfigureRICE() {
 
     m64p_error openStatus = CoreDoCommand(M64CMD_ROM_OPEN, [romData length], (void *)[romData bytes]);
     if ( openStatus != M64ERR_SUCCESS) {
-        NSLog(@"Error loading ROM at path: %@\n Error code was: %i", path, openStatus);
+        ELOG(@"Error loading ROM at path: %@\n Error code was: %i", path, openStatus);
    
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey: @"Failed to load game.",
@@ -778,7 +832,7 @@ static void ConfigureRICE() {
 
 //	m64p_error callbackStatus = CoreDoCommand(M64CMD_SET_FRAME_CALLBACK, 0, (void *)MupenFrameCallback);
 //	if ( callbackStatus != M64ERR_SUCCESS) {
-//		NSLog(@"Error setting video callback: %@\n Error code was: %i", path, openStatus);
+//		ELOG(@"Error setting video callback: %@\n Error code was: %i", path, openStatus);
 //
 //		NSDictionary *userInfo = @{
 //								   NSLocalizedDescriptionKey: @"Failed to load game.",
@@ -805,13 +859,13 @@ static void ConfigureRICE() {
         ptr_PluginStartup rsp_start = osal_dynlib_getproc(rsp_handle, "PluginStartup");
         m64p_error err = rsp_start(core_handle, (__bridge void *)self, MupenDebugCallback);
         if (err != M64ERR_SUCCESS) {
-            NSLog(@"Error code %i loading plugin of type %i, name: %@", err, pluginType, pluginType);
+            ELOG(@"Error code %i loading plugin of type %i, name: %@", err, pluginType, pluginType);
             return NO;
         }
         
         err = CoreAttachPlugin(pluginType, rsp_handle);
         if (err != M64ERR_SUCCESS) {
-            NSLog(@"Error code %i attaching plugin of type %i, name: %@", err, pluginType, pluginType);
+            ELOG(@"Error code %i attaching plugin of type %i, name: %@", err, pluginType, pluginType);
             return NO;
         }
         
@@ -832,11 +886,11 @@ static void ConfigureRICE() {
 	ptr_PV_ForceUpdateWindowSize = dlsym(RTLD_DEFAULT, "_PV_ForceUpdateWindowSize");
 #else
 	if(self.glesVersion < GLESVersion3 || sizeof(void*) == 4) {
-		ILOG("No 64bit or GLES3. Using RICE GFX plugin.");
+		ILOG(@"No 64bit or GLES3. Using RICE GFX plugin.");
 		success = LoadPlugin(M64PLUGIN_GFX, @"PVMupen64PlusVideoRice");
 		ptr_PV_ForceUpdateWindowSize = dlsym(RTLD_DEFAULT, "_PV_ForceUpdateWindowSize");
 	} else {
-		ILOG("64bit and GLES3. Using GLiden64 GFX plugin.");
+		ILOG(@"64bit and GLES3. Using GLiden64 GFX plugin.");
 		success = LoadPlugin(M64PLUGIN_GFX, @"PVMupen64PlusVideoGlideN64");
 
 		ptr_SetOSDCallback = dlsym(RTLD_DEFAULT, "SetOSDCallback");
@@ -931,7 +985,7 @@ static void ConfigureRICE() {
 
 - (void)startEmulation
 {
-    if(!isRunning)
+    if(!self.isRunning)
     {
         [super startEmulation];
         [NSThread detachNewThreadSelector:@selector(runMupenEmuThread) toTarget:self withObject:nil];
@@ -944,29 +998,29 @@ static void ConfigureRICE() {
     {
         [self.renderDelegate startRenderingOnAlternateThread];
         if(CoreDoCommand(M64CMD_EXECUTE, 0, NULL) != M64ERR_SUCCESS) {
-            NSLog(@"Core execture did not exit correctly");
+            ELOG(@"Core execture did not exit correctly");
         } else {
-            NSLog(@"Core finished executing main");
+            ILOG(@"Core finished executing main");
         }
         
         if(CoreDetachPlugin(M64PLUGIN_GFX) != M64ERR_SUCCESS) {
-            NSLog(@"Failed to detach GFX plugin");
+            ELOG(@"Failed to detach GFX plugin");
         } else {
-            NSLog(@"Detached GFX plugin");
+            ILOG(@"Detached GFX plugin");
         }
         
         if(CoreDetachPlugin(M64PLUGIN_RSP) != M64ERR_SUCCESS) {
-            NSLog(@"Failed to detach RSP plugin");
+            ELOG(@"Failed to detach RSP plugin");
         } else {
-            NSLog(@"Detached RSP plugin");
+            ILOG(@"Detached RSP plugin");
         }
         
         [self pluginsUnload];
         
         if(CoreDoCommand(M64CMD_ROM_CLOSE, 0, NULL) != M64ERR_SUCCESS) {
-            NSLog(@"Filed to close ROM");
+            ELOG(@"Failed to close ROM");
         } else {
-            NSLog(@"ROM closed");
+            ILOG(@"ROM closed");
         }
 
         // Unlock rendering thread
@@ -975,9 +1029,9 @@ static void ConfigureRICE() {
         [super stopEmulation];
 
 		if(CoreShutdown() != M64ERR_SUCCESS) {
-			NSLog(@"Core shutdown failed");
+			ELOG(@"Core shutdown failed");
 		}else {
-			NSLog(@"Core shutdown successfully");
+			ILOG(@"Core shutdown successfully");
 		}
     }
 }
@@ -1000,15 +1054,16 @@ static void ConfigureRICE() {
         if (PluginShutdown != NULL) {
             m64p_error status = (*PluginShutdown)();
             if (status == M64ERR_SUCCESS) {
-                NSLog(@"Shutdown plugin");
+                ILOG(@"Shutdown plugin");
             } else {
-                NSLog(@"Shutdown plugin type %i failed: %i", i, status);
+
+				ELOG(@"Shutdown plugin type %i failed: %i", i, status);
             }
         }
         if(dlclose(plugins[i]) != 0) {
-            NSLog(@"Failed to dlclose plugin type %i", i);
+            ELOG(@"Failed to dlclose plugin type %i", i);
         } else {
-            NSLog(@"dlclosed plugin type %i", i);
+            ILOG(@"dlclosed plugin type %i", i);
         }
         plugins[i] = NULL;
     }
@@ -1075,7 +1130,7 @@ static void ConfigureRICE() {
     [self.frontBufferCondition unlock];
 }
 
-- (BOOL)saveStateToFileAtPath:(NSString *)fileName {
+- (BOOL)saveStateToFileAtPath:(NSString *)fileName error:(NSError**)error   {
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_enter(group);
     __block BOOL savedSuccessfully = NO;
@@ -1140,7 +1195,7 @@ static void ConfigureRICE() {
 }
 
 
-- (BOOL)loadStateFromFileAtPath:(NSString *)fileName {
+- (BOOL)loadStateFromFileAtPath:(NSString *)fileName error:(NSError**)error   {
     dispatch_group_t group = dispatch_group_create();
     dispatch_group_enter(group);
     __block BOOL loadedSuccessfully = NO;

@@ -242,15 +242,43 @@
 
 #pragma mark - Save States
 
-- (void)saveStateToFileAtPath:(NSString *)fileName {
-    prosystem_Save(fileName.fileSystemRepresentation, false);
+- (BOOL)saveStateToFileAtPath:(NSString *)fileName error:(NSError**)error   {
+    BOOL success = prosystem_Save(fileName.fileSystemRepresentation, false);
+	if (!success) {
+		NSDictionary *userInfo = @{
+								   NSLocalizedDescriptionKey: @"Failed to save state.",
+								   NSLocalizedFailureReasonErrorKey: @"Core failed to create save state.",
+								   NSLocalizedRecoverySuggestionErrorKey: @""
+								   };
+
+		NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+												code:PVEmulatorCoreErrorCodeCouldNotSaveState
+											userInfo:userInfo];
+
+		*error = newError;
+	}
+	return success;
 }
 
-- (void)loadStateFromFileAtPath:(NSString *)fileName  {
-    prosystem_Load(fileName.fileSystemRepresentation);
+- (BOOL)loadStateFromFileAtPath:(NSString *)fileName error:(NSError *__autoreleasing *)error  {
+    BOOL success = prosystem_Load(fileName.fileSystemRepresentation);
+	if (!success) {
+		NSDictionary *userInfo = @{
+								   NSLocalizedDescriptionKey: @"Failed to save state.",
+								   NSLocalizedFailureReasonErrorKey: @"Core failed to load save state.",
+								   NSLocalizedRecoverySuggestionErrorKey: @""
+								   };
+
+		NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+												code:PVEmulatorCoreErrorCodeCouldNotLoadState
+											userInfo:userInfo];
+
+		*error = newError;
+	}
+	return success;
 }
 
-- (NSData *)serializeStateWithError:(NSError **)outError {
+- (NSData *)serializeStateWithError:(NSError *__autoreleasing *)outError {
     size_t length = cartridge_type == CARTRIDGE_TYPE_SUPERCART_RAM ? 32837 : 16453;
     void *bytes = malloc(length);
 
@@ -267,7 +295,7 @@
     return nil;
 }
 
-- (BOOL)deserializeState:(NSData *)state withError:(NSError **)outError {
+- (BOOL)deserializeState:(NSData *)state withError:(NSError *__autoreleasing *)outError {
     size_t serial_size = cartridge_type == CARTRIDGE_TYPE_SUPERCART_RAM ? 32837 : 16453;
     if(serial_size != [state length]) {
         if(outError) {
@@ -368,20 +396,22 @@ const int ProSystemMap[] = { 3, 2, 1, 0, 4, 5, 9, 8, 7, 6, 10, 11, 13, 14, 12, 1
             _inputState[PV7800MFiButtonJoy1Right + playerInputOffset] = (dpad.right.isPressed || gamepad.leftThumbstick.right.isPressed);
             
                 // Button 1
-            _inputState[PV7800MFiButtonJoy1Button1 + playerInputOffset] = gamepad.buttonA.isPressed;
+            _inputState[PV7800MFiButtonJoy1Button1 + playerInputOffset] = (gamepad.buttonA.isPressed || gamepad.buttonY.isPressed);
                 // Button 2
             _inputState[PV7800MFiButtonJoy1Button2 + playerInputOffset] = (gamepad.buttonB.isPressed || gamepad.buttonX.isPressed);
            
                 // Reset
-            _inputState[PV7800MFiButtonConsoleReset] = (gamepad.leftShoulder.isPressed);
+            _inputState[PV7800MFiButtonConsoleReset] = (gamepad.rightShoulder.isPressed);
                 // Select
-            _inputState[PV7800MFiButtonConsoleSelect] = (gamepad.rightShoulder.isPressed);
-                // Pause
-            _inputState[PV7800MFiButtonConsolePause] = (gamepad.buttonY.isPressed);
+            _inputState[PV7800MFiButtonConsoleSelect] = (gamepad.leftShoulder.isPressed);
+                // Pause - Opting out of system pause…
+//            _inputState[PV7800MFiButtonConsolePause] = (gamepad.buttonY.isPressed);
+                                                                           
+                // TO DO: Move Difficulty options these to Menu
                 // Left Difficulty
-            _inputState[PV7800MFiButtonConsoleLeftDifficulty] = (gamepad.leftTrigger.isPressed);
+//            _inputState[PV7800MFiButtonConsoleLeftDifficulty] = (gamepad.leftTrigger.isPressed);
                 // Right Difficulty
-            _inputState[PV7800MFiButtonConsoleRightDifficulty] = (gamepad.rightTrigger.isPressed);
+//            _inputState[PV7800MFiButtonConsoleRightDifficulty] = (gamepad.rightTrigger.isPressed);
 
         } else if ([controller gamepad]) {
             GCGamepad *gamepad = [controller gamepad];
@@ -397,22 +427,23 @@ const int ProSystemMap[] = { 3, 2, 1, 0, 4, 5, 9, 8, 7, 6, 10, 11, 13, 14, 12, 1
             _inputState[PV7800MFiButtonJoy1Right + playerInputOffset] = (dpad.right.isPressed);
             
                 // Button 1
-            _inputState[PV7800MFiButtonJoy1Button1 + playerInputOffset] = (gamepad.buttonA.isPressed);
+            _inputState[PV7800MFiButtonJoy1Button1 + playerInputOffset] = (gamepad.buttonA.isPressed || gamepad.buttonY.isPressed);
                 // Button 2
-            _inputState[PV7800MFiButtonJoy1Button2 + playerInputOffset] = (gamepad.buttonB.isPressed);
+            _inputState[PV7800MFiButtonJoy1Button2 + playerInputOffset] = (gamepad.buttonB.isPressed || gamepad.buttonX.isPressed);
             
                 // Reset
-            _inputState[PV7800MFiButtonConsoleReset] = (gamepad.leftShoulder.isPressed);
+            _inputState[PV7800MFiButtonConsoleReset] = (gamepad.rightShoulder.isPressed);
                 // Select
-            _inputState[PV7800MFiButtonConsoleSelect] = (gamepad.rightShoulder.isPressed);
-
+            _inputState[PV7800MFiButtonConsoleSelect] = (gamepad.leftShoulder.isPressed);
+                                                                           
                 // Pause
 //            _inputState[PV7800MFiButtonConsolePause] = (gamepad.buttonY.isPressed);
-            
+                                                                           
+                // TO DO: Move Difficulty options these to Menu
                 // Left Difficulty
-            _inputState[PV7800MFiButtonConsoleLeftDifficulty] = (gamepad.buttonX.isPressed);
+//            _inputState[PV7800MFiButtonConsoleLeftDifficulty] = (gamepad.buttonX.isPressed);
                 // Right Difficulty
-            _inputState[PV7800MFiButtonConsoleRightDifficulty] = (gamepad.buttonY.isPressed);
+//            _inputState[PV7800MFiButtonConsoleRightDifficulty] = (gamepad.buttonY.isPressed);
             
         }
 #if TARGET_OS_TV

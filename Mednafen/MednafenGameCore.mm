@@ -96,11 +96,28 @@ static MDFNGI *game;
 static MDFN_Surface *backBufferSurf;
 static MDFN_Surface *frontBufferSurf;
 
+#pragma mark - Input maps
 int GBAMap[PVGBAButtonCount];
 int GBMap[PVGBButtonCount];
 int SNESMap[PVSNESButtonCount];
 int PCEMap[PVPCEButtonCount];
 int PCFXMap[PVPCFXButtonCount];
+
+// Map OE button order to Mednafen button order
+
+const int LynxMap[] = { 6, 7, 4, 5, 0, 1, 3, 2 }; // pause, b, 01, 02, d, u, l, r
+
+// u, d, l, r, a, b, start, select
+const int NESMap[] = { 4, 5, 6, 7, 0, 1, 3, 2};
+
+// Select, Triangle, X, Start, R1, R2, left stick u, left stick left,
+const int PSXMap[]  = { 4, 6, 7, 5, 12, 13, 14, 15, 10, 8, 1, 11, 9, 2, 3, 0, 16, 24, 23, 22, 21, 20, 19, 18, 17 };
+const int VBMap[]   = { 9, 8, 7, 6, 4, 13, 12, 5, 3, 2, 0, 1, 10, 11 };
+const int WSMap[]   = { 0, 2, 3, 1, 4, 6, 7, 5, 9, 10, 8, 11 };
+const int NeoMap[]  = { 0, 1, 2, 3, 4, 5, 6};
+
+// SMS, GG and MD unused as of now. Mednafen support is not maintained
+const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
 
 namespace MDFN_IEN_VB
 {
@@ -198,44 +215,52 @@ static void mednafen_init(MednafenGameCore* current)
 	MDFNI_SetSettingB("psx.h_overscan", true); // Show horizontal overscan area. 1 default
 	MDFNI_SetSetting("psx.region_default", "na"); // Set default region to North America if auto detect fails, default: jp
 
+	MDFNI_SetSettingB("psx.input.analog_mode_ct", true); // Enable Analog mode toggle
+		/*
+		 0x0001=SELECT
+		 0x0002=L3
+		 0x0004=R3
+		 0x0008=START
+		 0x0010=D-Pad UP
+		 0x0020=D-Pad Right
+		 0x0040=D-Pad Down
+		 0x0080=D-Pad Left
+		 0x0100=L2
+		 0x0200=R2
+		 0x0400=L1
+		 0x0800=R1
+		 0x1000=△
+		 0x2000=○
+		 0x4000=x
+		 0x8000=□
+		 */
+	// Analog/Digital Toggle (hold for couple seconds)
+	uint64 amct =
+    ((1 << PSXMap[PVPSXButtonL1]) | (1 << PSXMap[PVPSXButtonR1]) | (1 << PSXMap[PVPSXButtonL2]) | (1 << PSXMap[PVPSXButtonR2]) | (1 << PSXMap[PVPSXButtonCircle])) ||
+    ((1 << PSXMap[PVPSXButtonL1]) | (1 << PSXMap[PVPSXButtonR1]) | (1 << PSXMap[PVPSXButtonCircle]));
+	MDFNI_SetSettingUI("psx.input.analog_mode_ct.compare", amct);
+
 	// PCE Settings
 //	MDFNI_SetSetting("pce.disable_softreset", "1"); // PCE: To prevent soft resets due to accidentally hitting RUN and SEL at the same time.
 //	MDFNI_SetSetting("pce.adpcmextraprec", "1"); // PCE: Enabling this option causes the MSM5205 ADPCM predictor to be outputted with full precision of 12-bits,
 //												 // rather than only outputting 10-bits of precision(as an actual MSM5205 does).
 //												 // Enable this option to reduce whining noise during ADPCM playback.
-//    MDFNI_SetSetting("pce.slstart", "0"); // PCE: First rendered scanline 4 default
-//    MDFNI_SetSetting("pce.slend", "239"); // PCE: Last rendered scanline 235 default, 239max
+//    MDFNI_SetSetting("pce.slstart", "4"); // PCE: First rendered scanline 4 default
+//    MDFNI_SetSetting("pce.slend", "235"); // PCE: Last rendered scanline 235 default, 239max
 
 	// PCE_Fast settings
 
 	MDFNI_SetSetting("pce_fast.cdspeed", "4"); // PCE: CD-ROM data transfer speed multiplier. Default is 1
 	MDFNI_SetSetting("pce_fast.disable_softreset", "1"); // PCE: To prevent soft resets due to accidentally hitting RUN and SEL at the same time
-//	MDFNI_SetSetting("pce_fast.slstart", "0"); // PCE: First rendered scanline
-//	MDFNI_SetSetting("pce_fast.slend", "239"); // PCE: Last rendered scanline
+//	MDFNI_SetSetting("pce_fast.slstart", "4"); // PCE: First rendered scanline
+//	MDFNI_SetSetting("pce_fast.slend", "235"); // PCE: Last rendered scanline
 
 	// PC-FX Settings
 	MDFNI_SetSetting("pcfx.cdspeed", "8"); // PCFX: Emulated CD-ROM speed. Setting the value higher than 2, the default, will decrease loading times in most games by some degree.
-	MDFNI_SetSetting("pcfx.input.port1.multitap", "1"); // PCFX: EXPERIMENTAL emulation of the unreleased multitap. Enables ports 3 4 5.
+//	MDFNI_SetSetting("pcfx.input.port1.multitap", "1"); // PCFX: EXPERIMENTAL emulation of the unreleased multitap. Enables ports 3 4 5.
 	MDFNI_SetSetting("pcfx.nospritelimit", "1"); // PCFX: Remove 16-sprites-per-scanline hardware limit.
-	MDFNI_SetSetting("pcfx.slstart", "0"); // PCFX: First rendered scanline 4 default
-	MDFNI_SetSetting("pcfx.slend", "239"); // PCFX: Last rendered scanline 235 default, 239max
-
-	// FIXME:  "forget about multitap for now :)"
-    // Set multitap configuration if detected
-//    if (multiTapGames[[current ROMSerial]])
-//    {
-//        current->multiTapPlayerCount = [[multiTapGames objectForKey:[current ROMSerial]] intValue];
-//
-//        if([multiTap5PlayerPort2 containsObject:[current ROMSerial]])
-//            MDFNI_SetSetting("psx.input.pport2.multitap", "1"); // Enable multitap on PSX port 2
-//        else
-//        {
-//            MDFNI_SetSetting("psx.input.pport1.multitap", "1"); // Enable multitap on PSX port 1
-//            if(current->multiTapPlayerCount > 5)
-//                MDFNI_SetSetting("psx.input.pport2.multitap", "1"); // Enable multitap on PSX port 2
-//        }
-//    }
-
+	MDFNI_SetSetting("pcfx.slstart", "4"); // PCFX: First rendered scanline 4 default
+	MDFNI_SetSetting("pcfx.slend", "235"); // PCFX: Last rendered scanline 235 default, 239max
 
 //	NSString *cfgPath = [[current BIOSPath] stringByAppendingPathComponent:@"mednafen-export.cfg"];
 //	MDFN_SaveSettings(cfgPath.UTF8String);
@@ -251,24 +276,28 @@ static void mednafen_init(MednafenGameCore* current)
             inputBuffer[i] = (uint32_t *) calloc(9, sizeof(uint32_t));
         }
 
-		GBAMap[PVGBAButtonUp] 		= 6;
-		GBAMap[PVGBAButtonDown] 	= 7;
-		GBAMap[PVGBAButtonLeft] 	= 5;
 		GBAMap[PVGBAButtonRight] 	= 4;
+        GBAMap[PVGBAButtonLeft]     = 5;
+        GBAMap[PVGBAButtonUp]       = 6;
+        GBAMap[PVGBAButtonDown]     = 7;
+        
+        GBAMap[PVGBAButtonA]        = 0;
 		GBAMap[PVGBAButtonB] 		= 1;
-		GBAMap[PVGBAButtonA]		= 0;
+        
 		GBAMap[PVGBAButtonSelect]	= 2;
 		GBAMap[PVGBAButtonStart] 	= 3;
+        
+        GBAMap[PVGBAButtonR]        = 8;
 		GBAMap[PVGBAButtonL] 		= 9;
-		GBAMap[PVGBAButtonR] 		= 8;
 
 		// Gameboy + Color Map
-		GBMap[PVGBButtonUp] 	= 6;
-		GBMap[PVGBButtonDown] 	= 7;
-		GBMap[PVGBButtonLeft] 	= 5;
 		GBMap[PVGBButtonRight] 	= 4;
+        GBMap[PVGBButtonLeft]   = 5;
+        GBMap[PVGBButtonUp]     = 6;
+        GBMap[PVGBButtonDown]   = 7;
+        
+        GBMap[PVGBButtonA]      = 0;
 		GBMap[PVGBButtonB] 		= 1;
-		GBMap[PVGBButtonA]		= 0;
 		GBMap[PVGBButtonSelect]	= 2;
 		GBMap[PVGBButtonStart] 	= 3;
 
@@ -277,50 +306,55 @@ static void mednafen_init(MednafenGameCore* current)
         SNESMap[PVSNESButtonDown]         = 5;
         SNESMap[PVSNESButtonLeft]         = 6;
         SNESMap[PVSNESButtonRight]        = 7;
+        
         SNESMap[PVSNESButtonA]            = 8;
         SNESMap[PVSNESButtonB]            = 0;
         SNESMap[PVSNESButtonX]            = 9;
         SNESMap[PVSNESButtonY]            = 1;
+        
         SNESMap[PVSNESButtonTriggerLeft]  = 10;
         SNESMap[PVSNESButtonTriggerRight] = 11;
-        SNESMap[PVSNESButtonStart]        = 3;
+        
         SNESMap[PVSNESButtonSelect]       = 2;
+        SNESMap[PVSNESButtonStart]        = 3;
 
 		// PCE Map
-		PCEMap[PVPCEButtonUp]		= 4;
-		PCEMap[PVPCEButtonDown] 	= 6;
-		PCEMap[PVPCEButtonLeft] 	= 7;
-		PCEMap[PVPCEButtonRight] 	= 5;
+        PCEMap[PVPCEButtonUp]       = 4;
+        PCEMap[PVPCEButtonRight]    = 5;
+        PCEMap[PVPCEButtonDown]     = 6;
+        PCEMap[PVPCEButtonLeft]     = 7;
 
-		PCEMap[PVPCEButtonButton1] 	= 0;
-		PCEMap[PVPCEButtonButton2] 	= 1;
-		PCEMap[PVPCEButtonButton3] 	= 8;
-		PCEMap[PVPCEButtonButton4] 	= 9;
-		PCEMap[PVPCEButtonButton5] 	= 10;
-		PCEMap[PVPCEButtonButton6] 	= 11;
+        PCEMap[PVPCEButtonButton1]  = 0;
+        PCEMap[PVPCEButtonButton2]  = 1;
+        PCEMap[PVPCEButtonButton3]  = 8;
+        PCEMap[PVPCEButtonButton4]  = 9;
+        PCEMap[PVPCEButtonButton5]  = 10;
+        PCEMap[PVPCEButtonButton6]  = 11;
 
-		PCEMap[PVPCEButtonRun]		= 3;
-		PCEMap[PVPCEButtonSelect] 	= 2;
+        PCEMap[PVPCEButtonSelect]   = 2;
+        PCEMap[PVPCEButtonRun]      = 3;
         PCEMap[PVPCEButtonMode]     = 12;
 
 		// PCFX Map
-        PCFXMap[PVPCEButtonUp]      = 4;
-        PCFXMap[PVPCEButtonDown]    = 6;
-        PCFXMap[PVPCEButtonLeft]    = 7;
-        PCFXMap[PVPCEButtonRight]   = 5;
+        PCFXMap[PVPCFXButtonUp]         = 8;
+        PCFXMap[PVPCFXButtonRight]      = 9;
+        PCFXMap[PVPCFXButtonDown]       = 10;
+        PCFXMap[PVPCFXButtonLeft]       = 11;
 
-        PCFXMap[PVPCEButtonButton1] = 0;
-        PCFXMap[PVPCEButtonButton2] = 1;
-        PCFXMap[PVPCEButtonButton3] = 8;
-        PCFXMap[PVPCEButtonButton4] = 9;
-        PCFXMap[PVPCEButtonButton5] = 10;
-        PCFXMap[PVPCEButtonButton6] = 11;
+        PCFXMap[PVPCFXButtonButton1]    = 0;
+        PCFXMap[PVPCFXButtonButton2]    = 1;
+        PCFXMap[PVPCFXButtonButton3]    = 2;
+        PCFXMap[PVPCFXButtonButton4]    = 3;
+        PCFXMap[PVPCFXButtonButton5]    = 4;
+        PCFXMap[PVPCFXButtonButton6]    = 5;
 
-        PCFXMap[PVPCEButtonRun]     = 3;
-        PCFXMap[PVPCEButtonSelect]  = 2;
-		PCFXMap[PVPCEButtonMode] 	= 12;
+        PCFXMap[PVPCFXButtonSelect]     = 6;
+        PCFXMap[PVPCFXButtonRun]        = 7;
+        PCFXMap[PVPCFXButtonMode]       = 12;
+        
     }
 
+    
     return self;
 }
 
@@ -329,11 +363,11 @@ static void mednafen_init(MednafenGameCore* current)
         free(inputBuffer[i]);
     }
 
-    delete backBufferSurf;
-    delete frontBufferSurf;
-    
+
     if (_current == self) {
         _current = nil;
+		delete backBufferSurf;
+		delete frontBufferSurf;
     }
 }
 
@@ -497,8 +531,8 @@ static void emulation_run(BOOL skipFrame) {
         self.systemType = MednaSystemPSX;
         
         mednafenCoreModule = @"psx";
-        // Note: OpenEMU sets this to 4, 3.
-        mednafenCoreAspect = OEIntSizeMake(3, 2);
+        // Note: OpenEMU sets this to 4:3, but it's demonstrably wrong. Tested andlooked into it myself… the other emulators got this wrong, 3:2 was close, but it's actually 10:7 - Sev
+        mednafenCoreAspect = OEIntSizeMake(10, 7);
         //mednafenCoreAspect = OEIntSizeMake(game->nominal_width, game->nominal_height);
         sampleRate         = 44100;
     }
@@ -530,6 +564,10 @@ static void emulation_run(BOOL skipFrame) {
     mednafen_init(_current);
 
     game = MDFNI_LoadGame([mednafenCoreModule UTF8String], [path UTF8String]);
+
+	// Uncomment this to set the aspect ratio by the game's render size according to mednafen
+	// is this correct for EU, JP, US? Still testing.
+//	mednafenCoreAspect = OEIntSizeMake(game->nominal_width, game->nominal_height);
 
     if(!game) {
         NSDictionary *userInfo = @{
@@ -569,7 +607,8 @@ static void emulation_run(BOOL skipFrame) {
     else if (self.systemType == MednaSystemPSX)
     {
         for(unsigned i = 0; i < multiTapPlayerCount; i++) {
-            game->SetInput(i, "dualshock", (uint8_t *)inputBuffer[i]);
+            // changing "dualshock" to "gampepad" ↓ to make games playable for now, until we can fix the analog input bugs
+            game->SetInput(i, "gamepad", (uint8_t *)inputBuffer[i]);
         }
         
         // Multi-Disc check
@@ -583,7 +622,24 @@ static void emulation_run(BOOL skipFrame) {
         // PSX: Set multitap configuration if detected
 //        NSString *serial = [self romSerial];
 //        NSNumber* multitapCount = [MednafenGameCore multiDiscPSXGames][serial];
-//        
+//
+// FIXME:  "forget about multitap for now :)"
+		// Set multitap configuration if detected
+		//    if (multiTapGames[[current ROMSerial]])
+		//    {
+		//        current->multiTapPlayerCount = [[multiTapGames objectForKey:[current ROMSerial]] intValue];
+		//
+		//        if([multiTap5PlayerPort2 containsObject:[current ROMSerial]])
+		//            MDFNI_SetSetting("psx.input.pport2.multitap", "1"); // Enable multitap on PSX port 2
+		//        else
+		//        {
+		//            MDFNI_SetSetting("psx.input.pport1.multitap", "1"); // Enable multitap on PSX port 1
+		//            if(current->multiTapPlayerCount > 5)
+		//                MDFNI_SetSetting("psx.input.pport2.multitap", "1"); // Enable multitap on PSX port 2
+		//        }
+		//    }
+
+
 //        if (multitapCount != nil)
 //        {
 //            multiTapPlayerCount = [multitapCount intValue];
@@ -894,18 +950,70 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 
 # pragma mark - Save States
 
-- (BOOL)saveStateToFileAtPath:(NSString *)fileName {
+- (BOOL)saveStateToFileAtPath:(NSString *)fileName error:(NSError**)error   {
 	if (game != nil ) {
-		return MDFNI_SaveState(fileName.fileSystemRepresentation, "", NULL, NULL, NULL);
+		BOOL success = MDFNI_SaveState(fileName.fileSystemRepresentation, "", NULL, NULL, NULL);
+		if (!success) {
+			NSDictionary *userInfo = @{
+									   NSLocalizedDescriptionKey: @"Failed to save state.",
+									   NSLocalizedFailureReasonErrorKey: @"Core failed to create save state.",
+									   NSLocalizedRecoverySuggestionErrorKey: @""
+									   };
+
+			NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+													code:PVEmulatorCoreErrorCodeCouldNotSaveState
+												userInfo:userInfo];
+
+			*error = newError;
+		}
+		return success;
 	} else {
+		NSDictionary *userInfo = @{
+								   NSLocalizedDescriptionKey: @"Failed to save state.",
+								   NSLocalizedFailureReasonErrorKey: @"Core failed to create save state because no game is loaded.",
+								   NSLocalizedRecoverySuggestionErrorKey: @""
+								   };
+
+		NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+												code:PVEmulatorCoreErrorCodeCouldNotSaveState
+											userInfo:userInfo];
+
+		*error = newError;
+
 		return NO;
 	}
 }
 
-- (BOOL)loadStateFromFileAtPath:(NSString *)fileName {
+- (BOOL)loadStateFromFileAtPath:(NSString *)fileName error:(NSError**)error   {
 	if (game != nil ) {
-    	return MDFNI_LoadState(fileName.fileSystemRepresentation, "");
+    	BOOL success = MDFNI_LoadState(fileName.fileSystemRepresentation, "");
+		if (!success) {
+			NSDictionary *userInfo = @{
+									   NSLocalizedDescriptionKey: @"Failed to save state.",
+									   NSLocalizedFailureReasonErrorKey: @"Core failed to load save state.",
+									   NSLocalizedRecoverySuggestionErrorKey: @""
+									   };
+
+			NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+													code:PVEmulatorCoreErrorCodeCouldNotLoadState
+												userInfo:userInfo];
+
+			*error = newError;
+		}
+		return success;
 	} else {
+		NSDictionary *userInfo = @{
+								   NSLocalizedDescriptionKey: @"Failed to save state.",
+								   NSLocalizedFailureReasonErrorKey: @"No game loaded.",
+								   NSLocalizedRecoverySuggestionErrorKey: @""
+								   };
+
+		NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+												code:PVEmulatorCoreErrorCodeCouldNotLoadState
+											userInfo:userInfo];
+
+		*error = newError;
+
 		return NO;
 	}
 }
@@ -966,23 +1074,6 @@ static size_t update_audio_batch(const int16_t *data, size_t frames)
 
 # pragma mark - Input -
 
-// Map OE button order to Mednafen button order
-
-const int LynxMap[] = { 6, 7, 4, 5, 0, 1, 3, 2 }; // pause, b, 01, 02, d, u, l, r
-
-// u, d, l, r, a, b, start, select
-const int NESMap[] = { 4, 5, 6, 7, 0, 1, 3, 2};
-
-// Select, Triangle, X, Start, R1, R2, left stick u, left stick left,
-const int PSXMap[]  = { 4, 6, 7, 5, 12, 13, 14, 15, 10, 8, 1, 11, 9, 2, 3, 0, 16, 24, 23, 22, 21, 20, 19, 18, 17 };
-const int VBMap[]   = { 9, 8, 7, 6, 4, 13, 12, 5, 3, 2, 0, 1, 10, 11 };
-const int WSMap[]   = { 0, 2, 3, 1, 4, 6, 7, 5, 9, 10, 8, 11 };
-const int NeoMap[]  = { 0, 1, 2, 3, 4, 5, 6};
-
-// SMS, GG and MD unused as of now. Mednafen support is not maintained
-const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
-
-
 #pragma mark Atari Lynx
 - (void)didPushLynxButton:(PVLynxButton)button forPlayer:(NSInteger)player {
     inputBuffer[player][0] |= 1 << LynxMap[button];
@@ -1005,14 +1096,14 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
                 return [[dpad left] isPressed]?:[[[pad leftThumbstick] left] isPressed];
             case PVLynxButtonRight:
                 return [[dpad right] isPressed]?:[[[pad leftThumbstick] right] isPressed];
-            case PVLynxButtonB:
-                return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
             case PVLynxButtonA:
-                return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed];
+                return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed]?:[[[pad rightThumbstick] right] isPressed]?:[[pad rightTrigger] isPressed];
+            case PVLynxButtonB:
+                return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed]?:[[[pad rightThumbstick] left] isPressed]?:[[pad leftTrigger] isPressed];
             case PVLynxButtonOption1:
-                return [[pad leftShoulder] isPressed]?:[[pad leftTrigger] isPressed];
+                return [[pad leftShoulder] isPressed];
             case PVLynxButtonOption2:
-                return [[pad rightShoulder] isPressed]?:[[pad rightTrigger] isPressed];
+                return [[pad rightShoulder] isPressed];
             default:
                 break;
         }
@@ -1028,9 +1119,9 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
                 return [[dpad left] isPressed];
             case PVLynxButtonRight:
                 return [[dpad right] isPressed];
-            case PVLynxButtonB:
-                return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
             case PVLynxButtonA:
+                return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
+            case PVLynxButtonB:
                 return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed];
             case PVLynxButtonOption1:
                 return [[pad leftShoulder] isPressed];
@@ -1057,10 +1148,10 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
             case PVLynxButtonRight:
                 return [[dpad right] value] > 0.5;
                 break;
-            case PVLynxButtonA:
+            case PVLynxButtonB:
                 return [[pad buttonA] isPressed];
                 break;
-            case PVLynxButtonB:
+            case PVLynxButtonA:
                 return [[pad buttonX] isPressed];
                 break;
             default:
@@ -1754,7 +1845,7 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
         GCExtendedGamepad *gamePad = [controller extendedGamepad];
         GCControllerDirectionPad *dpad = [gamePad dpad];
         switch (buttonID) {
-				// D-PAD
+				// D-Pad
 			case PVPCEButtonUp:
                 return [[dpad up] isPressed]?:[[[gamePad leftThumbstick] up] value] > 0.1;
             case PVPCEButtonDown:
@@ -1764,7 +1855,7 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
             case PVPCEButtonRight:
                 return [[dpad right] isPressed]?:[[[gamePad leftThumbstick] right] value] > 0.1;
 
-				// Standard buttons
+				// Standard Buttons
 			case PVPCEButtonButton1:
 				return [[gamePad buttonB] isPressed];
 			case PVPCEButtonButton2:
@@ -1775,17 +1866,17 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
 			case PVPCEButtonRun:
 				return [[gamePad rightTrigger] isPressed];
 
-				// Extened buttons
+				// Extended Buttons
 			case PVPCEButtonButton3:
-                return [[gamePad leftShoulder] isPressed];
-            case PVPCEButtonButton4:
-                return [[gamePad rightShoulder] isPressed];
-            case PVPCEButtonButton5:
                 return [[gamePad buttonX] isPressed];
-            case PVPCEButtonButton6:
+            case PVPCEButtonButton4:
+                return [[gamePad leftShoulder] isPressed];
+            case PVPCEButtonButton5:
                 return [[gamePad buttonY] isPressed];
+            case PVPCEButtonButton6:
+                return [[gamePad rightShoulder] isPressed];
 
-				// Toggle the mode special buttons are pressed
+                // Toggle the Mode: Extended Buttons are pressed
             case PVPCEButtonMode:
                 return [[gamePad buttonX] isPressed] || [[gamePad leftShoulder] isPressed] || [[gamePad buttonY] isPressed] || [[gamePad rightShoulder] isPressed];
             default:
@@ -1797,6 +1888,7 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
         GCGamepad *gamePad = [controller gamepad];
         GCControllerDirectionPad *dpad = [gamePad dpad];
         switch (buttonID) {
+                // D-Pad
             case PVPCEButtonUp:
                 return [[dpad up] isPressed];
             case PVPCEButtonDown:
@@ -1805,6 +1897,7 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
                 return [[dpad left] isPressed];
             case PVPCEButtonRight:
                 return [[dpad right] isPressed];
+                
 				// Standard Buttons
 			case PVPCEButtonButton1:
 				return [[gamePad buttonB] isPressed];
@@ -1821,12 +1914,8 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
                 return [[gamePad buttonX] isPressed];
             case PVPCEButtonButton4:
                 return [[gamePad buttonY] isPressed];
-//            case PVPCEButtonButton5:
-//                return [[gamePad leftShoulder] isPressed];
-//            case PVPCEButtonButton6:
-//                return [[gamePad rightShoulder] isPressed];
 
-				// Toggle the mode special buttons are pressed
+                // Toggle the Mode: Extended Buttons are pressed
 			case PVPCEButtonMode:
 				return [[gamePad buttonX] isPressed] || [[gamePad buttonY] isPressed];
             default:
@@ -1851,10 +1940,10 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
             case PVPCEButtonRight:
                 return [[dpad right] value] > 0.5;
                 break;
-            case PVPCEButtonButton2:
+            case PVPCEButtonButton1:
                 return [[gamePad buttonA] isPressed];
                 break;
-            case PVPCEButtonButton1:
+            case PVPCEButtonButton2:
                 return [[gamePad buttonX] isPressed];
                 break;
             default:
@@ -1913,15 +2002,18 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
     {
         GCExtendedGamepad *pad = [controller extendedGamepad];
         GCControllerDirectionPad *dpad = [pad dpad];
+        bool modifier1Pressed = [[pad leftShoulder] isPressed] && [[pad rightShoulder] isPressed];
+        bool modifier2Pressed = [[pad leftTrigger] isPressed] && [[pad rightTrigger] isPressed];
+        bool modifiersPressed = modifier1Pressed && modifier2Pressed;
         switch (buttonID) {
             case PVPSXButtonUp:
                 return [[dpad up] isPressed];
             case PVPSXButtonDown:
-                return [[dpad down] isPressed];
+                return [[dpad down] isPressed] && !modifiersPressed;
             case PVPSXButtonLeft:
                 return [[dpad left] isPressed];
             case PVPSXButtonRight:
-                return [[dpad right] isPressed];
+                return [[dpad right] isPressed] && !modifiersPressed;
             case PVPSXButtonLeftAnalogUp:
                 return [pad leftThumbstick].up.value;
             case PVPSXButtonLeftAnalogDown:
@@ -1931,25 +2023,29 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
             case PVPSXButtonLeftAnalogRight:
                 return [pad leftThumbstick].right.value;
             case PVPSXButtonSquare:
-                return [[pad buttonX] isPressed];
-            case PVPSXButtonCross:
-                return [[pad buttonA] isPressed];
-            case PVPSXButtonCircle:
-                return [[pad buttonB] isPressed];
-            case PVPSXButtonL1:
-                return [[pad leftShoulder] isPressed];
+                return [[pad buttonX] isPressed] && !modifiersPressed;
             case PVPSXButtonTriangle:
                 return [[pad buttonY] isPressed];
-            case PVPSXButtonR1:
-                return [[pad rightShoulder] isPressed];
+            case PVPSXButtonCross:
+                return [[pad buttonA] isPressed] && !modifiersPressed;
+            case PVPSXButtonCircle:
+                return [[pad buttonB] isPressed] && !modifiersPressed;
+            case PVPSXButtonL1:
+                return [[pad leftShoulder] isPressed] && !modifier2Pressed;
             case PVPSXButtonL2:
-                return [[pad leftTrigger] isPressed];
+                return [[pad leftTrigger] isPressed] && !modifier1Pressed;
+            case PVPSXButtonL3:
+                return modifiersPressed && [[dpad down] isPressed];
+            case PVPSXButtonR1:
+                return [[pad rightShoulder] isPressed] && !modifier2Pressed;
             case PVPSXButtonR2:
-                return [[pad rightTrigger] isPressed];
+                return [[pad rightTrigger] isPressed] && !modifier1Pressed;
+            case PVPSXButtonR3:
+                return modifiersPressed && [[pad buttonA] isPressed];
+            case PVPSXButtonSelect:
+                return self.isSelectPressed || (modifiersPressed && [[dpad right] isPressed]);
 			case PVPSXButtonStart:
-				return self.isStartPressed;
-			case PVPSXButtonSelect:
-				return self.isSelectPressed;
+				return self.isStartPressed || (modifiersPressed && [[pad buttonX] isPressed]);
             default:
                 break;
         }
@@ -1958,31 +2054,40 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
     {
         GCGamepad *pad = [controller gamepad];
         GCControllerDirectionPad *dpad = [pad dpad];
+        bool modifierPressed = [[pad leftShoulder] isPressed] && [[pad rightShoulder] isPressed];
         switch (buttonID) {
             case PVPSXButtonUp:
-                return [[dpad up] isPressed];
+                return [[dpad up] isPressed] && !modifierPressed;
             case PVPSXButtonDown:
-                return [[dpad down] isPressed];
+                return [[dpad down] isPressed] && !modifierPressed;
             case PVPSXButtonLeft:
                 return [[dpad left] isPressed];
             case PVPSXButtonRight:
-                return [[dpad right] isPressed];
+                return [[dpad right] isPressed] && !modifierPressed;
             case PVPSXButtonSquare:
-                return [[pad buttonX] isPressed];
+                return [[pad buttonX] isPressed] && !modifierPressed;
+            case PVPSXButtonTriangle:
+                return [[pad buttonY] isPressed] && !modifierPressed;
             case PVPSXButtonCross:
-                return [[pad buttonA] isPressed];
+                return [[pad buttonA] isPressed] && !modifierPressed;
             case PVPSXButtonCircle:
-                return [[pad buttonB] isPressed];
+                return [[pad buttonB] isPressed] && !modifierPressed;
             case PVPSXButtonL1:
                 return [[pad leftShoulder] isPressed];
-            case PVPSXButtonTriangle:
-                return [[pad buttonY] isPressed];
+            case PVPSXButtonL2:
+                return modifierPressed && [[dpad up] isPressed];
+            case PVPSXButtonL3:
+                return modifierPressed && [[dpad down] isPressed];
             case PVPSXButtonR1:
                 return [[pad rightShoulder] isPressed];
-            case PVPSXButtonStart:
-                return self.isStartPressed;
+            case PVPSXButtonR2:
+                return modifierPressed && [[pad buttonY] isPressed];
+            case PVPSXButtonR3:
+                return modifierPressed && [[pad buttonA] isPressed];
             case PVPSXButtonSelect:
-                return self.isSelectPressed;
+                return self.isSelectPressed || (modifierPressed && [[dpad right] isPressed]);
+            case PVPSXButtonStart:
+                return self.isStartPressed || (modifierPressed && [[pad buttonX] isPressed]);
             default:
                 break;
         }
@@ -2041,18 +2146,18 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
                 return [[[pad rightThumbstick] left] isPressed];
             case PVVBButtonRightRight:
                 return [[[pad rightThumbstick] right] isPressed];
-            case PVVBButtonB:
-                return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
             case PVVBButtonA:
+                return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
+            case PVVBButtonB:
                 return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed];
             case PVVBButtonL:
                 return [[pad leftShoulder] isPressed];
             case PVVBButtonR:
                 return [[pad rightShoulder] isPressed];
             case PVVBButtonStart:
-                return [[pad leftTrigger] isPressed];
-            case PVVBButtonSelect:
                 return [[pad rightTrigger] isPressed];
+            case PVVBButtonSelect:
+                return [[pad leftTrigger] isPressed];
             default:
                 break;
         }
@@ -2070,18 +2175,18 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
                 return [[dpad left] isPressed];
             case PVVBButtonLeftRight:
                 return [[dpad right] isPressed];
-            case PVVBButtonB:
-                return [[pad buttonB] isPressed];
             case PVVBButtonA:
+                return [[pad buttonB] isPressed];
+            case PVVBButtonB:
                 return [[pad buttonA] isPressed];
             case PVVBButtonL:
                 return [[pad leftShoulder] isPressed];
             case PVVBButtonR:
                 return [[pad rightShoulder] isPressed];
             case PVVBButtonStart:
-                return [[pad buttonX] isPressed];
-            case PVVBButtonSelect:
                 return [[pad buttonY] isPressed];
+            case PVVBButtonSelect:
+                return [[pad buttonX] isPressed];
             default:
                 break;
         }
@@ -2147,11 +2252,11 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
             case PVWSButtonY2:
                 return [[dpad right] isPressed];
             case PVWSButtonA:
-                return [[pad buttonX] isPressed];
+                return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
             case PVWSButtonB:
-                return [[pad buttonA] isPressed];
+                return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed];
             case PVWSButtonStart:
-                return [[pad buttonB] isPressed];
+                return [[pad rightShoulder] isPressed]?:[[pad rightTrigger] isPressed];
             case PVWSButtonSound:
                 return [[pad leftShoulder] isPressed];
             default:
@@ -2172,11 +2277,11 @@ const int GenesisMap[] = { 5, 7, 11, 10, 0 ,1, 2, 3, 4, 6, 8, 9};
             case PVWSButtonX2:
                 return [[dpad right] isPressed];
             case PVWSButtonA:
-                return [[pad buttonX] isPressed];
+                return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
             case PVWSButtonB:
-                return [[pad buttonA] isPressed];
+                return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed];
             case PVWSButtonStart:
-                return [[pad buttonB] isPressed];
+                return [[pad rightShoulder] isPressed];
             case PVWSButtonSound:
                 return [[pad leftShoulder] isPressed];
             default:

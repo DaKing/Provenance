@@ -27,6 +27,7 @@
 #include "api/m64p_vidext.h"
 #include "api/vidext.h"
 #import "../MupenGameCore.h"
+#import <PVSupport/PVLogging.h>
 
 #include <dlfcn.h>
 
@@ -138,7 +139,7 @@ m64p_error OverrideVideoFunctions(m64p_video_extension_functions *VideoFunctionS
 
 EXPORT m64p_error CALL VidExt_ResizeWindow(int width, int height)
 {
-    DLog(@"Mupen wants to resize to %d x %d", width, height);
+    DLOG(@"Mupen wants to resize to %d x %d", width, height);
     return M64ERR_SUCCESS;
 }
 

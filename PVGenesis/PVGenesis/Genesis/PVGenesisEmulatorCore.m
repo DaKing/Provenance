@@ -9,6 +9,7 @@
 #import "PVGenesisEmulatorCore.h"
 #import <PVSupport/OERingBuffer.h>
 #import <PVSupport/DebugUtils.h>
+#import <PVSupport/PVLogging.h>
 #import <PVGenesis/libretro.h>
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES3/gl.h>
@@ -68,12 +69,12 @@ static void video_callback(const void *data, unsigned width, unsigned height, si
 
 static void input_poll_callback(void)
 {
-	//DLog(@"poll callback");
+	//DLOG(@"poll callback");
 }
 
 static int16_t input_state_callback(unsigned port, unsigned device, unsigned index, unsigned _id)
 {
-	//DLog(@"polled input: port: %d device: %d id: %d", port, device, id);
+	//DLOG(@"polled input: port: %d device: %d id: %d", port, device, id);
 	
 	__strong PVGenesisEmulatorCore *strongCurrent = _current;
     int16_t value = 0;
@@ -119,7 +120,7 @@ static bool environment_callback(unsigned cmd, void *data)
 			NSString *appSupportPath = [strongCurrent BIOSPath];
 			
 			*(const char **)data = [appSupportPath UTF8String];
-			DLog(@"Environ SYSTEM_DIRECTORY: \"%@\".\n", appSupportPath);
+			DLOG(@"Environ SYSTEM_DIRECTORY: \"%@\".\n", appSupportPath);
 			break;
 		}
 		case RETRO_ENVIRONMENT_SET_PIXEL_FORMAT:
@@ -127,7 +128,7 @@ static bool environment_callback(unsigned cmd, void *data)
 			break;
 		}
 		default :
-			DLog(@"Environ UNSUPPORTED (#%u).\n", cmd);
+			DLOG(@"Environ UNSUPPORTED (#%u).\n", cmd);
 			return false;
 	}
 	
@@ -281,13 +282,13 @@ static bool environment_callback(unsigned cmd, void *data)
     NSData *data = [NSData dataWithContentsOfFile:path];
     if (!data || ![data length])
     {
-        DLog(@"Couldn't load save file.");
+        WLOG(@"Couldn't load save file.");
     }
     
     [data getBytes:ramData length:size];
 }
 
-- (void)writeSaveFile:(NSString *)path forType:(int)type
+- (BOOL)writeSaveFile:(NSString *)path forType:(int)type
 {
     size_t size = retro_get_memory_size(type);
     void *ramData = retro_get_memory_data(type);
@@ -299,9 +300,12 @@ static bool environment_callback(unsigned cmd, void *data)
         BOOL success = [data writeToFile:path atomically:YES];
         if (!success)
         {
-            DLog(@"Error writing save file");
+            ELOG(@"Error writing save file");
         }
-    }
+		return success;
+	} else {
+		return NO;
+	}
 }
 
 #pragma mark - Video
@@ -399,102 +403,343 @@ static bool environment_callback(unsigned cmd, void *data)
         controller = self.controller2;
     }
 
-    if ([controller extendedGamepad])
-    {
-        GCExtendedGamepad *pad = [controller extendedGamepad];
-        GCControllerDirectionPad *dpad = [pad dpad];
-        switch (buttonID) {
-            case PVGenesisButtonUp:
-                return [[dpad up] isPressed]?:[[[pad leftThumbstick] up] isPressed];
-            case PVGenesisButtonDown:
-                return [[dpad down] isPressed]?:[[[pad leftThumbstick] down] isPressed];
-            case PVGenesisButtonLeft:
-                return [[dpad left] isPressed]?:[[[pad leftThumbstick] left] isPressed];
-            case PVGenesisButtonRight:
-                return [[dpad right] isPressed]?:[[[pad leftThumbstick] right] isPressed];
-            case PVGenesisButtonA:
-                return [[pad buttonX] isPressed];
-            case PVGenesisButtonB:
-                return [[pad buttonA] isPressed];
-            case PVGenesisButtonC:
-                return [[pad buttonB] isPressed];
-            case PVGenesisButtonX:
-                return [[pad leftShoulder] isPressed];
-            case PVGenesisButtonY:
-                return [[pad buttonY] isPressed];
-            case PVGenesisButtonZ:
-                return [[pad rightShoulder] isPressed];
-            case PVGenesisButtonStart:
-                return [[pad leftTrigger] isPressed];
-            default:
-                break;
+    // Sega SG-1000…
+    if ([[self systemIdentifier] isEqualToString:@"com.provenance.sg1000"]) {
+        
+        if ([controller extendedGamepad]) {
+            GCExtendedGamepad *pad = [controller extendedGamepad];
+            GCControllerDirectionPad *dpad = [pad dpad];
+            switch (buttonID) {
+                case PVGenesisButtonUp:
+                    return [[dpad up] isPressed]?:[[[pad leftThumbstick] up] isPressed];
+                case PVGenesisButtonDown:
+                    return [[dpad down] isPressed]?:[[[pad leftThumbstick] down] isPressed];
+                case PVGenesisButtonLeft:
+                    return [[dpad left] isPressed]?:[[[pad leftThumbstick] left] isPressed];
+                case PVGenesisButtonRight:
+                    return [[dpad right] isPressed]?:[[[pad leftThumbstick] right] isPressed];
+                case PVGenesisButtonB: // SG1000 ButtonL/1
+                    return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed]?:[[pad leftShoulder] isPressed]?:[[pad leftTrigger] isPressed];
+                case PVGenesisButtonC: // SG1000 ButtonR/2
+                    return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed]?:[[pad rightShoulder] isPressed]?:[[pad rightTrigger] isPressed];
+                default:
+                    break;
+            }
+            
+        } else if ([controller gamepad]) {
+            GCGamepad *pad = [controller gamepad];
+            GCControllerDirectionPad *dpad = [pad dpad];
+            switch (buttonID) {
+                case PVGenesisButtonUp:
+                    return [[dpad up] isPressed];
+                case PVGenesisButtonDown:
+                    return [[dpad down] isPressed];
+                case PVGenesisButtonLeft:
+                    return [[dpad left] isPressed];
+                case PVGenesisButtonRight:
+                    return [[dpad right] isPressed];
+                case PVGenesisButtonB: // SG1000 ButtonL/1
+                    return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed]?:[[pad leftShoulder] isPressed];
+                case PVGenesisButtonC: // SG1000 ButtonR/2
+                    return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed]?:[[pad rightShoulder] isPressed];
+                default:
+                    break;
+            }
         }
-    }
-    else if ([controller gamepad])
-    {
-        GCGamepad *pad = [controller gamepad];
-        GCControllerDirectionPad *dpad = [pad dpad];
-        switch (buttonID) {
-            case PVGenesisButtonUp:
-                return [[dpad up] isPressed];
-            case PVGenesisButtonDown:
-                return [[dpad down] isPressed];
-            case PVGenesisButtonLeft:
-                return [[dpad left] isPressed];
-            case PVGenesisButtonRight:
-                return [[dpad right] isPressed];
-            case PVGenesisButtonA:
-                return [[pad buttonX] isPressed];
-            case PVGenesisButtonB:
-                return [[pad buttonA] isPressed];
-            case PVGenesisButtonC:
-                return [[pad buttonB] isPressed];
-            case PVGenesisButtonX:
-                return [[pad leftShoulder] isPressed];
-            case PVGenesisButtonY:
-                return [[pad buttonY] isPressed];
-            case PVGenesisButtonZ:
-                return [[pad rightShoulder] isPressed];
-            default:
-                break;
-        }
-    }
+        
 #if TARGET_OS_TV
-    else if ([controller microGamepad])
-    {
-        GCMicroGamepad *pad = [controller microGamepad];
-        GCControllerDirectionPad *dpad = [pad dpad];
-        switch (buttonID) {
-            case PVGenesisButtonUp:
-                return [[dpad up] value] > 0.5;
-                break;
-            case PVGenesisButtonDown:
-                return [[dpad down] value] > 0.5;
-                break;
-            case PVGenesisButtonLeft:
-                return [[dpad left] value] > 0.5;
-                break;
-            case PVGenesisButtonRight:
-                return [[dpad right] value] > 0.5;
-                break;
-            case PVGenesisButtonA:
-                return [[pad buttonA] isPressed];
-                break;
-            case PVGenesisButtonB:
-                return [[pad buttonX] isPressed];
-                break;
-            default:
-                break;
-        }
-    }
-#endif
 
+        else if ([controller microGamepad]) {
+            GCMicroGamepad *pad = [controller microGamepad];
+            GCControllerDirectionPad *dpad = [pad dpad];
+            switch (buttonID) {
+                case PVGenesisButtonUp:
+                    return [[dpad up] value] > 0.5;
+                    break;
+                case PVGenesisButtonDown:
+                    return [[dpad down] value] > 0.5;
+                    break;
+                case PVGenesisButtonLeft:
+                    return [[dpad left] value] > 0.5;
+                    break;
+                case PVGenesisButtonRight:
+                    return [[dpad right] value] > 0.5;
+                    break;
+                case PVGenesisButtonB: // SG1000 ButtonL/1
+                    return [[pad buttonA] isPressed];
+                    break;
+                case PVGenesisButtonC: // SG1000 ButtonR/2
+                    return [[pad buttonX] isPressed];
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+#endif
+        
+    // Sega Master System…
+    } else if ([[self systemIdentifier] isEqualToString:@"com.provenance.mastersystem"]) {
+       
+       if ([controller extendedGamepad]) {
+           GCExtendedGamepad *pad = [controller extendedGamepad];
+           GCControllerDirectionPad *dpad = [pad dpad];
+           switch (buttonID) {
+               case PVGenesisButtonUp:
+                   return [[dpad up] isPressed]?:[[[pad leftThumbstick] up] isPressed];
+               case PVGenesisButtonDown:
+                   return [[dpad down] isPressed]?:[[[pad leftThumbstick] down] isPressed];
+               case PVGenesisButtonLeft:
+                   return [[dpad left] isPressed]?:[[[pad leftThumbstick] left] isPressed];
+               case PVGenesisButtonRight:
+                   return [[dpad right] isPressed]?:[[[pad leftThumbstick] right] isPressed];
+               case PVGenesisButtonB: // Button1
+                   return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed]?:[[pad rightShoulder] isPressed]?:[[pad rightTrigger] isPressed];
+               case PVGenesisButtonC: // Button2
+                   return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed]?:[[pad leftTrigger] isPressed];
+               case PVGenesisButtonStart: // MS Pause
+                   return [[pad leftShoulder] isPressed];
+               default:
+                   break;
+           }
+           
+       } else if ([controller gamepad]) {
+           
+           GCGamepad *pad = [controller gamepad];
+           GCControllerDirectionPad *dpad = [pad dpad];
+           switch (buttonID) {
+               case PVGenesisButtonUp:
+                   return [[dpad up] isPressed];
+               case PVGenesisButtonDown:
+                   return [[dpad down] isPressed];
+               case PVGenesisButtonLeft:
+                   return [[dpad left] isPressed];
+               case PVGenesisButtonRight:
+                   return [[dpad right] isPressed];
+               case PVGenesisButtonB: // Button1
+                   return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed]?:[[pad rightShoulder] isPressed];
+               case PVGenesisButtonC: // Button2
+                   return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
+               case PVGenesisButtonStart: // MS Pause
+                   return [[pad leftShoulder] isPressed];
+               default:
+                   break;
+           }
+       }
+       
+#if TARGET_OS_TV
+
+       else if ([controller microGamepad]) {
+           GCMicroGamepad *pad = [controller microGamepad];
+           GCControllerDirectionPad *dpad = [pad dpad];
+           switch (buttonID) {
+               case PVGenesisButtonUp:
+                   return [[dpad up] value] > 0.5;
+                   break;
+               case PVGenesisButtonDown:
+                   return [[dpad down] value] > 0.5;
+                   break;
+               case PVGenesisButtonLeft:
+                   return [[dpad left] value] > 0.5;
+                   break;
+               case PVGenesisButtonRight:
+                   return [[dpad right] value] > 0.5;
+                   break;
+               case PVGenesisButtonB: // Button1
+                   return [[pad buttonA] isPressed];
+                   break;
+               case PVGenesisButtonC: // Button2
+                   return [[pad buttonX] isPressed];
+                   break;
+               default:
+                   break;
+           }
+       }
+           
+#endif
+    
+        // Game Gear…
+    } else if ([[self systemIdentifier] isEqualToString:@"com.provenance.gamegear"]) {
+        
+        if ([controller extendedGamepad]) {
+            GCExtendedGamepad *pad = [controller extendedGamepad];
+            GCControllerDirectionPad *dpad = [pad dpad];
+            switch (buttonID) {
+                case PVGenesisButtonUp:
+                    return [[dpad up] isPressed]?:[[[pad leftThumbstick] up] isPressed];
+                case PVGenesisButtonDown:
+                    return [[dpad down] isPressed]?:[[[pad leftThumbstick] down] isPressed];
+                case PVGenesisButtonLeft:
+                    return [[dpad left] isPressed]?:[[[pad leftThumbstick] left] isPressed];
+                case PVGenesisButtonRight:
+                    return [[dpad right] isPressed]?:[[[pad leftThumbstick] right] isPressed];
+                case PVGenesisButtonB: // Button1
+                    return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed];
+                case PVGenesisButtonC: // Button2
+                    return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
+                case PVGenesisButtonStart: // GG Start
+                    return [[pad rightShoulder] isPressed]?:[[pad rightTrigger] isPressed];
+                default:
+                    break;
+            }
+            
+        } else if ([controller gamepad]) {
+            
+            GCGamepad *pad = [controller gamepad];
+            GCControllerDirectionPad *dpad = [pad dpad];
+            switch (buttonID) {
+                case PVGenesisButtonUp:
+                    return [[dpad up] isPressed];
+                case PVGenesisButtonDown:
+                    return [[dpad down] isPressed];
+                case PVGenesisButtonLeft:
+                    return [[dpad left] isPressed];
+                case PVGenesisButtonRight:
+                    return [[dpad right] isPressed];
+                case PVGenesisButtonB: // Button1
+                    return [[pad buttonA] isPressed]?:[[pad buttonY] isPressed];
+                case PVGenesisButtonC: // Button2
+                    return [[pad buttonB] isPressed]?:[[pad buttonX] isPressed];
+                case PVGenesisButtonStart: // GG Start
+                    return [[pad rightShoulder] isPressed];
+                default:
+                    break;
+            }
+        }
+        
+#if TARGET_OS_TV
+        
+        else if ([controller microGamepad]) {
+            GCMicroGamepad *pad = [controller microGamepad];
+            GCControllerDirectionPad *dpad = [pad dpad];
+            switch (buttonID) {
+                case PVGenesisButtonUp:
+                    return [[dpad up] value] > 0.5;
+                    break;
+                case PVGenesisButtonDown:
+                    return [[dpad down] value] > 0.5;
+                    break;
+                case PVGenesisButtonLeft:
+                    return [[dpad left] value] > 0.5;
+                    break;
+                case PVGenesisButtonRight:
+                    return [[dpad right] value] > 0.5;
+                    break;
+                case PVGenesisButtonB: // Button1
+                    return [[pad buttonA] isPressed];
+                    break;
+                case PVGenesisButtonC: // Button2
+                    return [[pad buttonX] isPressed];
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+#endif
+        
+    // Sega Genesis/Mega Drive, Sega/Mega CD, 32X…
+    } else {
+       
+        if ([controller extendedGamepad]) {
+            GCExtendedGamepad *pad = [controller extendedGamepad];
+            GCControllerDirectionPad *dpad = [pad dpad];
+            switch (buttonID) {
+                case PVGenesisButtonUp:
+                    return [[dpad up] isPressed]?:[[[pad leftThumbstick] up] isPressed];
+                case PVGenesisButtonDown:
+                    return [[dpad down] isPressed]?:[[[pad leftThumbstick] down] isPressed];
+                case PVGenesisButtonLeft:
+                    return [[dpad left] isPressed]?:[[[pad leftThumbstick] left] isPressed];
+                case PVGenesisButtonRight:
+                    return [[dpad right] isPressed]?:[[[pad leftThumbstick] right] isPressed];
+                case PVGenesisButtonA:
+                    return [[pad buttonX] isPressed];
+                case PVGenesisButtonB:
+                    return [[pad buttonA] isPressed];
+                case PVGenesisButtonC:
+                    return [[pad buttonB] isPressed];
+                case PVGenesisButtonX:
+                    return [[pad leftShoulder] isPressed];
+                case PVGenesisButtonY:
+                    return [[pad buttonY] isPressed];
+                case PVGenesisButtonZ:
+                    return [[pad rightShoulder] isPressed];
+                case PVGenesisButtonStart:
+                    return [[pad rightTrigger] isPressed];
+                default:
+                    break;
+            }
+            
+        } else if ([controller gamepad]) {
+            GCGamepad *pad = [controller gamepad];
+            GCControllerDirectionPad *dpad = [pad dpad];
+            switch (buttonID) {
+                case PVGenesisButtonUp:
+                    return [[dpad up] isPressed];
+                case PVGenesisButtonDown:
+                    return [[dpad down] isPressed];
+                case PVGenesisButtonLeft:
+                    return [[dpad left] isPressed];
+                case PVGenesisButtonRight:
+                    return [[dpad right] isPressed];
+                case PVGenesisButtonA:
+                    return [[pad buttonX] isPressed];
+                case PVGenesisButtonB:
+                    return [[pad buttonA] isPressed];
+                case PVGenesisButtonC:
+                    return [[pad buttonB] isPressed];
+                case PVGenesisButtonX:
+                    return [[pad leftShoulder] isPressed];
+                case PVGenesisButtonY:
+                    return [[pad buttonY] isPressed];
+                case PVGenesisButtonZ:
+                    return [[pad rightShoulder] isPressed];
+                default:
+                    break;
+            }
+        }
+        
+#if TARGET_OS_TV
+        
+        else if ([controller microGamepad]) {
+            GCMicroGamepad *pad = [controller microGamepad];
+            GCControllerDirectionPad *dpad = [pad dpad];
+            switch (buttonID) {
+                case PVGenesisButtonUp:
+                    return [[dpad up] value] > 0.5;
+                    break;
+                case PVGenesisButtonDown:
+                    return [[dpad down] value] > 0.5;
+                    break;
+                case PVGenesisButtonLeft:
+                    return [[dpad left] value] > 0.5;
+                    break;
+                case PVGenesisButtonRight:
+                    return [[dpad right] value] > 0.5;
+                    break;
+                case PVGenesisButtonA:
+                    return [[pad buttonA] isPressed];
+                    break;
+                case PVGenesisButtonB:
+                    return [[pad buttonX] isPressed];
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+  #endif
+        
+    }
+  
+    
     return 0;
 }
 
 #pragma mark - State Saving
 
-- (BOOL)saveStateToFileAtPath:(NSString *)path
+- (BOOL)saveStateToFileAtPath:(NSString *)path error:(NSError *__autoreleasing *)error
 {
     @synchronized(self) {
         int serial_size = retro_serialize_size();
@@ -510,7 +755,7 @@ static bool environment_callback(unsigned cmd, void *data)
                              error:&error];
         if (error)
         {
-            DLog(@"Error saving state: %@", [error localizedDescription]);
+            ELOG(@"Error saving state: %@", [error localizedDescription]);
             return NO;
         }
         
@@ -518,19 +763,39 @@ static bool environment_callback(unsigned cmd, void *data)
     }
 }
 
-- (BOOL)loadStateFromFileAtPath:(NSString *)path
+- (BOOL)loadStateFromFileAtPath:(NSString *)path error:(NSError *__autoreleasing *)error
 {
     @synchronized(self) {
         NSData *saveStateData = [NSData dataWithContentsOfFile:path];
         if (!saveStateData)
         {
-            DLog(@"Unable to load save state from path: %@", path);
+			NSDictionary *userInfo = @{
+									   NSLocalizedDescriptionKey: @"Failed to load save state.",
+									   NSLocalizedFailureReasonErrorKey: @"Genesis failed to read savestate data.",
+									   NSLocalizedRecoverySuggestionErrorKey: @"Check that the path is correct and file exists."
+									   };
+
+			NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+													code:PVEmulatorCoreErrorCodeCouldNotLoadState
+												userInfo:userInfo];
+			*error = newError;
+            ELOG(@"Unable to load save state from path: %@", path);
             return NO;
         }
         
         if (!retro_unserialize([saveStateData bytes], [saveStateData length]))
         {
-            DLog(@"Unable to load save state");
+			NSDictionary *userInfo = @{
+									   NSLocalizedDescriptionKey: @"Failed to load save state.",
+									   NSLocalizedFailureReasonErrorKey: @"Genesis failed to load savestate data.",
+									   NSLocalizedRecoverySuggestionErrorKey: @"Check that the path is correct and file exists."
+									   };
+
+			NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+													code:PVEmulatorCoreErrorCodeCouldNotLoadState
+												userInfo:userInfo];
+			*error = newError;
+            DLOG(@"Unable to load save state");
             return NO;
         }
         

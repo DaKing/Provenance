@@ -15,6 +15,33 @@ import UIKit
     func swapDisc(number: UInt)
 }
 
+public struct CoreActionOption {
+	public let title : String
+	public let selected : Bool
+
+	public init(title: String, selected: Bool = false) {
+		self.title = title
+		self.selected = selected
+	}
+}
+
+public struct CoreAction {
+	public let title : String
+	public let requiresReset : Bool
+	public let options : [CoreActionOption]?
+
+	public init(title: String, requiresReset: Bool = false, options: [CoreActionOption]? = nil) {
+		self.title = title
+		self.requiresReset = requiresReset
+		self.options = options
+	}
+}
+
+public protocol CoreActions {
+	var coreActions : [CoreAction]? { get }
+	func selected(action : CoreAction)
+}
+
 @objc public protocol ResponderClient: class {
 
 }
@@ -247,6 +274,44 @@ import UIKit
     func didPush(_ button: PVGenesisButton, forPlayer player: Int)
     @objc(didReleaseGenesisButton:forPlayer:)
     func didRelease(_ button: PVGenesisButton, forPlayer player: Int)
+}
+
+// MARK: - Master System
+@objc public enum PVMasterSystemButton: Int {
+    case b = 0
+    case c
+    case start
+    case up
+    case down
+    case left
+    case right
+    case count
+}
+
+@objc public protocol PVMasterSystemSystemResponderClient: ResponderClient, ButtonResponder {
+    @objc(didPushMasterSystemButton:forPlayer:)
+    func didPush(_ button: PVMasterSystemButton, forPlayer player: Int)
+    @objc(didReleaseMasterSystemButton:forPlayer:)
+    func didRelease(_ button: PVMasterSystemButton, forPlayer player: Int)
+}
+
+// MARK: - SG1000
+@objc public enum PVSG1000Button: Int {
+    case b = 0
+    case c
+    case start
+    case up
+    case down
+    case left
+    case right
+    case count
+}
+
+@objc public protocol PVSG1000SystemResponderClient: ResponderClient, ButtonResponder {
+    @objc(didPushSG1000Button:forPlayer:)
+    func didPush(_ button: PVSG1000Button, forPlayer player: Int)
+    @objc(didReleaseSG1000Button:forPlayer:)
+    func didRelease(_ button: PVSG1000Button, forPlayer player: Int)
 }
 
 // MARK: - Game Boy Advanced

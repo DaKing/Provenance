@@ -17,7 +17,8 @@ import Foundation
 public extension UTI {
     static let rom = UTI(rawValue: "com.provenance.rom")
     static let bios = UTI(rawValue: "com.provenance.rom")
-    static let saveState = UTI(rawValue: "com.provenance.savestate")
+	static let artwork = UTI(rawValue: "com.provence.artwork")
+    static let savestate = UTI(rawValue: "com.provenance.savestate")
     static let sevenZipArchive = UTI(rawValue: "org.7-zip.7-zip-archive")
 }
 
@@ -51,7 +52,7 @@ public class UTI: RawRepresentable, Equatable {
 		#endif
 
 		/// Convenience variable for internal use.
-		
+
 		fileprivate var rawCFValue: CFString {
 			return self.rawValue as CFString
 		}
@@ -59,7 +60,6 @@ public class UTI: RawRepresentable, Equatable {
 
 	public typealias RawValue = String
 	public let rawValue: String
-
 
 	/// Convenience variable for internal use.
 
@@ -69,7 +69,6 @@ public class UTI: RawRepresentable, Equatable {
 	}
 
 	// MARK: Initialization
-
 
 	/**
 	
@@ -250,19 +249,18 @@ public class UTI: RawRepresentable, Equatable {
 		An array of all tags of the receiver of the specified class.
 	*/
 
-	public func tags(with tagClass: TagClass) -> Array<String> {
+	public func tags(with tagClass: TagClass) -> [String] {
 
 		let unmanagedTags = UTTypeCopyAllTagsWithClass(self.rawCFValue, tagClass.rawCFValue)
 
-		guard let tags = unmanagedTags?.takeRetainedValue() as? Array<CFString> else {
+		guard let tags = unmanagedTags?.takeRetainedValue() as? [CFString] else {
 			return []
 		}
 
-		return tags as Array<String>
+		return tags as [String]
 	}
 
 	// MARK: List all UTIs associated with a tag
-
 
 	/**
 	Returns all UTIs that are associated with a specified tag.
@@ -275,12 +273,11 @@ public class UTI: RawRepresentable, Equatable {
 		An array of all UTIs that satisfy the specified parameters.
 	*/
 
-	public static func utis(for tag: TagClass, value: String, conformingTo conforming: UTI? = nil) -> Array<UTI> {
+	public static func utis(for tag: TagClass, value: String, conformingTo conforming: UTI? = nil) -> [UTI] {
 
 		let unmanagedIdentifiers = UTTypeCreateAllIdentifiersForTag(tag.rawCFValue, value as CFString, conforming?.rawCFValue)
 
-
-		guard let identifiers = unmanagedIdentifiers?.takeRetainedValue() as? Array<CFString> else {
+		guard let identifiers = unmanagedIdentifiers?.takeRetainedValue() as? [CFString] else {
 			return []
 		}
 
@@ -308,15 +305,14 @@ public class UTI: RawRepresentable, Equatable {
 		return UTTypeConformsTo(self.rawCFValue, otherUTI.rawCFValue) as Bool
 	}
 
-	public static func ==(lhs: UTI, rhs: UTI) -> Bool {
-
+	public static func == (lhs: UTI, rhs: UTI) -> Bool {
 		return UTTypeEqual(lhs.rawCFValue, rhs.rawCFValue) as Bool
 	}
 
 	// MARK: Accessing Information about an UTI
 
 	/// Returns the localized, user-readable type description string associated with a uniform type identifier.
-	
+
 	public var description: String? {
 
 		let unmanagedDescription = UTTypeCopyDescription(self.rawCFValue)
@@ -361,7 +357,6 @@ public class UTI: RawRepresentable, Equatable {
 		return UTTypeIsDynamic(self.rawCFValue)
 	}
 }
-
 
 // MARK: System defined UTIs
 
@@ -440,6 +435,7 @@ public extension UTI {
 	static       let  ico                         =    UTI(rawValue:  kUTTypeICO                         as  String)
 	static       let  rawImage                    =    UTI(rawValue:  kUTTypeRawImage                    as  String)
 	static       let  scalableVectorGraphics      =    UTI(rawValue:  kUTTypeScalableVectorGraphics      as  String)
+	@available(tvOSApplicationExtension 9.1, *)
 	@available(OSX 10.12, iOS 9.1, watchOS 2.1, *)
 	static       let  livePhoto					  =    UTI(rawValue:  kUTTypeLivePhoto					 as  String)
 	@available(OSX 10.12, iOS 9.1, *)
@@ -504,7 +500,6 @@ public extension UTI {
 
 	extension OSType {
 
-
 		/// Returns the OSType encoded as a String.
 
 		var string: String {
@@ -514,15 +509,14 @@ public extension UTI {
 			return unmanagedString.takeRetainedValue() as String
 		}
 
-
 		/// Initializes a OSType from a String.
 		///
 		/// - Parameter string: A String representing an OSType.
-		
+
 		init(with string: String) {
-			
+
 			self = UTGetOSTypeFromString(string as CFString)
 		}
 	}
-	
+
 #endif
